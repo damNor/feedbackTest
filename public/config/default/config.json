@@ -1,0 +1,45 @@
+{
+    "hello":"there",
+    "server":{
+        "host"   : "https://aq.qbe.ee",
+        "client" : "mT+3eGWFHxV/V+xj7iiXUg==",
+        "mid"    : "y8YHJc6cpSbSsmgfYS3tBQ==",
+        "country": "aq"
+    },
+
+    "theme":{
+        "primary"           : "#4A4F54",
+        "textdefault"       : "#333333",
+        "textprimary"       : "#025B94",
+        "btnprimary"        : "#4A4F54",
+        "btnprimarytext"    : "white",
+        "btnsecondary"      : "#DC587B",
+        "btnsecondarytext"  : "white"
+    },
+
+    "features":{
+        "queue"         : true,
+        "appointment"   : false,
+        "feedback"      : false,
+        "whatsapp"      : true
+    },
+
+    "forms":[
+        {"id":1,"type":"text","value":"","label":"Name","keyword":"name"},
+        {"id":2,"type":"text","value":"","label":"Email","keyword":"email"}
+    ],
+
+    "languageSelection":[
+        { "id":0, "label":"EN", "name":"English" },
+        { "id":1, "label":"MY", "name":"Malay" }
+    ],
+    "languages":{
+        "welcome"       :["Welcome","Selamat Datang"],
+        "wlc_getq"      :["GET QUEUE",""],
+        "wlc_activeq"   :["ACTIVE QUEUE",""],
+        "save_time"     :["Save Time and Queue Online",""],
+        "q_waiting"     :["Missed queues will be recalled once within 15 minutes after the first call. Please take a new queue number if you have missed your queue after the second call. Thank you for your understanding.",""],
+        "q_calling"     :["is calling you",""],
+        "q_done"        :["This number has been called and served. If you have missed your queue, please take a new queue number.",""]
+    }
+}

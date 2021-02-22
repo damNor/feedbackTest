@@ -1,0 +1,23 @@
+{
+    "hello":"there",
+
+    "theme":{
+        "primary":"blue",
+        "textdefault":"#333333",
+        "textprimary":"#025B94",
+        "btnprimary":"red",
+        "btnprimarytext":"white",
+        "btnsecondary":"#DC587B",
+        "btnsecondarytext":"white"
+    },
+
+    "languageSelection":[
+        { "id":0, "label":"EN", "name":"English" },
+        { "id":1, "label":"MY", "name":"Malay" }
+    ],
+
+    "languages":{
+        "welcome":["Welcome To Sunway Medical","Selamat Datang ke Sunway Medical"],
+        "save_time" :["Save Time and Queue Online",""]
+    }
+}
