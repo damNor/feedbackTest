@@ -20,3 +20,11 @@ export const colorShade = (col, amt) => {
 
   return `#${rr}${gg}${bb}`
 }
+
+
+////////////////////////////////////////////////////////////////////////////////
+export const getL = (languages,label,lang)=>{
+    if(languages === undefined) return "";
+    try{ return languages[label][lang]}
+    catch(e){ return ""}
+}

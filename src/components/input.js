@@ -35,10 +35,10 @@ const Input = styled.input`
     padding : 8px 16px;
 `
 
-const Component = ({type='text',label,value,onChange,margin}) => {
-    return <Container margin={margin} width='300px'>
-        <div>{label}</div>
-        <Input type={type} onChange={e=>onChange(e.target.value)} value={value}/>
+const Component = ({type='text',label,value,onChange,margin,width}) => {
+    return <Container margin={margin}>
+        <div style={{marginBottom:4}}>{label}</div>
+        <Input type={type} onChange={e=>onChange(e.target.value)} value={value} style={{width:width}}/>
     </Container>
 }
 export default Component;

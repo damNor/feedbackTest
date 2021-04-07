@@ -1,0 +1,147 @@
+import React,{useState,useEffect} from 'react'
+import {useDispatch,useSelector} from 'react-redux'
+import {useHistory,useParams} from 'react-router-dom'
+import {getQueueNumber,bookappointment,validateV3} from './../../data/api'
+//import {selectService,setTimeslots} from './../../data/actions'
+import {FaMapMarkerAlt} from 'react-icons/fa'
+import styled from 'styled-components'
+import Loader from './loader'
+import TextField from '@material-ui/core/TextField'
+import ReCAPTCHA from "react-google-recaptcha"
+import Cookies from 'universal-cookie'
+import moment from 'moment'
+import { GoogleReCaptchaProvider, GoogleReCaptcha} from 'react-google-recaptcha-v3';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+
+import Container,{Content,Card} from './../../componentsv2/container'
+import Button,{BackButton} from './../../componentsv2/button'
+import Background from './../../componentsv2/background'
+import BottomBar from './../../componentsv2/bottombar'
+import Loading from './../../componentsv2/loading'
+import Error from './../../componentsv2/error'
+import Logo from './../../componentsv2/logo'
+import Text from './../../componentsv2/text'
+
+import Language from './../../components/language'
+
+const recaptchaVer = 'v3'
+
+const Component = () => {
+    const {id}      = useParams()
+    const navigate  = useHistory()
+    const dispatch  = useDispatch()
+    const cookies   = new Cookies()
+    const config    = useSelector(state=>state.config)
+    const theme     = useSelector(state=>state.config.theme)
+    const languages = useSelector(state=>state.config.languages)
+    const lang      = useSelector(state=>state.select.language.id)
+    const getL      = lbl => languages&&languages[lbl]?languages[lbl][lang]:""
+
+    const sbranch   = useSelector(state=>state.select.branch)
+    const sdept     = useSelector(state=>state.select.department)
+    const stimes    = useSelector(state=>state.select.timeslot)
+    const sserv     = useSelector(state=>state.select.service)
+    const stype     = useSelector(state=>state.select.type)
+
+    const [forms,setForms]  = useState([])
+    const [loading,toggle]  = useState(false)
+    const [valid,setValid]  = useState(false)
+    const [error,setError]  = useState()
+
+    const themeprovider = createMuiTheme({
+        typography: { fontFamily: [theme&&theme.font,
+            'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue','sans-serif'
+        ].join(',') }
+    });
+
+    useEffect(()=>{
+        if(config==undefined || sserv==undefined){navigate.push(`/${id}/`); return;}
+        const formsetups = (config.formsv2[sserv.serv_id]??config.formsv2.default)??config.forms
+        setForms(formsetups)
+    },[sserv])
+
+    const onClick = async () =>{
+        toggle(true)
+        let customer = {}
+        forms.map(item=>customer[item.keyword] = item.value)
+        console.log(customer);
+
+        if (stype === 'queue'){
+            const rqueue = await getQueueNumber(config.server,sbranch.mid,sdept.dept_id,sserv.serv_id,customer);
+            toggle(false)
+            console.log("queue",rqueue);
+            if(rqueue.error){ setError(rqueue.error); return; }
+            navigate.push(`/${id}/q/${rqueue.qr_info}`)
+        }else if (stype === 'booking'){
+            const rbook = await bookappointment(
+                config.server,
+                sbranch.mid,
+                sdept.dept_id,
+                sserv.serv_id,
+                stimes.date,
+                stimes.time,
+                customer.customer_name,
+                customer.customer_id,
+                customer.phone_no,
+                customer.customer_id)
+            toggle(false)
+            console.log('booking',rbook);
+            if(rbook.error){ setError(rbook.error); return; }
+            const mstorage  = localStorage.getItem('booking')??'[]'
+            const history   = JSON.parse(mstorage)
+            history.push(rbook)
+            localStorage.setItem('booking',JSON.stringify(history))
+            navigate.push(`/${id}/a`)
+        }
+    }
+
+    const onVerify = async (token) =>{
+        console.log(token);
+
+        // below code should be implemented in the server
+        const resp = await validateV3('6LenHygaAAAAAOQ3v7G4NNetz4gV-W_j6jVy1gfR',token)
+        setValid(resp.success)
+        console.log(resp);
+    }
+
+    return <Loader>
+    <ThemeProvider theme={themeprovider}>
+    {
+        recaptchaVer === 'v3' &&
+        <GoogleReCaptchaProvider reCaptchaKey="6LenHygaAAAAALCX2Uwh6iLTOg9zIMiFY1o7Qg1h">
+            <GoogleReCaptcha onVerify={onVerify}/>
+        </GoogleReCaptchaProvider>
+    }
+    <Content>
+        <BackButton />
+        <Logo margin='16px'/>
+        <Text width='320px' margin='8px 0 16px' size='13px' opacity={0.7}>Your Information</Text>
+        <Card width='320px' padding='16px' direction='column' align='center'>
+            {
+                forms.map((item,i)=>item.show&&<TextField key={i}
+                    style={{margin:'0 0 8px'}}
+                    label={item.label}
+                    value={item.value}
+                    onChange={e=>setForms(forms.map(jitem=>jitem.id===item.id?{...jitem,...{value:e.target.value}}:jitem))}
+                    fullWidth
+                />)
+            }
+            {
+                recaptchaVer === 'v2'&&
+                <ReCAPTCHA
+                    style={{selfAlign:'center',margin:'16px 0 0'}}
+                    sitekey={"6LdwSMQZAAAAANPSKk0dCnxLEOBCXpTJfp6Qk9cq"}
+                    onChange={val=>setValid(val!==undefined)} />
+            }
+        </Card>
+        <Button width='320px' label={stype==='queue'?'GET QUEUE':'BOOK NOW'} onClick={onClick} mloading={loading} enable={valid} isPrimary/>
+    </Content>
+    <Background/>
+    <BottomBar/>
+    <Error message={error} show={error!=undefined} onClose={()=>setError()} />
+    </ThemeProvider>
+    </Loader>
+}
+
+export default Component;

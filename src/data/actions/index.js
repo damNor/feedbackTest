@@ -1,6 +1,8 @@
 import * as actions from "./actiontype";
 
+export const setConfigState     = i => ({ type: actions.SET_CONFIG_STATE, payload: i})
 export const setConfig          = i => ({ type: actions.SET_CONFIG, payload: i })
+export const setTab             = i => ({ type: actions.SET_TAB, payload: i })
 export const setBranches        = i => ({ type: actions.SET_BRANCH, payload: i })
 export const setDepartments     = i => ({ type: actions.SET_DEPT, payload: i })
 export const setServices        = i => ({ type: actions.SET_SERV, payload: i })
@@ -14,3 +16,4 @@ export const selectBranch       = i => ({ type: actions.SELECTED_BRANCH, payload
 export const selectDepartment   = i => ({ type: actions.SELECTED_DEPT, payload: i })
 export const selectService      = i => ({ type: actions.SELECTED_SERV, payload: i })
 export const selectTimeslot     = i => ({ type: actions.SELECTED_TIMESLOT, payload: i })
+export const selectType         = i => ({ type: actions.SELECTED_TYPE, payload: i})

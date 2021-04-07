@@ -13,6 +13,7 @@ const Container = styled(animated.div)`
     display     : flex;
     flex-direction: column;
     z-index     : 99;
+    user-select : none;
 `;
 const Dialog = styled(animated.div)`
     position    : absolute;
@@ -21,7 +22,9 @@ const Dialog = styled(animated.div)`
     background  : white;
     border      : 1px solid rgba(0,0,0,0.2);
     border-radius: 5px;
-
+    right       : 12px;
+    top         : 12px;
+    user-select : none;
 `;
 
 const Item = styled(animated.div)`
@@ -48,16 +51,16 @@ const Component = (props) => {
     return <Container {...props} tabIndex="0" onBlur={()=>toggle(false)}>
         <Item border="1px solid transparent" onClick={()=>toggle(!open)}>{curlanguage?curlanguage.label:''}</Item>
         <Dialog style={animate}>
-            {
-                languages === undefined?'':
-                languages.map((item,i)=><Item
-                    key={item.id}
-                    onClick={()=>{
-                        toggle(!open);
-                        dispatch(selectLanguage(item));
-                    }}
-                >{item.label}</Item>)
-            }
+        {
+            languages === undefined?'':
+            languages.map((item,i)=><Item
+                key={item.id}
+                onClick={()=>{
+                    toggle(!open);
+                    dispatch(selectLanguage(item));
+                }}
+            >{item.label}</Item>)
+        }
         </Dialog>
     </Container>
 

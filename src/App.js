@@ -11,9 +11,11 @@ const App = () => {
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
 
-    return <Provider store={store}>
-        <Templates />
-    </Provider>
+    return <>
+        <Provider store={store}>
+            <Templates />
+        </Provider>
+    </>
 }
 
 export default App;

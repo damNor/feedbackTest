@@ -1,5 +1,7 @@
 
+export const SET_CONFIG_STATE   = "setconfigstate"
 export const SET_CONFIG         = "setconfig"
+export const SET_TAB            = "settab"
 export const SET_BRANCH         = "setbranch";
 export const SET_DEPT           = "setdepartment";
 export const SET_SERV           = "setservice";
@@ -13,3 +15,4 @@ export const SELECTED_BRANCH    = "branch";
 export const SELECTED_DEPT      = "department";
 export const SELECTED_SERV      = "service";
 export const SELECTED_TIMESLOT  = "timeslot";
+export const SELECTED_TYPE      = "seltype"

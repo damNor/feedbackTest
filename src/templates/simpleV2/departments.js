@@ -3,32 +3,62 @@ import {useDispatch,useSelector} from 'react-redux';
 import {useHistory,useParams} from 'react-router-dom'
 import {fetchServices} from './../../data/api'
 import {selectDepartment,setServices} from './../../data/actions'
+import styled from 'styled-components'
+import {HiOutlineLocationMarker } from 'react-icons/hi';
 
 
 ////////////////////////////////////////////////////////////////////////////////
+import Background from './../../components/background'
 import Container from './../../components/container'
-import Button from './../../components/button'
-import Text from './../../components/text'
-import Loading from './../../components/loading'
+import BottomBar from './../../components/bottombar'
 import Language from './../../components/language'
+import Loading from './../../components/loading'
+import Button from './../../components/button'
 import Error from './../../components/error'
+import Image from './../../components/image'
+import Text from './../../components/text'
 import Logo from './../../components/logo'
 
 
 ////////////////////////////////////////////////////////////////////////////////
-const Component = () => {
-    const navigate           = useHistory()
-    const dispatch           = useDispatch()
-    const {id}               = useParams()
-    const config             = useSelector(state=>state.config)
-    const theme              = useSelector(state=>state.config.theme)
-    const languages          = useSelector(state=>state.config.languages)
-    const lang               = useSelector(state=>state.select.language?state.select.language.id:0)
-    const sBranch            = useSelector(state=>state.select.branch)
-    const departments        = useSelector(state=>state.data.departments)
+const Card = styled.div`
+    border          : 1px solid rgba(0,0,0,0.2);
+    border-width    : 1px 1px 1px 1px ;
+    opacity         : ${p=>p.opacity};
+    margin          : 0 16px 6px;
+    align-items     : center;
+    overflow        : hidden;
+    background      : white;
+    width           : 300px;
+    display         : flex;
+    border-radius   : 5px;
+    flex-shrink     : 0;
+`
 
-    const [isLoading,toggle] = useState(false)
-    const [error,setError]   = useState('')
+const Deco = styled.div`
+    background      : ${p=>p.bg};
+    align-self      : stretch;
+    border-radius   : 6px;
+    width           : 6px;
+    margin          : 2px;
+`
+
+
+////////////////////////////////////////////////////////////////////////////////
+const Component = () => {
+    const {id}          = useParams()
+    const navigate      = useHistory()
+    const dispatch      = useDispatch()
+    const config        = useSelector(state=>state.config)
+    const theme         = useSelector(state=>state.config.theme)
+    const sBranch       = useSelector(state=>state.select.branch)
+    const languages     = useSelector(state=>state.config.languages)
+    const departments   = useSelector(state=>state.data.departments)
+    const lang          = useSelector(state=>state.select.language.id)
+    const getL          = label => languages&&languages[label]?languages[label][lang]:""
+
+    const [isLoading,toggle]     = useState(false)
+    const [error,setError]       = useState('')
     const [selected,setSelected] = useState({})
 
 
@@ -54,39 +84,36 @@ const Component = () => {
         }
     }
 
-    const Department = ({department}) => <Container
-        width='300px'
-        border='1px solid rgba(0,0,0,0.2)'
-        borderradius='5px'
-        padding='12px 16px'
-        margin='0 16px 8px'
-        direction='row'
-        align='center'
-        background='white'
-        opacity={Object.keys(selected).length === 0? 1: selected.dept_id === department.dept_id? 1:0.4 }
-        onClick={()=>onClick(department)}>
-            <div style={{width:40,height:40,background:'rgba(0,0,0,0.12)',borderRadius:'50%',margin:'0 16px 0 0'}} />
-            <Text flex={1} textalign='left'>{department.dept_name}</Text>
-            {selected.dept_id === department.dept_id && <Loading />}
-        </Container>
-
     //////////////////////////////////////////////////////////////////////////// define UI
-    return <Container flex={1} align='center' overflowx='auto'>
-        <div style={{width:'100%',height:5,background:theme&&theme.primary}} />
-        <Logo width='150px' margin='16px'/>
-        <Text margin='0 0 16px'>Branches</Text>
-        {
-            departments &&
-            departments.map((item,i)=><Department key={i} department={item}/>)
-        }
-        <Container flex={1}/>
-        <div style={{width:'100%',height:5,background:theme&&theme.primary}} />
-        <div style={{position:'fixed',bottom:0,zIndex:-2,width:'100%'}}>
-            <img src={`config/${id}/images/global_bg.png`} style={{width:'100%',opacity:0.5}}/>
-        </div>
-        <Error message={error} show={error!=''} onClose={()=>setError('')} />
+    return <>
+    <div style={{width:'200%',height:5,background:theme&&theme.primary}} />
+    <Logo width='150px' alignself='center' margin='16px' />
+    <Text width='300px' alignself='center' margin='0 0 12px'>{getL('branches')}</Text>
+    <Container flex={1} overflowy='auto' align='center'>
+    {
+        departments && departments.map((item,i)=>
+        <Card key={i}
+            opacity={Object.keys(selected).length===0?1:selected.dept_id === item.dept_id?1:0.4}
+            onClick={()=>onClick(item)}>
+            <Deco bg={theme&&theme.primary}/>
+            <Container flex={1} margin='12px 0 12px 8px'>
+                <Text textalign='left' weight='bold' margin='0 0 6px 0'>{item.dept_name}</Text>
+                <Text
+                    size='12px'
+                    mcolor='rgba(0,0,0,0.5)'
+                    icon={<HiOutlineLocationMarker style={{opacity:0.5}}/>}>
+                    {getL('address')} {item.address}</Text>
+            </Container>
+            {selected.dept_id === item.dept_id && <Loading size='16px' margin='0 8px 0 0'/>}
+        </Card>
+    )}
     </Container>
+    {/*<BottomBar />*/}
+    <Background opacity={0.3}/>
+    <Error message={error} show={error!=''} onClose={()=>setError('')} />
+    </>
+
+
     //////////////////////////////////////////////////////////////////////////// END
 }
-
 export default Component;

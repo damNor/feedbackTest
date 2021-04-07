@@ -3,17 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
-  "homepage_monash": "./private/sys_qos/feedback",
+  "homepage_": "./private/sys_qos/feedback",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
-    "immer": "^8.0.0",
+    "immer": "^8.0.1",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-google-recaptcha": "^2.1.0",
+    "react-google-recaptcha-v3": "^1.8.1",
+    "react-icons": "^4.2.0",
     "react-moment": "^1.1.1",
     "react-qr-code": "^1.0.5",
     "react-redux": "^7.2.2",
@@ -24,7 +26,9 @@
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
     "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
+    "universal-cookie": "^4.0.4",
+    "web-vitals": "^0.2.4",
+    "webfontloader": "^1.6.28"
   },
   "scripts": {
     "start": "react-scripts start",

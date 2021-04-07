@@ -1,0 +1,78 @@
+{
+    "hello":"there",
+    "server":{
+        "name"   : "Queuebee",
+        "host"   : "https://aq.qbe.ee",
+        "client" : "mT+3eGWFHxV/V+xj7iiXUg==",
+        "mid"    : "y8YHJc6cpSbSsmgfYS3tBQ==",
+        "country": "aq"
+    },
+
+    "infos":{
+        "name"      : "Young Living Malaysia Sdn Bhd (1058616-D)",
+        "about"     : "Young Living inspires wellness, purpose, and abundance by distilling nature’s greatest gifts into pure essential oils. With a commitment to plant purity and essential oil potency, Young Living continues to grow, inspiring millions of people to transform their lives.",
+        "address"   : "Ground Floor, Tower 7, Avenue 3, Bangsar South,No. 8 Jalan Kerinchi,59200 Kuala Lumpur, Malaysia",
+        "phone"     : "1800 189 889",
+        "web"       : "https://www.youngliving.com/en_MY"
+    },
+
+    "theme":{
+        "primary"           : "#31C3E3",
+        "primarylight"      : "#F5F2FF",
+        "primarydark"       : "#22899F",
+        "textdefault"       : "#333333",
+        "textsecondary"     : "white",
+        "btnprimary"        : "#31C3E3",
+        "btnprimarytext"    : "white",
+        "btnsecondary"      : "#DC587B",
+        "btnsecondarytext"  : "white",
+        "font"              : "NunitoSans"
+    },
+
+    "features":{
+        "home"          : true,
+        "queue"         : true,
+        "journey"       : true,
+        "appointment"   : true,
+        "infos"         : true,
+        "feedback"      : false,
+        "whatsapp"      : true,
+        "sms"           : true,
+        "geolocation"   : true,
+        "minimumradius" : 1000
+    },
+
+    "forms":[
+        {"id":1,"type":"text","value":"","label":"Name","keyword":"name"},
+        {"id":2,"type":"text","value":"","label":"Email","keyword":"email"}
+    ],
+
+    "formsv2":{
+        "default":[
+            {"id":1, "type":"text", "value":"", "label":"SysID",    "keyword":"customer_sys_id", "show":false},
+            {"id":2, "type":"text", "value":"", "label":"Email",    "keyword":"customer_id",     "show":true},
+            {"id":3, "type":"text", "value":"", "label":"Name",     "keyword":"customer_name",   "show":true},
+            {"id":4, "type":"text", "value":"", "label":"Phone",    "keyword":"phone_no",        "show":true}
+        ],
+        "99":[
+            {"id":1,"type":"text","value":"","label":"Name","keyword":"id"}
+        ]
+    },
+
+    "languageSelection":[
+        { "id":0, "label":"EN", "name":"English" },
+        { "id":1, "label":"MY", "name":"Malay" }
+    ],
+
+    "languages":{
+        "wlc_main"      :["Welcome to QR Portal","Selamat Datang"],
+        "wlc_sec"       :["Save Time and Queue Online",""],
+        "wlc_getq"      :["GET QUEUE",""],
+        "wlc_activeq"   :["ACTIVE QUEUE",""],
+        "branches"      :["Branches","Cawangan"],
+        "address"       :["Address:","Alamat:"],
+        "q_waiting"     :["Missed queues will be recalled once within 15 minutes after the first call. Please take a new queue number if you have missed your queue after the second call. Thank you for your understanding.",""],
+        "q_calling"     :["is calling you",""],
+        "q_done"        :["This number has been called and served. If you have missed your queue, please take a new queue number.",""]
+    }
+}

@@ -3,25 +3,58 @@ import {useDispatch,useSelector} from 'react-redux';
 import {useHistory,useParams} from 'react-router-dom'
 import {fetchTimeslots} from './../../data/api/timeslots'
 import {setConfig,selectLanguage,selectService,setTimeslots} from './../../data/actions'
-import {readConfig,getQueueStatus,getQueueTransaction} from './../../data/api'
+import {readConfig,getQueueStatus,getQueueTransaction,updateCustInfo} from './../../data/api'
 import styled from 'styled-components'
 import {VERSION} from './'
 import ReCAPTCHA from "react-google-recaptcha";
 import QRCode from "react-qr-code";
 import Moment from 'react-moment';
 import moment from 'moment'
+import {FaBars,FaWhatsapp,FaSms,FaDesktop,FaUserFriends,FaRegClock,FaUserTie} from 'react-icons/fa';
+import {GrayoutBg,TextIcon} from  './../../components/style'
+import {colorShade} from './../../components/utils'
+
+////////////////////////////////////////////////////////////////////////////////
+import Background from './../../components/background'
+import Container from './../../components/container'
+import Loading from './../../components/loading'
+import Dialog from './../../components/dialog'
+import Button from './../../components/button'
+import Input from './../../components/input'
+import Error from './../../components/error'
+import Logo from './../../components/logo'
+import Text from './../../components/text'
+import InvalidID from './invalidID'
+
+
+
+import Queuebee from './../../resources/queuebee.png'
+import Whatsapp from './../../resources/whatsapp.png'
+import Person from './../../resources/personal.png'
+import Sms from './../../resources/sms.png'
 
 
 ////////////////////////////////////////////////////////////////////////////////
-import InvalidID from './invalidID'
-import Container from './../../components/container'
-import Button from './../../components/button'
-import Text from './../../components/text'
-import Input from './../../components/input'
-import Loading from './../../components/loading'
-import Whatsapp from './../../resources/whatsapp.png'
-import Sms from './../../resources/sms.png'
-import Queuebee from './../../resources/queuebee.png'
+const CustomInput = styled.input`
+    border  : 1px solid rgba(0,0,0,0.2);
+    padding : 8px 16px;
+    margin  : 8px 0px;
+    width   : fill-available;
+`
+const CenterFlex1 = styled.div` flex :1; text-align :center; `
+const Card = styled.div`
+    background      : ${p=>p.background??'white'};
+    border-radius   : 5px;
+    width           : 320px;
+    padding         : ${p=>p.padding??'16px'};
+    box-sizing      : border-box;
+    color           : theme&&theme.textdefault;
+    margin          : ${p=>p.margin??'0 0 4px'};
+    display         : ${p=>p.display};
+    justify-content : center;
+    z-index         : 1;
+    box-shadow      : 0px 0px 2px rgba(0, 0, 0, 0.25);
+`
 
 
 //////////////////////////////////////////////////////////////////////////////// Start
@@ -40,50 +73,26 @@ const Component = () => {
     const [trans,setTrans]      = useState([]);
     const [waUrl,setWaUrl]      = useState('')
     const [tab,setTab]          = useState(0)
-    const [timer,setTimer]      = useState()
     const [calling,setCalling]  = useState('')
 
-    //////////////////////////////////////////////////////////////////////////// styles
-    const Card = styled.div`
-        width           : 350px;
-        background      : white;
-        padding         : 16px;
-        border-radius   : 4px;
-        box-shadow      : 0px 3px 3px 0px rgba(156,156,156,0.7);
-    `
-    const Divider = styled.div`
-        width       : 100%;
-        height      : 1px;
-        background  : rgba(0,0,0,0.1);
-    `
-    const DoneIcon  = styled.div`
-        width           : 20px;
-        height          : 20px;
-        background      : #A9A9A9;
-        border-radius   : 50%;
-        color           : white;
-        font-size       : 12px;
-        margin          : 0 8px 0 0;
-        display         : flex;
-        align-items     : center;
-        justify-content : center;
-    `
+    const [dialog,showDialog]   = useState(false)
+    const [submit,setSubmit]    = useState(false)
+    const [phone,setPhone]      = useState('')
+    const [error,setError]      = useState('')
 
 
     //////////////////////////////////////////////////////////////////////////// config loader
     useEffect(()=>{
-        let timer;
         if(Object.keys(config) == 0){
             readConfig(id,()=>setLoad(true),async (res)=>{
-                console.log(res);
+                console.log('config',res);
                 setLoad(false);
-                if(Object.keys(res) == 0) return;
+                if(Object.keys(res) == 0) {setLoadQ('failed'); return;}
                 setValid(true)
                 dispatch(setConfig(res));
                 dispatch(selectLanguage(res.languageSelection[0]))
             })
         }else setValid(true);
-        return ()=>clearInterval(timer)
     },[config])
 
 
@@ -91,194 +100,186 @@ const Component = () => {
         if(qr === undefined) return;
         if(Object.keys(config) == 0) return;
 
-        console.log('getqbyqr => '+qr);
+        console.log('qstatusqr',qr);
         setLoadQ('load')
         const response = await getQueueStatus(config.server,'','','','',qr);
-        console.log(response);
-        let timerId;
-        if(response.error){
-            setLoadQ('failed')
-        }else{
+        console.log('qstatusqr',response);
+        if(response.error) setLoadQ('failed')
+        else{
             setLoadQ('success')
             setQueue(response);
             setWaUrl(response.wa_url);
             monitorQNumber(response)
             if(response.status === 2) return;
-            timerId = setInterval(()=>monitorQNumber(response),10000)
-            setTimer(timerId);
+            const mtimer = setInterval(()=>{
+                if(!window.location.hash.includes('/q/')) clearInterval(mtimer);
+                else monitorQNumber(response)
+            },10000)
         }
-        return ()=> clearInterval(timerId)
     },[config,qr])
-
-    useEffect(()=>{
-        return () => clearInterval(timer)
-    },[])
 
 
     //////////////////////////////////////////////////////////////////////////// functions
-    const getQueueLocal = () => {
-        try{
-            let queue = localStorage.getItem('queue');
-            setQueue(JSON.parse(queue))
-        }catch(e){}
-    }
-
     const monitorQNumber = async(response)=>{
         if(Object.keys(config) == 0) return;
         const status = await getQueueStatus(config.server,response.mid,response.dept_id,response.cust_id,response.queue_number);
         console.log("qstatus",status);
-        if(response.error){
-        }else{
+        if(!response.error){
             setQueue(status)
             setCalling(
                 status.status === 0? languages.q_waiting[lang]:
                 status.status === 1? status.wstt_name+' '+languages.q_calling[lang]:
                 status.status === 2? languages.q_done[lang]:'')
         }
-
         const transaction = await getQueueTransaction(config.server,response.mid,response.dept_id,response.queue_number);
         console.log("qtransaction",transaction);
-        if(!transaction.error)setTrans(transaction)
+        if(!transaction.error && JSON.stringify(trans) != JSON.stringify(transaction))setTrans(transaction)
+    }
+
+    const onSubmitPhone = async() =>{
+        setSubmit(true)
+        const customer = {phone:phone,queue:queue.queue_number}
+        const response = await updateCustInfo(config.server,lang,queue.mid,queue.dept_id,queue.serv_id,customer);
+        console.log("update",response);
+        setSubmit(false)
+        showDialog(false)
+        setError(response.error? 'Failed to Update : '+response.error : 'Updated!')
     }
 
 
     //////////////////////////////////////////////////////////////////////////// common components
-    const OtherChannel = ({icon,label,onClick=()=>{}}) =>{
-        const DContainer = styled.div`
-            background      : white;
-            width           : 48%;
-            padding         : 12px 16px;
-            margin          : 0 0 16px;
-            display         : flex;
-            align-items     : center;
-            border-radius   : 4px;
-            box-shadow      : 0px 3px 3px 0px rgba(156,156,156,0.7);
-            cursor          : pointer;
-        `
-        return <DContainer onClick={onClick}>
-            <img src={icon} style={{width:37,height:37,margin:'0 16px 0 0'}}/>
-            <Text size='13px' mColor='#9E9E9E' textalign='left'>{label}</Text>
-        </DContainer>
-    }
 
-    const Infos = ({label,value,children}) => <Container align='center' flex={1}>
-        <Text size='12px' mColor='#4AC1E0'>{label}</Text>
-        <Text size='18px' margin='8px 0 0'>{value}{children}</Text>
-    </Container>
 
-    const Journey = () => <Container>
-    journey
-    </Container>
+    const TransactionInfo = ({label,value}) => <div style={{display:'flex',alignItems:'center',margin:'0 8px 8px 0'}}>
+        <TextIcon>{label}</TextIcon>
+        <Moment format='hh:mm A' style={{whiteSpace:'nowrap',fontSize:12,opacity:0.9}}>{value}</Moment>
+    </div>
+
+    const Transaction = ({transaction,opacity,lastone}) => <div style={{display:'flex',borderRadius:5,margin:'0 16px',opacity:opacity}}>
+        <div style={{width:70,textAlign:'left',margin:'8px 8px 0px 0px',flexShrink: 0}}>
+            <Text size='12px' background={theme&&theme.btnprimary} mcolor={theme&&theme.btnprimarytext} padding='4px' textalign='center' borderradius='5px'>
+                {moment(transaction.time_msec_issue).format('hh:mm A')}
+            </Text>
+            <div style={{fontSize:12,margin:'4px 0 4px 8px',textTransform:'capitalize'}}>{transaction.state_text}</div>
+            {transaction.stage !=0 && <div style={{fontSize:12,margin:'4px 0 4px 8px',textTransform:'capitalize'}}>Stage {transaction.stage}</div>}
+        </div>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+            <div style={{width:4,height:4,border:'4px solid rgba(0,0,0,1)',borderRadius:'50%',background:'white'}} />
+            <div style={{flex:1,width:3,background:'#00AA44'}} />
+            {lastone && <div style={{width:4,height:4,border:'4px solid rgba(0,0,0,1)',borderRadius:'50%',background:'white'}} />}
+        </div>
+        <div style={{textAlign:'left',margin:'8px 8px'}}>
+            <div style={{fontWeight:'bold'}}>{transaction.dept_name}</div>
+            <div style={{fontSize:12}}>{transaction.serv_name}</div>
+            <div style={{display:'flex',margin:'8px 0 0',flexWrap:'wrap',alignItems:'flex-start'}}>
+                <TransactionInfo label={'CT'} value={transaction.time_msec_call} />
+                <TransactionInfo label={'DT'} value={transaction.time_msec_done} />
+                {
+                    transaction.user_name !== '' && <div style={{display:'flex',alignItems:'center'}}>
+                        <img style={{width:12,margin:'0 8px 0 0'}} src={Person} />
+                        <div style={{fontSize:12,opacity:0.9}}>{transaction.user_name + " ("+ transaction.wstt_name+")"}</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 
 
     //////////////////////////////////////////////////////////////////////////// define UI
-    return loadCfg? <div>Loading...</div>:
-    !isValid? <InvalidID />:
-    <Container background='white' flex={1}>
-        {
-            loadQ === 'load' ? <div>Loading...</div>:
-            loadQ === 'failed' ? <div>Invalid QR Code</div>:
-            loadQ === 'success' ? <>
-            <Container height='100vh' width='100%' align='center' background='whitesmoke'>
-                <Container background={theme&&theme.primary} width='100%' direction='row'>
-                    <Container flex={1} align='center' color={tab===0?'white':'rgba(255,255,255,0.5)'} padding='12px 16px' onClick={()=>setTab(0)}>QUEUE</Container>
-                    <Container flex={1} align='center' color={tab===1?'white':'rgba(255,255,255,0.5)'} padding='12px 16px' onClick={()=>setTab(1)}>JOURNEY</Container>
-                </Container>
-                {
-                    tab === 0?<>
-                        <Text margin='32px'>{calling}</Text>
-                        <Card >
-                            <img src={`config/${id}/images/logo.png`} style={{width:200,margin:16}} />
-                            <Text weight='bold' mColor='#474747'>{queue.serv_name??''}</Text>
-                            <Text weight='bold' mColor='#474747' size='70px'>{queue.queue_number??''}</Text>
-                            <Container padding='16px' align='center'>
-                                <QRCode width='134px' value={qr??''} size={134}/>
-                            </Container>
-                            <Divider />
-                            <Container direction='row' padding='16px 0 0'>
-                            {
-                                queue.status !== 2 ? <>
-                                    <Infos label={'Serving Now'}    value={queue.serv_current_serving??''} />
-                                    <Infos label={'Position'}       value={queue.wait_position??'-'} />
-                                    <Infos label={'Est call time'}> <Moment date={moment().add(queue.serv_est_wait_time/60, 'm').add(2,'m')} format="hh:mm a"/></Infos>
-                                </> : <>
-                                    <Infos label={'Attended By'}    value={queue.wait_position??'-'} />
-                                    <Infos label={'Call Time'}>     <Moment date={queue.time_msec_call} format="hh:mm a" /></Infos>
-                                </>
-                            }
-                            </Container>
-                        </Card>
-                        <Container width='350px' direction='row' wrap='wrap' justify='center' padding='32px 0'>
-                            {(waUrl !== '' && config.features && config.features.whatsapp)&& <OtherChannel icon={Whatsapp} label={'Whatsapp Alert'} onClick={()=>window.open(waUrl, '_blank')}/>}
-                        </Container>
-                    </>:
-                    tab === 1?<Container overflowy='auto' width='100%'>
-                        <Container background='#F6EEEE' direction='row' width='100%' align='center' margin='0 0 16px'>
-                            <img src={`config/${id}/images/logo.png`} style={{width:125,margin:16}} />
-                            <div style={{flex:1}} />
-                            <Container align='center' margin='16px'>
-                                <Text weight='bold' mColor='#000000' size='35px'>{queue.queue_number??''}</Text>
-                                <Text weight='bold' mColor='#000000' size='12px'>Attending:{queue.serv_current_serving??''}</Text>
-                            </Container>
-                        </Container>
-                        {
-                            trans.length===0?'':
-                            trans.map((item,i)=><Container
-                                key={i}
-                                width='stretch'
-                                maxwidth='600px'
-                                direction='row'
-                                opacity={
-                                    item.state_text === 'done' ||
-                                    item.state_text === 'missed' ||
-                                    item.state_text === 'transferred' ? 0.5:1
-                                }>
-                                <Container padding='16px' width='120px'>
-                                    <Text size='16px' margin='0 0 4px 0' bold>
-                                        <Moment format='hh:mm A'>{item.time_msec_issue}</Moment>
-                                    </Text>
-                                    <Text>{item.state_text.charAt(0).toUpperCase() + item.state_text.slice(1)}</Text>
-                                </Container>
-                                <Container alignself='stretch' align='center'>
-                                    <div style={{width:12,height:12,border:'3px solid black',borderRadius:'50%'}} />
-                                    <div style={{width:4,flex:1,background:'#00AA44'}} />
-                                </Container>
-                                <Container alignself='stretch' padding='16px' flex={1}>
-                                    <Text margin='0 0 4px 0'  bold>{item.dept_name}</Text>
-                                    <Text >{item.serv_name}</Text>
-                                    <Container margin='0px 0' align='center' wrap='wrap' direction='row'>
-                                        <Container direction='row' center='true'>
-                                            <DoneIcon>CT</DoneIcon>
-                                            <Text size='16px' margin='8px 24px 8px 0' bold>
-                                                <Moment format='hh:mm A'>{item.time_msec_call}</Moment>
-                                            </Text>
-                                        </Container>
-                                        <Container direction='row' center='true'>
-                                            <DoneIcon>DT</DoneIcon>
-                                            <Text size='16px' margin='8px 24px 8px 0' bold>
-                                                <Moment format='hh:mm A'>{item.time_msec_done}</Moment>
-                                            </Text>
-                                        </Container>
-                                        {
-                                            item.user_name === ''?'':<Container direction='row' center='monitorQNumber'>
-                                                <img style={{width:16,height:16}} src='./icons/person.png' />
-                                                <Text size='16px' margin='8px 16px'>{item.user_name + " ("+ item.wstt_name+")"}</Text>
-                                            </Container>
-                                        }
-                                    </Container>
-                                </Container>
-                            </Container>)
-                        }
-                    </Container>:''
-                }
-                <Container flex={1} />
-                <Container background='red' width='100%' height='5px'/>
-            </Container>
-            </>:''
+    return <>
+        {   loadCfg || loadQ === 'load' && <GrayoutBg>Loading...</GrayoutBg> }
+        {   loadQ === 'failed' && <GrayoutBg><Dialog title={'Invalid QR Code'} body={'This Qr code dosent exist is our system'} /></GrayoutBg> }
+        {   dialog && <GrayoutBg><Dialog
+                title={'Receive SMS Notification'}
+                body={<><div>Phone</div><CustomInput key={'myinput'} type="number" value={phone} onChange={(e)=>setPhone(e.target.value)} autoFocus /></>}
+                loading={submit}
+                onClick={onSubmitPhone}
+                onCancel={()=>showDialog(false)} /></GrayoutBg>
         }
-    </Container>
+        <Container background='whitesmoke' flex={1} overflowy='auto' align='center'>
+            <div style={{position:'absolute',width:'100%',height:150,background:theme&&theme.btnprimary,zIndex:0}}/>
+            <div style={{display:'flex',width:'100%',alignItems:'center',zIndex:0,color:theme&&theme.btnprimarytext}}>
+                <FaBars style={{margin:16}}/>
+                {
+                    ["MY QUEUE"].map((item,i)=><div key={i}
+                    style={{fontWeight:'',margin:8,opacity:tab===i?1:0.5}}
+                    onClick={()=>setTab(i)}>
+                    {item}</div>)
+                }
+            </div>
+            <Background zIndex={0} height='300px' opacity={0.3}/>
 
+            <Card padding='16px' margin='16px 0 4px' >
+                <Logo key={'mylogo'} width='150px' margin='0 0 8px'/>
+                <div style={{textAlign:'center',opacity:0.9,fontWeight:'bold'}}>{queue.serv_name??'-'}</div>
+                <div style={{fontSize:70,textAlign:'center',margin:'0 0 16px',fontWeight:'500',lineHeight:'70px'}}>{queue.queue_number??'-'}</div>
+                <QRCode width='134px' value={qr??''} size={120}/>
+            </Card>
+            <Card> {calling} </Card>
+            <Card>
+            {
+                queue.status !== 2? <>
+                <Text margin="2px 0" icon={<FaDesktop/>} >Attending {queue.serv_current_serving}</Text>
+                <Text margin="2px 0" icon={<FaUserFriends/>}>Current position is {queue.wait_position}</Text>
+                <Text margin="2px 0" icon={<FaRegClock/>}>ETA {moment().add(queue.serv_est_wait_time/60, 'm').add(2,'m').format('hh:mm A')}</Text>
+                </>:<>
+                <Text margin="2px 0" icon={<FaUserTie/>}>Attended by {queue.user_name}</Text>
+                <Text margin="2px 0" icon={<FaRegClock/>}>Call Time is {moment(queue.time_msec_call).format('hh:mm A')}</Text>
+                </>
+            }
+            </Card>
+            {
+                config.features && config.features.whatsapp && waUrl!= undefined && waUrl!='' &&
+                <Card background='#25D366' display='flex' onClick={()=>window.open(waUrl, '_blank')}>
+                    <FaWhatsapp style={{width:20, height:20,color:'white'}} />
+                    <div style={{margin:'0 16px',color:'white'}}>WHATSAPP UPDATE</div>
+                </Card>
+            }
+            {
+                config.features && config.features.sms &&
+                <Card background='#00B2FF' display='flex' onClick={()=>showDialog(true)}>
+                    <FaSms style={{width:20, height:20, color:'white'}} />
+                    <div style={{margin:'0 16px',color:'white'}}>SMS UPDATE</div>
+                </Card>
+            }
 
+            <Card padding='0px' margin='0 0 40px'>
+                <div style={{background:theme&&theme.btnprimary,padding:8,color:theme&&theme.btnprimarytext,borderRadius:'5px 5px 0 0'}}>
+                    Transaction
+                </div>
+                <div style={{height:16}} />
+                {/*
+                    trans.reverse().map((item,i,arr)=>
+                    <Transaction key={i} transaction={item} opacity={i==0?1:0.3} lastone={arr.length-1===i}/>)
+                */}
+                {
+                    [
+                        ...trans.filter(i=>i.state == 2).sort((i,j)=>i.stage>j.stage?1:-1 || i.time_msec_issue>j.time_msec_issue?1:-1),
+                        ...trans.filter(i=>i.state == 1).sort((i,j)=>i.stage>j.stage?1:-1),
+                        ...trans.filter(i=>!(i.state == 1 || i.state==2)).sort((i,j)=>i.stage>j.stage?1:-1  || i.time_msec_done>j.time_msec_done?1:-1).reverse()
+                    ]
+                    .map((item,i,arr)=><Transaction
+                        key={i}
+                        transaction={item}
+                        opacity={(item.state==1 || item.state==2)?1:0.3}
+                        lastone={arr.length-1==i}
+                    />)
+                }
+
+                <div style={{height:16}} />
+            </Card>
+            <div style={{height:40}}/>
+
+        </Container>
+        <Error message={error} show={error!=''} onClose={()=>setError('')} />
+    </>
     //////////////////////////////////////////////////////////////////////////// End
 }
 export default Component;
+
+
+{/*<div style={{display:'flex',justifyContent:'space-between',margin:'0 -8px',alignItems:'center'}}>
+    <div style={{width:20,height:20,background:'ghostwhite',borderRadius:'50%'}}/>
+    { [...Array(24)].map((item,i)=><div key={i} style={{width:4,height:4,background:'ghostwhite',borderRadius:'50%'}}/>)}
+    <div style={{width:20,height:20,background:'ghostwhite',borderRadius:'50%'}}/>
+</div>*/}

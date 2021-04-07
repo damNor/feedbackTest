@@ -1,0 +1,59 @@
+{
+    "hello":"there",
+    "server":{
+        "name"   : "Queuebee",
+        "host"   : "https://aq.qbe.ee",
+        "client" : "mT+3eGWFHxV/V+xj7iiXUg==",
+        "mid"    : "iFvghzcH9SyoZTX1iMQYpA==",
+        "country": "aq"
+    },
+
+    "theme":{
+        "primary"           : "#005DAA",
+        "primarylight"      : "rgb(214 236 255)",
+        "textdefault"       : "#333333",
+        "textprimary"       : "#025B94",
+        "btnprimary"        : "#005DAA",
+        "btnprimarytext"    : "white",
+        "btnsecondary"      : "#DC587B",
+        "btnsecondarytext"  : "white"
+    },
+
+    "infos":{
+        "name"      : "Tenaga National Berhad",
+        "xabout"     : "About Us",
+        "address"   : "No 129, Jalan Bangsar, 59200 Kuala Lumpur",
+        "phone"     : "+603 2296 5566",
+        "web"       : "https://www.tnb.com.my"
+    },
+
+    "features":{
+        "home"          : false,
+        "queue"         : true,
+        "journey"       : false,
+        "appointment"   : false,
+        "infos"         : true,
+        "feedback"      : false,
+        "whatsapp"      : false,
+        "sms"           : true
+    },
+
+    "forms":[
+        {"id":1,"type":"text","value":"","label":"Name","keyword":"name"},
+        {"id":2,"type":"text","value":"","label":"Email","keyword":"email"}
+    ],
+
+    "languageSelection":[
+        { "id":0, "label":"EN", "name":"English" },
+        { "id":1, "label":"MY", "name":"Malay" }
+    ],
+    "languages":{
+        "welcome"       :["Welcome to TNB","Selamat Datang ke TNB"],
+        "wlc_getq"      :["START",""],
+        "wlc_activeq"   :["ACTIVE QUEUE",""],
+        "save_time"     :["Save Time and Queue Online",""],
+        "q_waiting"     :["Missed queues will be recalled once within 15 minutes after the first call. Please take a new queue number if you have missed your queue after the second call. Thank you for your understanding.",""],
+        "q_calling"     :["is calling you",""],
+        "q_done"        :["This number has been called and served. If you have missed your queue, please take a new queue number.",""]
+    }
+}

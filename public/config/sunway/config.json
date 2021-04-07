@@ -22,7 +22,8 @@
         "appointment"   : false,
         "qstatus"       : true,
         "feedback"      : false,
-        "whatsapp"      : true
+        "whatsapp"      : true,
+        "sms"           : true
     },
 
     "forms":[

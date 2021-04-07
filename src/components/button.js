@@ -6,7 +6,7 @@ import {colorShade} from './utils'
 const Container = styled.button`
     margin          : ${p=>p.margin};
     padding         : ${p=>p.padding??'0px 24px'};
-    width           : ${p=>p.width};
+    width           : ${p=>p.width??'200px'};
     max-width       : ${p=>p.maxwidth};
     min-height      : 40px;
     height          : ${p=>p.height};
@@ -22,6 +22,7 @@ const Container = styled.button`
     align-items     : ${p=>p.align??'center'};
     justify-content : ${p=>p.justify??'center'};
     cursor          : pointer;
+    align-self      : ${p=>p.alignself};
 
     &:hover{
         background  : ${p=>colorShade(p.background,-5)}

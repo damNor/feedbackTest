@@ -6,7 +6,11 @@ const Image = styled.img`
     background      : ${p=>p.background};
     margin          : ${p=>p.margin};
     padding         : ${p=>p.padding};
-    width           : ${p=>p.width};
+    width           : ${p=>p.width??'200px'};
+    height          : ${p=>p.height};
+    border-radius   : ${p=>p.borderRadius};
+    object-fit      : ${p=>p.fit};
+    align-self      : ${p=>p.alignself};
 `;
 
 const Component = (props) => {
