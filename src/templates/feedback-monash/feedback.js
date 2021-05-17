@@ -67,8 +67,6 @@ const Card = styled.div`
     }
 `
 
-
-
 const Component = () => {
     const navigate          = useHistory();
     const dispatch          = useDispatch()
@@ -111,7 +109,8 @@ const Component = () => {
         mfetch();
     },[id])
 
-    const submitFeed = async (provideMore) =>{
+    const submitFeed = async (provideMore) =>
+    {
         setXtra(provideMore)
 
         let ans = "";

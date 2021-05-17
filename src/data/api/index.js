@@ -167,18 +167,20 @@ export const bookappointment = async (server,branchid,deptid,servid,date,time,na
 
 //////////////////////////////////////////////////////////////////////////////// queuestatus
 export const getQueueStatus = async(server,branchid,deptid,custid,queuenumber,qr)=>{
-    const api = (qr!==undefined && qr!=='')?'/api_qapp/checkqueuestatusbyqr':
-                (queuenumber===undefined || queuenumber==='')? '/api_qapp/checkqueuestatusbycustid' :
+    const api = (qr!==undefined && qr!=='') ?'/api_qapp/checkqueuestatusbyqr':
+                (queuenumber===undefined || queuenumber==='') ? '/api_qapp/checkqueuestatusbycustid' :
                 '/api_qapp/checkqueuestatus'
-    return await mfetch(server.host + api,{
-        'client_id'     : server.client,
-        'country_code'  : server.country,
-        'branch_id'     : branchid,
-        'department_id' : deptid,
-        'customer_id'   : custid,
-        'queue_no'      : queuenumber,
-        'i'             : qr,
-    });
+    
+    return await mfetch(server.host + api,
+        {
+            'client_id'     : server.client,
+            'country_code'  : server.country,
+            'branch_id'     : branchid,
+            'department_id' : deptid,
+            'customer_id'   : custid,
+            'queue_no'      : queuenumber,
+            'i'             : qr,
+        });
 }
 
 

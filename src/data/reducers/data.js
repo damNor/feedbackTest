@@ -1,9 +1,11 @@
 import * as actions from "./../actions/actiontype";
 import produce from "immer";
 
-const dataReducer = (state={},action) =>
-    produce(state,draft =>{
-        switch (action.type) {
+const dataReducer = ( state={} , action ) =>
+    produce(state, draft =>
+    {
+        switch (action.type) 
+        {
             case actions.SET_BRANCH:
                 draft.branches = action.payload;
                 break;

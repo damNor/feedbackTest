@@ -3,7 +3,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {useHistory,useParams} from 'react-router-dom'
 import {fetchDepartments} from './../../data/api'
 import {selectBranch,setDepartments,selectDepartment,setServices} from './../../data/actions'
-
+import Helmet from "react-helmet";
 
 ////////////////////////////////////////////////////////////////////////////////
 import Container from './../../components/container'
@@ -66,16 +66,20 @@ const Component = () => {
 
 
     //////////////////////////////////////////////////////////////////////////// define UI
-    return <Container flex={1} align='center'>
-        <Text margin='16px 0 8px'>Branches</Text>
-        {
-            branches === undefined?'':
-            branches.map((item,i)=><Branches key={i} branch={item}/>)
-        }
-        { loading&&<Loading margin='8px'/>}
-        <Container flex={1} />
-    </Container>
-
+    return <>
+        <Helmet>
+            <title>Branch Page</title>
+        </Helmet>
+        <Container flex={1} align='center'>
+            <Text margin='16px 0 8px'>Branches</Text>
+            {
+                branches === undefined?'':
+                branches.map((item,i)=><Branches key={i} branch={item}/>)
+            }
+            { loading&&<Loading margin='8px'/>}
+            <Container flex={1} />
+        </Container>
+    </>
 
     //////////////////////////////////////////////////////////////////////////// End
 }

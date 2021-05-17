@@ -4,6 +4,7 @@ import {useHistory,useParams} from 'react-router-dom'
 import {fetchBranches,fetchDepartments} from './../../data/api'
 import {setConfig,selectLanguage,setBranches,selectBranch,setDepartments} from './../../data/actions'
 import {VERSION,CONFIG_PATH} from './'
+import Helmet from "react-helmet";
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -40,7 +41,7 @@ const Component = () => {
             const readconfig = async() => {
                 try{
                     setLoad(true)
-                    const response = await fetch('/config/' + id + '/config.json')
+                    const response = await fetch('config/' + id + '/config.json')
                     setLoad(false);
                     const mconfig  = await response.json()
                     setValid(true)
@@ -89,33 +90,40 @@ const Component = () => {
 
 
     //////////////////////////////////////////////////////////////////////////// define UI
-    return loadCfg? <div>Loading...</div>:
+    return (
+    loadCfg? <div>Loading...</div>:
     !isValid? <InvalidID />:
-    <Container flex={1} align='center'>
-        <Language alignself='flex-end' margin='8px'/>
-        <Container flex={1}/>
-        <img src={CONFIG_PATH + id + "/images/logo.png"} style={{width:200}}/>
-        <Text margin='16px'>{languages?languages.welcome[lang]:''}</Text>
-        <Button isPrimary
-            width='300px'
-            label='GET QUEUE'
-            margin='0 0 8px 0'
-            onClick={onClick}
-            mloading={loadBranch}
-        />
-        <Button isPrimary
-            width='300px'
-            label='ACTIVE QUEUE'
-            margin='0 0 8px 0'
-        />
-        <Button isPrimary
-            width='300px'
-            label='ACTIVE APPOINTMENT'
-        />
-        <Container flex={1}/>
-        <div style={{position:'fixed',bottom:0,right:0,fontSize:8,margin:6}}>{VERSION}</div>
-    </Container>
-
+    <>
+    
+        <Helmet>
+            <title>Welcome Page</title>
+        </Helmet>
+        <Container flex={1} align='center'>
+            <Language alignself='flex-end' margin='8px'/>
+            <Container flex={1}/>
+            <img src={CONFIG_PATH + id + "/images/logo.png"} style={{width:200}}/>
+            <Text margin='16px'>{languages?languages.welcome[lang]:''}</Text>
+            <Button isPrimary
+                width='300px'
+                label='GET QUEUE'
+                margin='0 0 8px 0'
+                onClick={onClick}
+                mloading={loadBranch}
+            />
+            <Button isPrimary
+                width='300px'
+                label='ACTIVE QUEUE'
+                margin='0 0 8px 0'
+            />
+            <Button isPrimary
+                width='300px'
+                label='ACTIVE APPOINTMENT'
+            />
+            <Container flex={1}/>
+            <div style={{position:'fixed',bottom:0,right:0,fontSize:8,margin:6}}>{VERSION}</div>
+        </Container>
+    </>
+    )
 //<Container width='100%' height='5px' background={theme?theme.primary:''} />
 
     //////////////////////////////////////////////////////////////////////////// END

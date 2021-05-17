@@ -1,0 +1,687 @@
+{
+    "hello":"there",
+    "server":{
+       "name":"Queuebee",
+       "host":"https://aq.qbe.ee",
+       "client":"mT+3eGWFHxV/V+xj7iiXUg==",
+       "mid":"y8YHJc6cpSbSsmgfYS3tBQ==",
+       "country":"aq"
+    },
+    "infos":{
+       "name":"Pantai Hospital",
+       "about":"About Pantai Hospital",
+       "address":"Kuala Lumpur, Malaysia",
+       "phone":"1111 189 889",
+       "web":"http://www.queuebeesolution.com/"
+    },
+    "theme":{
+       "primary":"#0072BC",
+       "primarylight":"#F5F2FF",
+       "primarydark":"#22899F",
+       "textdefault":"#333333",
+       "textsecondary":"white",
+       "btnprimary":"#3E474F",
+       "btnprimarytext":"white",
+       "btnsecondary":"#DC587B",
+       "btnsecondarytext":"white"
+    },
+    "features":{
+       "home":true,
+       "queue":true,
+       "journey":true,
+       "appointment":false,
+       "infos":true,
+       "feedback":false,
+       "whatsapp":false,
+       "sms":true,
+       "geolocation":true,
+       "minimumradius":100000
+    },
+    "formsv2":{
+       "default":[
+          {
+             "id":1,
+             "type":"text",
+             "value":"",
+             "label":"Name",
+             "keyword":"name",
+             "show":true
+          },
+          {
+             "id":2,
+             "type":"text",
+             "value":"",
+             "label":"Mobile Phone",
+             "keyword":"mobile_phone",
+             "show":true
+          },
+          {
+            "id":3,
+            "type":"text",
+            "value":"",
+            "label":"MRN",
+            "keyword":"mrn",
+            "show":true
+         },
+          {
+             "id":4,
+             "type":"text",
+             "value":"",
+             "label":"Email",
+             "keyword":"email",
+             "show":true
+          }
+        
+       ],
+       "99":[
+          {
+             "id":1,
+             "type":"text",
+             "value":"",
+             "label":"Name",
+             "keyword":"id"
+          }
+       ]
+    },
+    "languageSelection":[
+       {
+          "id":0,
+          "label":"EN",
+          "name":"English"
+       },
+       {
+          "id":1,
+          "label":"MY",
+          "name":"Malay"
+       }
+    ],
+    "languages":{
+       "wlc_main":[
+          "Customer Feedback Portal",
+          "Selamat Datang"
+       ],
+       "wlc_sec":[
+          "Hi, welcome to Pantai Hospital Customer Feedback Portal",
+          ""
+       ],
+       "wlc_getq":[
+          "START QUESTIONAIRE",
+          ""
+       ],
+       "wlc_activeq":[
+          "ACTIVE QUEUE",
+          ""
+       ],
+       "branches":[
+          "Branches",
+          "Cawangan"
+       ],
+       "address":[
+          "Address:",
+          "Alamat:"
+       ],
+       "q_waiting":[
+          "Missed queues will be recalled once within 15 minutes after the first call. Please take a new queue number if you have missed your queue after the second call. Thank you for your understanding.",
+          ""
+       ],
+       "q_calling":[
+          "is calling you",
+          ""
+       ],
+       "q_done":[
+          "This number has been called and served. If you have missed your queue, please take a new queue number.",
+          ""
+       ]
+    },
+    "choices":[
+       {
+          "id":1,
+          "score":"1",
+          "text":"Excellent"
+       },
+       {
+          "id":2,
+          "score":"2",
+          "text":"Good"
+       },
+       {
+          "id":3,
+          "score":"3",
+          "text":"Fair"
+       },
+       {
+          "id":4,
+          "score":"4",
+          "text":"Poor"
+       },
+       {
+          "id":5,
+          "score":"5",
+          "text":"Very Poor"
+       }
+    ],
+    "department":{
+       "Reception / Concierge / Information Counter":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "Long waiting time",
+                      "Staff not helpful / not friendly",
+                      "No clear instruction given",
+                      "Commendable Staff",
+                      "Other"
+                   ]
+                },
+                {
+                   "2":[
+                      "Poor Room / Toilet Condition",
+                      "Food - Poor variety / Flavour / Quality",
+                      "Long waiting time / Long discharge time",
+                      "No clear instruction given",
+                      "Poor Nursing Service",
+                      "Poor Doctor Service",
+                      "Other"
+                   ]
+                },
+                {
+                   "3":[
+                      "Sample Question 1",
+                      "Sample Question 2",
+                      "Sample Question 3",
+                      "Sample Question 4",
+                      "Sample Question 5"
+                   ]
+                },
+                {
+                   "4":[
+                      "Good Room / Toilet Condition",
+                      "Food - Good variety / Flavour / Quality",
+                      "Attended promptly / Short discharge time",
+                      "Clear instruction given",
+                      "Good Nursing Service",
+                      "Good Doctor Service",
+                      "Commendable Staff / Doctor",
+                      "Other"
+                   ]
+                },
+                {
+                   "5":[
+                      "Attended Promptly",
+                      "Staff helpful / friendly",
+                      "Clear instruction given",
+                      "Commendable Staff",
+                      "Other"
+                   ]
+                }
+             ]
+          }
+       ],
+       "Accident & Emergency":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "Long waiting time",
+                      "Staff not helpful / not friendly",
+                      "No clear instruction given",
+                      "Commendable Staff",
+                      "Other"
+                   ]
+                },
+                {
+                   "2":[
+                      "Poor Room / Toilet Condition",
+                      "Food - Poor variety / Flavour / Quality",
+                      "Long waiting time / Long discharge time",
+                      "No clear instruction given",
+                      "Poor Nursing Service",
+                      "Poor Doctor Service",
+                      "Other"
+                   ]
+                },
+                {
+                   "3":[
+                      "Sample Question 1",
+                      "Sample Question 2",
+                      "Sample Question 3",
+                      "Sample Question 4",
+                      "Sample Question 5"
+                   ]
+                },
+                {
+                   "4":[
+                      "Good Room / Toilet Condition",
+                      "Food - Good variety / Flavour / Quality",
+                      "Attended promptly / Short discharge time",
+                      "Clear instruction given",
+                      "Good Nursing Service",
+                      "Good Doctor Service",
+                      "Commendable Staff / Doctor",
+                      "Other"
+                   ]
+                },
+                {
+                   "5":[
+                      "Attended Promptly",
+                      "Staff helpful / friendly",
+                      "Clear instruction given",
+                      "Commendable Staff",
+                      "Other"
+                   ]
+                }
+             ]
+          }
+       ],
+       "Admission / Registration":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Wards":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Outpatient Clinics":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Health Screening Centre":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Lab":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Imaging":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Rehab":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Billing / Cashier / Accounts":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Pharmacy":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ],
+       "Security Services":[
+          {
+             "questionaire":[
+                {
+                   "1":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "2":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "3":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "4":[
+                      "",
+                      "",
+                      ""
+                   ]
+                },
+                {
+                   "5":[
+                      "",
+                      "",
+                      ""
+                   ]
+                }
+             ]
+          }
+       ]
+    }
+ }

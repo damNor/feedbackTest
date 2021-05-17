@@ -39,7 +39,7 @@
         "whatsapp"      : false,
         "sms"           : true,
         "geolocation"   : true,
-        "minimumradius" : 100000
+        "minimumradius" : 1000000
     },
 
     "formsv2":{

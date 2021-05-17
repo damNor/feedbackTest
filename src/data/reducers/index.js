@@ -7,11 +7,11 @@ import tabReducer from './tab'
 import loadstateReducer from './loadstate'
 
 const allReducer = combineReducers({
-    config      : configReducer,
-    select      : selectReducer,
-    data        : dataReducer,
-    tab         : tabReducer,
-    loadstate   : loadstateReducer
+        config      : configReducer,
+        select      : selectReducer,
+        data        : dataReducer,
+        tab         : tabReducer,
+        loadstate   : loadstateReducer
 });
 
 export default allReducer;

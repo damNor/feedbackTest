@@ -3,7 +3,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {useHistory,useParams} from 'react-router-dom'
 import {fetchServices} from './../../data/api'
 import {selectDepartment,setServices} from './../../data/actions'
-
+import Helmet from "react-helmet";
 
 ////////////////////////////////////////////////////////////////////////////////
 import Container from './../../components/container'
@@ -71,16 +71,20 @@ const Component = () => {
 
 
     //////////////////////////////////////////////////////////////////////////// define UI
-    return <Container flex={1} align='center' overflowx='auto'>
-        <Text margin='16px 0 8px'>Select Branch</Text>
-        {
-            departments === undefined?'':
-            departments.map((item,i)=><Department key={i} department={item} />)
-        }
-        <Container height='40px' />
-        { loading&&<Loading margin='8px' /> }
-    </Container>
-
+    return <>
+        <Helmet>
+            <title>Department Page</title>
+        </Helmet>
+        <Container flex={1} align='center' overflowx='auto'>
+            <Text margin='16px 0 8px'>Select Branch</Text>
+            {
+                departments === undefined?'':
+                departments.map((item,i)=><Department key={i} department={item} />)
+            }
+            <Container height='40px' />
+            { loading&&<Loading margin='8px' /> }
+        </Container>
+    </>
 
     //////////////////////////////////////////////////////////////////////////// End
 }

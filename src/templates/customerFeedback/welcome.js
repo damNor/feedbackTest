@@ -5,8 +5,6 @@ import {fetchBranches,fetchDepartments} from './../../data/api'
 import {setBranches,selectBranch,setDepartments} from './../../data/actions'
 
 import Container,{Content} from './../../componentsv2/container'
-import Background from './../../componentsv2/background'
-import BottomBar from './../../componentsv2/bottombar'
 import Button from './../../componentsv2/button'
 import Loader from './../../componentsv2/loader'
 import Error from './../../componentsv2/error'
@@ -34,6 +32,8 @@ const Component = () => {
         console.log('branches',branches);
         toggle(false)
 
+        navigate.push(`/${id}/f`)
+        /* 
         if(branches.error)
         {
             setError(branches.error); 
@@ -59,22 +59,23 @@ const Component = () => {
             dispatch(selectBranch(branches[0]))
             dispatch(setDepartments(departments))
             navigate.push(`/${id}/d`)
-        }
+        } 
+        */
     }
 
     return <>
         <Loader>
-        <Content>
+        <Content style={{backgroundColor:'#DDEEFE'}}>
             <Language alignself='flex-end'/>
-            <Logo/>
-            <Container flex={2}/>
+            <Container style={{backgroundColor:'#FFF',position:'absolute',top:0}} width='100%'>
+            <Logo alignself='center' margin='5% 0 2% 0'/>
+            </Container>
+            <Container flex={2} />
             <Text size='24px' textalign='center' margin='0 16px 8px' weight='bold'  isPrimary>{getL('wlc_main')}</Text>
             <Text size='16px' textalign='center' margin='0 16px 40px' weight='bold' isPrimary>{getL('wlc_sec')}</Text>
             <Button label={getL('wlc_getq')} onClick={onStart} mloading={loading} isPrimary/>
             <Container flex={3}/>
         </Content>
-        <Background/>
-        <BottomBar/>
         <Error message={error} show={error!=undefined} onClose={()=>setError()} />
     </Loader>
     </>

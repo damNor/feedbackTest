@@ -6,18 +6,27 @@ import {getQueueNumber,bookappointment,validateV3} from './../../data/api'
 import {FaMapMarkerAlt} from 'react-icons/fa'
 import styled from 'styled-components'
 import Loader from './loader'
-import TextField from '@material-ui/core/TextField'
+import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import {
+    fade,
+    withStyles,
+  } from '@material-ui/core/styles';
+import InputBase from '@material-ui/core/InputBase';
+
+
 import ReCAPTCHA from "react-google-recaptcha"
 import Cookies from 'universal-cookie'
 import moment from 'moment'
 import { GoogleReCaptchaProvider, GoogleReCaptcha} from 'react-google-recaptcha-v3';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Container,{Content,Card} from './../../componentsv2/container'
 import Button,{BackButton} from './../../componentsv2/button'
 import Background from './../../componentsv2/background'
-import BottomBar from './../../componentsv2/bottombar'
 import Loading from './../../componentsv2/loading'
 import Error from './../../componentsv2/error'
 import Logo from './../../componentsv2/logo'
@@ -56,10 +65,15 @@ const Component = () => {
     });
 
     useEffect(()=>{
-        if(config==undefined || sserv==undefined){navigate.push(`/${id}/`); return;}
-        const formsetups = (config.formsv2[sserv.serv_id]??config.formsv2.default)??config.forms
+        if(config == undefined || (Object.keys(config).length == 0) )
+        {
+            navigate.push(`/${id}/`); 
+            return;
+        }
+        console.log("formsv2",config );
+        const formsetups = (config.formsv2["1"]??config.formsv2.default)??config.forms
         setForms(formsetups)
-    },[sserv])
+    },[])
 
     const onClick = async () =>{
         toggle(true)
@@ -100,13 +114,65 @@ const Component = () => {
     }
 
     const onVerify = async (token) =>{
-        console.log(token);
+        // console.log('token',token);
 
         // below code should be implemented in the server
         const resp = await validateV3('6LenHygaAAAAAOQ3v7G4NNetz4gV-W_j6jVy1gfR',token)
         setValid(resp.success)
-        console.log(resp);
+
+        // console.log('resp',resp);
     }
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+          display: 'flex',
+          flexWrap: 'wrap',
+        //   width:'100%',
+        },
+        margin: {
+          margin: '5px 0',
+        }
+    }));
+
+    const classes = useStyles();
+
+    const BootstrapInput = withStyles((theme) => ({
+        root: {
+          'label + &': {
+            marginTop: theme.spacing(2),
+            // padding:'2px'
+          },
+        },
+        input: {
+          borderRadius: 4,
+          position: 'relative',
+          backgroundColor: theme.palette.common.white,
+          border: '1px solid #ced4da',
+          fontSize: 16,
+          fontWeight:'bolder',
+          width: '120',
+          fullWidth:true,
+          padding: '2px 3px',
+          transition: theme.transitions.create(['border-color', 'box-shadow']),
+          // Use the system font instead of the default Roboto font.
+          fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+          ].join(','),
+          '&:focus': {
+            boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+            borderColor: theme.palette.primary.main,
+          },
+        },
+      }))(InputBase);
 
     return <Loader>
     <ThemeProvider theme={themeprovider}>
@@ -116,32 +182,58 @@ const Component = () => {
             <GoogleReCaptcha onVerify={onVerify}/>
         </GoogleReCaptchaProvider>
     }
-    <Content>
+    <Content style={{backgroundColor:'#DDEEFE'}}>
+        <Language alignself='flex-end'/>
+        <Container style={{backgroundColor:'#FFF',position:'absolute',top:0}} width='100%'>
+            <Logo alignself='center' margin='5% 0 2% 0'/>
+        </Container>
         <BackButton />
-        <Logo margin='16px'/>
-        <Text width='320px' margin='8px 0 16px' size='13px' opacity={0.7}>Your Information</Text>
-        <Card width='320px' padding='16px' direction='column' align='center'>
-            {
-                forms.map((item,i)=>item.show&&<TextField key={i}
-                    style={{margin:'0 0 8px'}}
-                    label={item.label}
-                    value={item.value}
-                    onChange={e=>setForms(forms.map(jitem=>jitem.id===item.id?{...jitem,...{value:e.target.value}}:jitem))}
-                    fullWidth
-                />)
-            }
-            {
-                recaptchaVer === 'v2'&&
-                <ReCAPTCHA
-                    style={{selfAlign:'center',margin:'16px 0 0'}}
-                    sitekey={"6LdwSMQZAAAAANPSKk0dCnxLEOBCXpTJfp6Qk9cq"}
-                    onChange={val=>setValid(val!==undefined)} />
-            }
-        </Card>
-        <Button width='320px' label={stype==='queue'?'GET QUEUE':'BOOK NOW'} onClick={onClick} mloading={loading} enable={valid} isPrimary/>
+        <Container margin='15% 0 0 0' width='100%'>
+            
+            <Text size='16px' textalign='center' margin='5% 10%' weight='bold'  isPrimary>{getL('wlc_sec')}</Text>
+            <Card width='320px' padding='2px' margin='0 auto' direction='column'>
+                {
+                
+                        forms.map((item,i) => item.show && 
+                        <FormControl key={i} className={classes.margin}>
+                            <InputLabel shrink htmlFor={item.keyword}>
+                            {item.label}
+                            </InputLabel>
+                            <BootstrapInput defaultValue="" id={item.keyword} onChange={e=>setForms(
+                                                    forms.map( jitem => jitem.id === item.id ? {...jitem,...{ value : e.target.value } } : jitem ) 
+                                                    ) 
+                                                } fullWidth />
+                        </FormControl>
+                            // <TextField key={i}
+                            // style={{margin:'0 0 8px'}}
+                            // label={item.label}
+                            // value={item.value}
+                            
+                            // InputLabelProps={{ shrink: true }} 
+                            // fullWidth />
+                        )
+                    
+                }
+                {
+                    recaptchaVer === 'v2'&&
+                    <ReCAPTCHA
+                        style={{selfAlign:'center',margin:'16px 0 0'}}
+                        sitekey={"6LdwSMQZAAAAANPSKk0dCnxLEOBCXpTJfp6Qk9cq"}
+                        onChange={val=>setValid(val!==undefined)} />
+                }
+            </Card>
+            <Button width='320px' 
+                mColor='#3E474F' 
+                label={stype==='queue'?'Start Rating':'Start Rating'} 
+                onClick={onClick} 
+                mloading={loading} 
+                enable={valid} 
+                isPrimary
+                alignself="center"
+                />
+        </Container>
     </Content>
     <Background/>
-    <BottomBar/>
     <Error message={error} show={error!=undefined} onClose={()=>setError()} />
     </ThemeProvider>
     </Loader>

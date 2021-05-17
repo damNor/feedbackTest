@@ -14,8 +14,8 @@ const Container = styled(animated.div)`
     flex-direction  : ${p=>p.direction??'column'};
     flex-shrink     : 0;
     flex-wrap       : ${p=>p.wrap};
-    align-items     : ${p=>p.align??(p.center?'center':'flex-start')};
-    justify-content : ${p=>p.justify??(p.center?'center':'flex-start')};
+    align-items     : ${p=>p.align  ?? (p.center?'center':'flex-start') };
+    justify-content : ${p=>p.justify ?? (p.center?'center':'flex-start') };
     align-self      : ${p=>p.alignself};
     border          : ${p=>p.border};
     border-radius   : ${p=>p.borderradius};

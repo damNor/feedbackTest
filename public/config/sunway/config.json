@@ -19,9 +19,9 @@
 
     "features":{
         "queue"         : true,
-        "appointment"   : false,
+        "appointment"   : true,
         "qstatus"       : true,
-        "feedback"      : false,
+        "feedback"      : true,
         "whatsapp"      : true,
         "sms"           : true
     },

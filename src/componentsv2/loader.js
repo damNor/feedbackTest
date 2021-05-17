@@ -11,11 +11,14 @@ const Loader = ({children}) =>{
     const state     = useSelector(state=>state.loadstate)
     const setState  = s => dispatch(setConfigState(s))
 
-    useEffect(()=>{
+    useEffect(()=>
+    {
         const favicon = document.getElementById("favicon")
         favicon.href  = `config/${id}/images/favicon.ico`
 
         if(Object.keys(config).length !== 0) return;
+
+        console.log('id', id );
 
         setState('loading')
         fetch(`/config/${id}/config.json`)
@@ -39,7 +42,9 @@ const Loader = ({children}) =>{
         .catch(e=>setState('invalid'))
     },[id])
 
-    switch (state) {
+    console.log('state', state);
+    switch (state) 
+    {
         case 'loading'  : return <>Loading...</>
         case 'invalid'  : return <>Please scan the QR on ticket to proceed</>
         case 'valid'    : return children

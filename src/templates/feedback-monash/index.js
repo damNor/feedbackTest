@@ -8,7 +8,8 @@ import Container from './../../components/container'
 import Welcome  from './welcome'
 import Feedback from './feedback';
 
-const Component = () => {
+const Component = () => 
+{
     const dispatch          = useDispatch()
     const [loading,toggle]  = useState(true);
 
@@ -23,7 +24,8 @@ const Component = () => {
         readconfig();
     },[])
 
-    const Animated = () =>{
+    const Animated = () =>
+    {
         const location    = useLocation();
         const theme       = useSelector(state=>state.config.theme);
         const transitions = useTransition(location, location => location.pathname, {

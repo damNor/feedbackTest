@@ -4,7 +4,7 @@ import {useHistory,useParams} from 'react-router-dom'
 import {getQueueNumber} from './../../data/api'
 import {selectService,setTimeslots} from './../../data/actions'
 import ReCAPTCHA from "react-google-recaptcha";
-
+import Helmet from "react-helmet";
 
 ////////////////////////////////////////////////////////////////////////////////
 import Container from './../../components/container'
@@ -51,9 +51,23 @@ const Component = () => {
             'name'  : forms.find(e=> e.keyword === 'name').value,
             'phone' : ''
         }
-        console.log(customer);
-        const response = await getQueueNumber(config.server,selBranch.mid,selDept.dept_id,selService.serv_id,customer);
-        if(response.error){
+        console.log('customer',customer);
+        const response = await getQueueNumber(
+                                                config.server,
+                                                selBranch.mid,
+                                                selDept.dept_id,
+                                                selService.serv_id,
+                                                customer
+                                              );
+        console.log('config.server ',config.server);
+        console.log('selBranch.mid ',selBranch.mid);
+        console.log('selDept.dept_id ',selDept.dept_id);
+        console.log('selService.serv_id ',selService.serv_id);
+        console.log('customer ',customer);
+                                                      
+        if(response.error)
+        {
+            console.log('response.error', response.error);
         }else{
             console.log(response);
             localStorage.setItem('queue',JSON.stringify(response));
@@ -62,29 +76,34 @@ const Component = () => {
     }
 
     //////////////////////////////////////////////////////////////////////////// define UI
-    return <Container flex={1} padding='16px' align='center'>
-        <Text margin='8px 0'>Forms</Text>
-        {
-            forms.map((item,i)=><Input key={i}
-                type={item.type}
-                label={item.label}
-                value={item.val}
-                margin='8px 16px'
-                onChange={e=>{
-                    setForms(forms.map(jitem=>jitem.id === item.id?{...jitem,...{value:e}}: jitem))
-                }} />)
-        }
-        {/*<ReCAPTCHA
-            style={{selfAlign:'center',margin:16}}
-            sitekey={"6LdwSMQZAAAAANPSKk0dCnxLEOBCXpTJfp6Qk9cq"}
-            onChange={(val)=>{console.log(val)}}
-        />*/}
-        <Button isPrimary
-            width='220px'
-            label='SUBMIT'
-            onClick={onSubmit}
-        />
-    </Container>
+    return <>
+         <Helmet>
+            <title>Form Page</title>
+        </Helmet>
+        <Container flex={1} padding='16px' align='center'>
+            <Text margin='8px 0'>Forms</Text>
+            {
+                forms.map((item,i)=><Input key={i}
+                    type={item.type}
+                    label={item.label}
+                    value={item.val}
+                    margin='8px 16px'
+                    onChange={e=>{
+                        setForms(forms.map(jitem=>jitem.id === item.id?{...jitem,...{value:e}}: jitem))
+                    }} />)
+            }
+            {/*<ReCAPTCHA
+                style={{selfAlign:'center',margin:16}}
+                sitekey={"6LdwSMQZAAAAANPSKk0dCnxLEOBCXpTJfp6Qk9cq"}
+                onChange={(val)=>{console.log(val)}}
+            />*/}
+            <Button isPrimary
+                width='220px'
+                label='SUBMIT'
+                onClick={onSubmit}
+            />
+        </Container>
+    </> 
 
 
     //////////////////////////////////////////////////////////////////////////// End

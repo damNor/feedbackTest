@@ -3,7 +3,8 @@ import {useDispatch,useSelector} from 'react-redux';
 import {useHistory,useParams} from 'react-router-dom'
 import {fetchTimeslots} from './../../data/api/timeslots'
 import {selectTimeslot} from './../../data/actions'
-
+import {VERSION,CONFIG_PATH} from './'
+import Helmet from "react-helmet";
 
 ////////////////////////////////////////////////////////////////////////////////
 import Container from './../../components/container'
@@ -12,7 +13,8 @@ import Text from './../../components/text'
 
 
 //////////////////////////////////////////////////////////////////////////////// Start
-const Component = () => {
+const Component = () => 
+{
     const navigate   = useHistory()
     const dispatch   = useDispatch()
     const {id}       = useParams()
@@ -26,7 +28,9 @@ const Component = () => {
 
 
     //////////////////////////////////////////////////////////////////////////// config loader
-    useEffect(()=>{
+    useEffect(()=>
+    {
+        console.log('timeslots ' ,timeslots);
         if(Object.keys(config).length === 0 || timeslots === undefined)
             navigate.push('/'+id+'/')
         else if (timeslots.length>0)
@@ -46,7 +50,7 @@ const Component = () => {
 
     const onNextClick = () =>{
         dispatch(selectTimeslot({date:selectedDate.date,time:selectedTime.time}))
-        navigate.push('/'+id+'/forms')
+        navigate.push('/'+id+'/f')
     }
 
 
@@ -59,6 +63,7 @@ const Component = () => {
         width='100px'
         align='center'
         background={selectedDate===undefined?'':selectedDate.date === date.date?'whitesmoke':''}
+        cursor='pointer'
         onClick={()=>onClickDate(date)}>
         <Text>{date.date}</Text>
     </Container>
@@ -70,6 +75,7 @@ const Component = () => {
         margin="6px"
         width='100px'
         align='center'
+        cursor='pointer'
         background={selectedTime.time === time.time?'whitesmoke':''}
         onClick={()=>onClickTime(time)}>
         {time.time}
@@ -77,20 +83,29 @@ const Component = () => {
 
 
     //////////////////////////////////////////////////////////////////////////// define UI
-    return <Container flex={1} padding='16px' align='center'>
+    return <>
+        <Helmet>
+            <title>Timeslot Page</title>
+        </Helmet>
+        <Container flex={1} padding='16px' align='center'>
+        <img src={CONFIG_PATH + id + "/images/logo.png"} style={{width:200}}/>
         <Text margin='8px 0'>Timeslots</Text>
-        <Text padding='8px 6px 0' mwidth='450px' textalign='left'>Date</Text>
+        <Text padding='8px 6px 0' mwidth='450px' textalign='left'>Choose Date</Text>
         <Container direction='row' width='450px' wrap='wrap'>
         {
             timeslots === undefined?'':
-            timeslots.map((item,i)=><Date key={i} date={item} />)
+            timeslots.map(  (item,i)=>
+                <Date key={i} date={item} />
+            )
         }
         </Container>
-        <Text padding='8px 6px 0' mwidth='450px' textalign='left'>Time</Text>
+        <Text padding='8px 6px 0' mwidth='450px' textalign='left'>Choose Time</Text>
         <Container direction='row' width='450px' wrap='wrap'>
         {
             selectedDate === undefined?'':
-            selectedDate.time.map((item,i)=><Time key={i} time={item} />)
+            selectedDate.time.map(  (item,i)=>
+                <Time key={i} time={item} />
+            )
         }
         </Container>
         <Button isPrimary
@@ -100,7 +115,7 @@ const Component = () => {
             onClick={onNextClick}
         />
     </Container>
-
+    </>
 
     //////////////////////////////////////////////////////////////////////////// End
 }

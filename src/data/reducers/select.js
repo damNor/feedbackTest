@@ -1,9 +1,11 @@
 import * as actions from "./../actions/actiontype";
 import produce from "immer";
 
-const selectReducer = (state={language:{id:0}},action) =>
-    produce(state,draft =>{
-        switch (action.type) {
+const selectReducer = (state= { language:{id:0} }, action) =>
+    produce(state,draft =>
+    {
+        switch (action.type) 
+        {
             case actions.SELECTED_LANGUAGE:
                 draft.language = action.payload;
                 break;

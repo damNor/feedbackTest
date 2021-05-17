@@ -3,7 +3,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {useHistory,useParams} from 'react-router-dom'
 import {fetchTimeslots} from './../../data/api/timeslots'
 import {selectService,setTimeslots} from './../../data/actions'
-
+import Helmet from "react-helmet";
 
 ////////////////////////////////////////////////////////////////////////////////
 import Container from './../../components/container'
@@ -34,22 +34,29 @@ const Component = () => {
 
 
     //////////////////////////////////////////////////////////////////////////// functions
-    const onClick = async(service) =>{
-        console.log('click c');
+    const onClick = async(service) =>
+    {
+        console.log('click service');
         setSelected(service)
         dispatch(selectService(service))
         navigate.push('/'+id+'/f')
 
         // assume not booking but straight get q
-        // const response = await fetchTimeslots();
-        // console.log(response);
-        // if(response.error){
-        //     //todo
-        // }else{
-        //     dispatch(selectService(service))
-        //     dispatch(setTimeslots(response))
-        //     navigate.push('/'+id+'/timeslots')
-        // }
+        const response = await fetchTimeslots();
+        console.log('onClick service response ',response);
+        if(response.error)
+        {
+            //todo
+            console.log('response.error');
+        }else
+        {
+            console.log('response run');
+            dispatch(selectService(service));
+            console.log('response run 1');
+            dispatch(setTimeslots(response));
+            console.log('response run 2');
+            navigate.push('/'+id+'/t');
+        }
     }
 
 
@@ -86,7 +93,11 @@ const Component = () => {
 
 
     //////////////////////////////////////////////////////////////////////////// define UI
-    return <Container flex={1} align='center'>
+    return <>
+    <Helmet>
+        <title>Service Page</title>
+    </Helmet>
+    <Container flex={1} align='center'>
         <Text margin='16px 0 8px'>Services</Text>
         {
             services === undefined?'':
@@ -94,7 +105,7 @@ const Component = () => {
         }
         {loading?<Loading />:''}
     </Container>
-
+    </>
 
     //////////////////////////////////////////////////////////////////////////// End
 }

@@ -14,7 +14,8 @@ const Container = styled.div`
     bottom   : 0px;
 `;
 
-const Component = props => {
+const Component = props => 
+{
     const {id} = useParams()
     return <Container {...props}>
         <Image src={`config/${id}/images/global_bg.png`} onError={e=>e.target.src = Transparent} />

@@ -1,5 +1,5 @@
 {
-  "name": "customer-portal",
+  "name": "pantaiHospital",
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
@@ -15,6 +15,7 @@
     "react-dom": "^17.0.1",
     "react-google-recaptcha": "^2.1.0",
     "react-google-recaptcha-v3": "^1.8.1",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.2.0",
     "react-moment": "^1.1.1",
     "react-qr-code": "^1.0.5",

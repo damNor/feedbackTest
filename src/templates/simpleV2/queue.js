@@ -188,13 +188,19 @@ const Component = () => {
     //////////////////////////////////////////////////////////////////////////// define UI
     return <>
         {   loadCfg || loadQ === 'load' && <GrayoutBg>Loading...</GrayoutBg> }
-        {   loadQ === 'failed' && <GrayoutBg><Dialog title={'Invalid QR Code'} body={'This Qr code dosent exist is our system'} /></GrayoutBg> }
-        {   dialog && <GrayoutBg><Dialog
-                title={'Receive SMS Notification'}
-                body={<><div>Phone</div><CustomInput key={'myinput'} type="number" value={phone} onChange={(e)=>setPhone(e.target.value)} autoFocus /></>}
-                loading={submit}
-                onClick={onSubmitPhone}
-                onCancel={()=>showDialog(false)} /></GrayoutBg>
+        
+        {   loadQ === 'failed' && <GrayoutBg>
+                <Dialog title={'Invalid QR Code'} body={'This Qr code dosent exist is our system'} />
+            </GrayoutBg> }
+        
+        {   dialog && <GrayoutBg>
+                <Dialog
+                    title={'Receive SMS Notification'}
+                    body={<><div>Phone</div><CustomInput key={'myinput'} type="number" value={phone} onChange={(e)=>setPhone(e.target.value)} autoFocus /></>}
+                    loading={submit}
+                    onClick={onSubmitPhone}
+                    onCancel={()=>showDialog(false)} />
+                </GrayoutBg>
         }
         <Container background='whitesmoke' flex={1} overflowy='auto' align='center'>
             <div style={{position:'absolute',width:'100%',height:150,background:theme&&theme.btnprimary,zIndex:0}}/>
