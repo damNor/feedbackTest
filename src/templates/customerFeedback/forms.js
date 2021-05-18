@@ -1,15 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import {useHistory,useParams} from 'react-router-dom'
-import {getQueueNumber,bookappointment,validateV3} from './../../data/api'
-//import {selectService,setTimeslots} from './../../data/actions'
-import {FaMapMarkerAlt} from 'react-icons/fa'
-import styled from 'styled-components'
+import {validateV3} from './../../data/api'
 import Loader from './loader'
-
 import { Form } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 /* 
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
@@ -20,11 +15,8 @@ import {
   } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase'; 
 */
-
-
 import ReCAPTCHA from "react-google-recaptcha"
 import Cookies from 'universal-cookie'
-import moment from 'moment'
 import { GoogleReCaptchaProvider, GoogleReCaptcha} from 'react-google-recaptcha-v3';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
