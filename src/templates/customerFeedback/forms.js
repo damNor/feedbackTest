@@ -6,6 +6,11 @@ import {getQueueNumber,bookappointment,validateV3} from './../../data/api'
 import {FaMapMarkerAlt} from 'react-icons/fa'
 import styled from 'styled-components'
 import Loader from './loader'
+
+import { Form } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* 
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,7 +18,8 @@ import {
     fade,
     withStyles,
   } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
+import InputBase from '@material-ui/core/InputBase'; 
+*/
 
 
 import ReCAPTCHA from "react-google-recaptcha"
@@ -75,12 +81,16 @@ const Component = () => {
         setForms(formsetups)
     },[])
 
-    const onClick = async () =>{
+    const onClick = async () =>
+    {
         toggle(true)
-        let customer = {}
-        forms.map(item=>customer[item.keyword] = item.value)
-        console.log(customer);
-
+        let formData = {}
+        forms.map(item=>formData[item.keyword] = item.value)
+        console.log('formData ',formData);
+        toggle(false)
+        navigate.push(`/${id}/q`)
+        
+        /* 
         if (stype === 'queue')
         {
             const rqueue = await getQueueNumber(config.server,sbranch.mid,sdept.dept_id,sserv.serv_id,customer);
@@ -110,7 +120,8 @@ const Component = () => {
             history.push(rbook)
             localStorage.setItem('booking',JSON.stringify(history))
             navigate.push(`/${id}/a`)
-        }
+        } 
+        */
     }
 
     const onVerify = async (token) =>{
@@ -123,11 +134,11 @@ const Component = () => {
         // console.log('resp',resp);
     }
 
-    const useStyles = makeStyles((theme) => ({
+   /*  
+   const useStyles = makeStyles((theme) => ({
         root: {
           display: 'flex',
           flexWrap: 'wrap',
-        //   width:'100%',
         },
         margin: {
           margin: '5px 0',
@@ -140,7 +151,6 @@ const Component = () => {
         root: {
           'label + &': {
             marginTop: theme.spacing(2),
-            // padding:'2px'
           },
         },
         input: {
@@ -154,7 +164,6 @@ const Component = () => {
           fullWidth:true,
           padding: '2px 3px',
           transition: theme.transitions.create(['border-color', 'box-shadow']),
-          // Use the system font instead of the default Roboto font.
           fontFamily: [
             '-apple-system',
             'BlinkMacSystemFont',
@@ -172,7 +181,8 @@ const Component = () => {
             borderColor: theme.palette.primary.main,
           },
         },
-      }))(InputBase);
+      }))(InputBase); 
+      */
 
     return <Loader>
     <ThemeProvider theme={themeprovider}>
@@ -191,29 +201,26 @@ const Component = () => {
         <Container margin='15% 0 0 0' width='100%'>
             
             <Text size='16px' textalign='center' margin='5% 10%' weight='bold'  isPrimary>{getL('wlc_sec')}</Text>
-            <Card width='320px' padding='2px' margin='0 auto' direction='column'>
+            {/* <Card width='320px' padding='2px' margin='0 auto' direction='column'> */}
+            <Container width='50%' alignself='center '>
+                <Form>
                 {
+                    forms.map((item,i) => item.show && 
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label style={{fontWeight:'bolder'}}>{item.label}</Form.Label>
+                        <Form.Control type="text"/>
+                    </Form.Group>
                 
-                        forms.map((item,i) => item.show && 
-                        <FormControl key={i} className={classes.margin}>
-                            <InputLabel shrink htmlFor={item.keyword}>
-                            {item.label}
-                            </InputLabel>
-                            <BootstrapInput defaultValue="" id={item.keyword} onChange={e=>setForms(
-                                                    forms.map( jitem => jitem.id === item.id ? {...jitem,...{ value : e.target.value } } : jitem ) 
-                                                    ) 
-                                                } fullWidth />
-                        </FormControl>
-                            // <TextField key={i}
-                            // style={{margin:'0 0 8px'}}
-                            // label={item.label}
-                            // value={item.value}
-                            
-                            // InputLabelProps={{ shrink: true }} 
-                            // fullWidth />
-                        )
-                    
+                        // <TextField key={i}
+                        // style={{margin:'0 0 8px'}}
+                        // label={item.label}
+                        // value={item.value}
+                        
+                        // InputLabelProps={{ shrink: true }} 
+                        // fullWidth />
+                    )
                 }
+                </Form>
                 {
                     recaptchaVer === 'v2'&&
                     <ReCAPTCHA
@@ -221,13 +228,14 @@ const Component = () => {
                         sitekey={"6LdwSMQZAAAAANPSKk0dCnxLEOBCXpTJfp6Qk9cq"}
                         onChange={val=>setValid(val!==undefined)} />
                 }
-            </Card>
+            {/* </Card> */}
+            </Container>
             <Button width='320px' 
                 mColor='#3E474F' 
                 label={stype==='queue'?'Start Rating':'Start Rating'} 
                 onClick={onClick} 
                 mloading={loading} 
-                enable={valid} 
+                // enable={valid} 
                 isPrimary
                 alignself="center"
                 />
