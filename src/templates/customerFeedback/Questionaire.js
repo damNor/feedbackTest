@@ -2,15 +2,8 @@ import React,{useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import {useHistory,useParams} from 'react-router-dom'
 import Cookies from 'universal-cookie'
-import Block from "./Block1";
+import Section from "./Section";
 
-import StarRating from './StarRating'
-import CustomizedRatings from './CustomizedRatings'
-import HoverRating from './HoverRating'
-
-import { Modal, Button} from "react-bootstrap"
-import LoginForm from "./LoginForm";
-import "bootstrap/dist/css/bootstrap.css"
 
 import './../../block.css';
 import Container,{Content} from './../../componentsv2/container'
@@ -19,7 +12,7 @@ import Loader from './../../componentsv2/loader'
 import Error from './../../componentsv2/error'
 import Logo from './../../componentsv2/logo'
 import Language from './../../components/language'
- 
+import Text from './../../componentsv2/text'
 
 const Component = () => {
     const {id}      = useParams()
@@ -73,6 +66,15 @@ const Component = () => {
         e.prevenDefault();
         this.handleClose();
     }
+
+    const departments = [
+        { id: "1", title: "Reception / Concierge / Information Counter"},
+        { id: "2", title: "Accident & Emergency"},
+        { id: "3", title: "Admission / Registration"},
+        { id: "4", title: "Wards"},
+        { id: "5", title: "Outpatient Clinics"},
+    ];
+    
     useEffect(()=>
     {
         if(config==undefined ||  (Object.keys(config).length == 0) )
@@ -87,135 +89,29 @@ const Component = () => {
         <Loader>
         <Content style={{backgroundColor:'#DDEEFE'}}>
             <Language alignself='flex-end'/>
-            <Container style={{backgroundColor:'#FFF',position:'absolute',top:0}} width='100%'>
+            <Container background='#FFF' position='absolute' top='0' width='100%'>
                 <Logo alignself='center' margin='5% 0 2% 0'/>
+            </Container>
+            <Container background='#0072BC' width='100%' height='13%' align='center' margin='11% 0 0 0'  >
+                <Text size='1.2rem' mcolor='white' margin='4% 0 0'>
+                    Good day, please select the serviceyou would like to rate.
+                </Text>
             </Container>
             <BackButton />
             <Container flex={2} />
             <Container className="container" margin="15% 0 0 0" style={{overflowX:'scroll'}} >
-
-                
-                <Button style={{background:'#007bff'}} variant="primary" onClick={handleShow} >Launch</Button> 
-               
-                <StarRating />
-                <br />
-                <CustomizedRatings />
-                <br />
-                <HoverRating /> 
-                <br />
-                <br />
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title className="text-center" style={{width:'100%'}}>Please Select</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <LoginForm onSubmit={onLoginFormSubmit} />
-                    </Modal.Body> 
-                    <Modal.Footer>
-                        
-                    </Modal.Footer>
-                </Modal>        
-
-                <Block 
-                    title="1. Reception / Concierge / Information Counter"
-                    section="1"
-                    >
-                    <div className="content"></div>
-                </Block>
-                <Block
-                    title="2. Accident & Emergency"
-                    section="2"
-                    >
-                    <div className="content"></div>
-                </Block>
-                <Block
-                    title="3. Admission / Registration"
-                    isOpen={state[2]}
-                    onToggle={() => setState({ type: "toggle", index: 2 })} 
-                    template={id} 
-                    section="3" >
-                    <div className="content"></div>
-                </Block>
-
-                <Block
-                    title="4. Wards"
-                    isOpen={state[3]}
-                    onToggle={() => setState({ type: "toggle", index: 3 })} 
-                    template={id} 
-                    section="4" >
-                    <div className="content"></div>
-                </Block>
-
-                <Block
-                    title="5. Outpatient Clinics"
-                    isOpen={state[4]}
-                    onToggle={() => setState({ type: "toggle", index: 4 })} 
-                    template={id} 
-                    section="5" >
-                    <div className="content"></div>
-                </Block>
-
-                <Block
-                    title="6. Health Screening Centre"
-                    isOpen={state[5]}
-                    onToggle={() => setState({ type: "toggle", index: 5 })} 
-                    template={id} 
-                    section="6" >
-                    <div className="content"></div>
-                </Block>
-                <Block
-                    title="7. Lab"
-                    isOpen={state[6]}
-                    onToggle={() => setState({ type: "toggle", index: 6 })}
-                    template={id} 
-                    section="7" >
-                    <div className="content"></div>
-                </Block>
-
-                <Block
-                    title="8. Imaging"
-                    isOpen={state[7]}
-                    onToggle={() => setState({ type: "toggle", index: 7 })} 
-                    template={id} 
-                    section="8" >
-                    <div className="content"></div>
-                </Block>
-
-                <Block
-                    title="9. Rehab"
-                    isOpen={state[8]}
-                    onToggle={() => setState({ type: "toggle", index: 8 })} 
-                    template={id} 
-                    section="9" >
-                    <div className="content"></div>
-                </Block>
-
-                <Block
-                    title="10. Billing / Cashier / Accounts"
-                    isOpen={state[9]}
-                    onToggle={() => setState({ type: "toggle", index: 9 })} 
-                    template={id} 
-                    section="10" >
-                    <div className="content"></div>
-                </Block>
-
-                <Block
-                    title="11. Pharmacy"
-                    isOpen={state[10]}
-                    onToggle={() => setState({ type: "toggle", index: 10 })} 
-                    template={id} 
-                    section="11" >
-                    <div className="content"></div>
-                </Block>
-
-                <Block
-                    title="12. Security Services"
-                    isOpen={state[11]}
-                    onToggle={() => setState({ type: "toggle", index: 11 })} 
-                    template={id} 
-                    section="12" >
-                    <div className="content"></div>
-                </Block>
+                {departments.map(  (data) => 
+                (
+                    <>
+                        <Section 
+                        title={data.title}
+                        section={data.id} 
+                        template='feedback'
+                        >
+                        <div className="content"></div>
+                        </Section>
+                    </>
+                ))}
             </Container>
 
             <Container flex={3}/>

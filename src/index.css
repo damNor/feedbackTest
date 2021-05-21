@@ -35,3 +35,7 @@ html,body,#root{
     width: 0px;
     background: transparent;
 } */
+.active-smiley-state{
+    background: #82D9FF;
+    border-radius: 50px;
+}

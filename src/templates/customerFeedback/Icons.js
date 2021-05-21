@@ -15,110 +15,56 @@ const Image = styled.img`
 `;
 
 const choices = [
-    { id: 1, score: "1", text: "Excellent"},
-    { id: 2, score: "2", text: "Good"},
-    { id: 3, score: "3", text: "Fair"},
-    { id: 4, score: "4", text: "Poor"},
-    { id: 5, score: "5", text: "Very Poor"},
+    { id: "1", score: "1", text: "Excellent"},
+    { id: "2", score: "2", text: "Good"},
+    { id: "3", score: "3", text: "Fair"},
+    { id: "4", score: "4", text: "Poor"},
+    { id: "5", score: "5", text: "Very Poor"},
 ];
 
 class Icons extends Component 
 {
-    state = {
-        // show : false,
-        isActive : 'default',
-        imageID:''
-    }
-
-    // handleShow = () => {
-    //     this.setState( {show:true} )
+    // state = {
+    //     // show : false,
+    //     isActive : 'default',
+    //     imageID:''
     // }
-    
-    // handleClose = () => {
-    //     this.setState( {show:false} )
-    // }
-    handleClick = (e) => {
-        // console.log(data);
-        const currentState = this.state.active
-        this.setState({
-            isActive: !currentState,
-            imageID : e.target.id
-        })
-        // this.myRef.current.src = "";
-        console.log('e.target.id',e.target.id);
-        console.log('this.myRef.current',this.myRef.current);
 
-        // document.getElementById(e.target.id).setAttribute("style","border:1px solid");
-    }
-    
     constructor(props) 
     {
         super(props);
-        // const [textRating, setTextRating] = useState("");
-        // this.state = { textRating: "", show : false, isActive :'' };
         this.template = props.templateID;
         this.section  = props.sectionID;
-        console.log('template',props.templateID);
-        console.log('section',props.sectionID);
+        this.imageID  = props.imageID;
+        // this.iconNumber = props.iconNumber;
+        // this.openIcon = props.openIcon;
 
-        this.myRef = createRef();
-        this.image = null;
-        this.setMyRef = element => {
-            this.image = element
-        }
-        console.log('this.image',this.image)
+        // this.isActive = { isIconActive : false}
+
+        console.log('props',props);
+
+        this.state = {isIconActive:false}
+        this.handleClick = this.handleClick.bind(this)// don't forget
+    }
+
+    handleClick() {
+        this.setState({
+            isIconActive: !this.state.isIconActive,
+        })
+        this.props.openIcon(this.props.iconNumber, this.props.sectionID)
     }
     
-    componentDidMount(){
-
-    }
-
     render() 
     {
-        // const [show,setShow] = this.setState({show :false})
-        // this.state = { show : false}
-        // const handleClose = () => setShow(false)
-        // console.log('show',this.state.show)
-
-        const onLoginFormSubmit = (e) => {
-            e.prevenDefault();
-            this.handleClose();
-        }
-        console.log('isActive',this.state.isActive);
+        console.log('isActive',this.state.isIconActive);
         return (
-            
-            <>
-            <div style={{display:'flex',width:'100%'}}>
-                {choices.map(({ id }) => 
-                (
-                    <>
-                        <Image
-                            style={{width:'30px'}}
-                            className={this.state.isActive ? 'acitve' : ''} 
-                            id={`icon-${this.section}${id}`} 
-                            src={`config/${this.template}/images/icon-${id}.png`} 
-                        onClick={this.handleClick} 
-                        ref={this.setMyRef} 
-                            />
-                    </>
-                ))}
-            </div>
-
-            {/* 
-            <Button style={{background:'#007bff'}} variant="primary" onClick={   this.handleShow} >Launch</Button>
-            <Modal show={this.state.show} onHide={this.handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title className="text-center" style={{width:'100%'}}>Please Select</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <LoginForm onSubmit={this.onLoginFormSubmit} />
-                </Modal.Body> 
-                <Modal.Footer>
-                    
-                </Modal.Footer>
-            </Modal>         
-            */}
-            </>
+            <img
+                    style={{width:'16%',margin:'2% 2.5%','cursor':'pointer'}}
+                    className={this.state.isIconActive ? 'active' : null} 
+                    id={`icon-${this.section}${this.imageID}`} 
+                    src={`config/feedback/images/icon-${this.imageID}.png`} 
+                    onClick={this.handleClick} 
+                />
         );
     }
 }
