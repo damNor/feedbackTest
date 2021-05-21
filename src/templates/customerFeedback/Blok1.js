@@ -32,7 +32,7 @@ const choices = [
 
 
 
-const Block = ({ isOpen, title, onToggle, children, template, section }) => 
+const Block1 = ({ title }) => 
 {
   const [isActive, setIsActive] = useState(true)
   const [imageID, setImageID] = useState()
@@ -42,13 +42,8 @@ const Block = ({ isOpen, title, onToggle, children, template, section }) =>
   },[])
   
   const handleClick1 = (e) => {
-    // console.log(data);
+
     const currentState = isActive
-    // this.setState({
-    //     isActive: !currentState,
-    //     imageID : e.target.id
-    // })
-  
     setIsActive(!currentState)
     setImageID(e.target.id)
   
@@ -59,28 +54,7 @@ const Block = ({ isOpen, title, onToggle, children, template, section }) =>
     // document.getElementById(e.target.id).setAttribute("style","border:1px solid");
   }
 
-  const handleClick2 = (e) => {
-    const currentState = isActive
-    setIsActive(!currentState)
-    setImageID(e.target.id)
-  
-    console.log('e.target.id',e.target.id);
-    console.log('this.myRef.current',myRef.current);
-  }
-
-  const handleClick3 = (e) => {
-    const currentState = isActive
-    setIsActive(!currentState)
-    setImageID(e.target.id)
-  
-    console.log('e.target.id',e.target.id);
-    console.log('this.myRef.current',myRef.current);
-  }
-  // const state = {
-  //   isActive : '',
-  //   imageID:''
-  // }
-     
+    
   return (
     <div className="block">
       <div className="btn toggle" onClick={onToggle}>
@@ -128,4 +102,4 @@ const Block = ({ isOpen, title, onToggle, children, template, section }) =>
     </div>
   );
 };
-export default Block;
+export default Block1;

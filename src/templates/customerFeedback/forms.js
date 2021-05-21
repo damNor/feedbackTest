@@ -18,10 +18,6 @@ import InputBase from '@material-ui/core/InputBase';
 import ReCAPTCHA from "react-google-recaptcha"
 import Cookies from 'universal-cookie'
 import { GoogleReCaptchaProvider, GoogleReCaptcha} from 'react-google-recaptcha-v3';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import { makeStyles } from '@material-ui/core/styles';
-
 import Container,{Content,Card} from './../../componentsv2/container'
 import Button,{BackButton} from './../../componentsv2/button'
 import Background from './../../componentsv2/background'
@@ -56,12 +52,6 @@ const Component = () => {
     const [valid,setValid]  = useState(false)
     const [error,setError]  = useState()
 
-    const themeprovider = createMuiTheme({
-        typography: { fontFamily: [theme&&theme.font,
-            'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue','sans-serif'
-        ].join(',') }
-    });
-
     useEffect(()=>{
         if(config == undefined || (Object.keys(config).length == 0) )
         {
@@ -81,39 +71,6 @@ const Component = () => {
         console.log('formData ',formData);
         toggle(false)
         navigate.push(`/${id}/q`)
-        
-        /* 
-        if (stype === 'queue')
-        {
-            const rqueue = await getQueueNumber(config.server,sbranch.mid,sdept.dept_id,sserv.serv_id,customer);
-            toggle(false)
-            console.log("queue",rqueue);
-            if(rqueue.error){ setError(rqueue.error); return; }
-            navigate.push(`/${id}/q/${rqueue.qr_info}`)
-        }
-        else if (stype === 'booking')
-        {
-            const rbook = await bookappointment(
-                config.server,
-                sbranch.mid,
-                sdept.dept_id,
-                sserv.serv_id,
-                stimes.date,
-                stimes.time,
-                customer.customer_name,
-                customer.customer_id,
-                customer.phone_no,
-                customer.customer_id)
-            toggle(false)
-            console.log('booking',rbook);
-            if(rbook.error){ setError(rbook.error); return; }
-            const mstorage  = localStorage.getItem('booking')??'[]'
-            const history   = JSON.parse(mstorage)
-            history.push(rbook)
-            localStorage.setItem('booking',JSON.stringify(history))
-            navigate.push(`/${id}/a`)
-        } 
-        */
     }
 
     const onVerify = async (token) =>{
@@ -126,58 +83,8 @@ const Component = () => {
         // console.log('resp',resp);
     }
 
-   /*  
-   const useStyles = makeStyles((theme) => ({
-        root: {
-          display: 'flex',
-          flexWrap: 'wrap',
-        },
-        margin: {
-          margin: '5px 0',
-        }
-    }));
-
-    const classes = useStyles();
-
-    const BootstrapInput = withStyles((theme) => ({
-        root: {
-          'label + &': {
-            marginTop: theme.spacing(2),
-          },
-        },
-        input: {
-          borderRadius: 4,
-          position: 'relative',
-          backgroundColor: theme.palette.common.white,
-          border: '1px solid #ced4da',
-          fontSize: 16,
-          fontWeight:'bolder',
-          width: '120',
-          fullWidth:true,
-          padding: '2px 3px',
-          transition: theme.transitions.create(['border-color', 'box-shadow']),
-          fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-          ].join(','),
-          '&:focus': {
-            boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-            borderColor: theme.palette.primary.main,
-          },
-        },
-      }))(InputBase); 
-      */
-
     return <Loader>
-    <ThemeProvider theme={themeprovider}>
+     
     {
         recaptchaVer === 'v3' &&
         <GoogleReCaptchaProvider reCaptchaKey="6LenHygaAAAAALCX2Uwh6iLTOg9zIMiFY1o7Qg1h">
@@ -198,18 +105,10 @@ const Component = () => {
                 <Form>
                 {
                     forms.map((item,i) => item.show && 
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label style={{fontWeight:'bolder'}}>{item.label}</Form.Label>
-                        <Form.Control type="text"/>
-                    </Form.Group>
-                
-                        // <TextField key={i}
-                        // style={{margin:'0 0 8px'}}
-                        // label={item.label}
-                        // value={item.value}
-                        
-                        // InputLabelProps={{ shrink: true }} 
-                        // fullWidth />
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label style={{fontWeight:'bolder'}}>{item.label}</Form.Label>
+                            <Form.Control type="text"/>
+                        </Form.Group>
                     )
                 }
                 </Form>
@@ -235,7 +134,6 @@ const Component = () => {
     </Content>
     <Background/>
     <Error message={error} show={error!=undefined} onClose={()=>setError()} />
-    </ThemeProvider>
     </Loader>
 }
 
