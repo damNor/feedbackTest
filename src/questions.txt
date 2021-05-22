@@ -1,0 +1,30 @@
+Questions
+
+"Poor Room / Toilet Condition"
+"Food - Poor variety / Flavour / Quality"
+"Long waiting time / Long discharge time"
+"No clear instruction given"
+"Poor Nursing Service"
+"Poor Doctor Service"
+"Other"
+
+"Attended Promptly",
+"Staff helpful / friendly",
+"Clear instruction given",
+"Commendable Staff",
+"Other"
+
+"Good Room / Toilet Condition",
+"Food - Good variety / Flavour / Quality",
+"Attended promptly / Short discharge time",
+"Clear instruction given",
+"Good Nursing Service",
+"Good Doctor Service",
+"Commendable Staff / Doctor",
+"Other",
+
+"Long waiting time",
+"Staff not helpful / not friendly",
+"No clear instruction given",
+"Commendable Staff",
+"Other"

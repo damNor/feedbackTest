@@ -14,7 +14,7 @@ const dataReducer = ( state={} , action ) =>
                 break;
             case actions.SET_SERV:
                 draft.services = action.payload;
-                break;
+                break; 
             case actions.SET_TIMESLOT:
                 draft.timeslots = action.payload;
                 break;
@@ -24,6 +24,8 @@ const dataReducer = ( state={} , action ) =>
             case actions.SET_QUEUE:
                 draft.queue = action.payload;
                 break;
+            case actions.SET_RATING: //for rating
+                draft.rating = action.payload; 
             default:
                 return draft;
         }

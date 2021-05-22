@@ -27,6 +27,8 @@ const selectReducer = (state= { language:{id:0} }, action) =>
             case actions.SELECTED_TYPE:
                 draft.type = action.payload;
                 break;
+            case actions.SELECTED_RATING: //for rating
+                draft.rating = action.payload;
             default:
                 return draft;
         }

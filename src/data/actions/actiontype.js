@@ -8,6 +8,7 @@ export const SET_SERV           = "setservice";
 export const SET_TIMESLOT       = "settimeslot";
 export const SET_APPOINTMENT    = "setappointment";
 export const SET_QUEUE          = "setqueue";
+export const SET_RATING         = "setRating"; //for rating
 
 export const SELECTED_LANGUAGE  = "language";
 export const SELECTED_CUSTOMER  = "customer";
@@ -16,3 +17,4 @@ export const SELECTED_DEPT      = "department";
 export const SELECTED_SERV      = "service";
 export const SELECTED_TIMESLOT  = "timeslot";
 export const SELECTED_TYPE      = "seltype"
+export const SELECTED_RATING    = "rating"; //for rating

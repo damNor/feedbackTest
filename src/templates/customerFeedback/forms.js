@@ -58,7 +58,7 @@ const Component = () => {
             navigate.push(`/${id}/`); 
             return;
         }
-        console.log("formsv2",config );
+        console.log("config formsv2",config );
         const formsetups = (config.formsv2["1"]??config.formsv2.default)??config.forms
         setForms(formsetups)
     },[])

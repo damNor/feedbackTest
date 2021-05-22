@@ -1,8 +1,7 @@
-import React, { useEffect, useState, createRef } from "react";
-import Collapse from "@kunukn/react-collapse";
-import { withStyles } from "@material-ui/core/styles";
-import { Checkbox } from "@material-ui/core";
-import Icons from "./Icons";
+import React, { useState } from "react";
+import {useDispatch,useSelector} from 'react-redux'
+import {useHistory,useParams} from 'react-router-dom'
+import {selectDepartment,selectRating} from './../../data/actions'
 
 import Container,{Content} from '../../componentsv2/container'
 import Text from '../../componentsv2/text'
@@ -26,69 +25,63 @@ const choices = [
   { id: "5", score: "5", text: "Very Poor"},
 ];
 
-// for Icon component
-const onIconClicked= (number,section) =>
-{
-  console.log(`Icon ${number} ${section} was clicked`)
-}
-
 const Section = ({ section, title, template }) => 
 {
-  const[appState,changeState] = useState({
-    activeObject : null,
-    objects : choices
-  })
+    const {id}      = useParams()
+    const navigate  = useHistory()
+    const dispatch  = useDispatch()
+    const[appState,changeState] = useState({
+      activeObject : null,
+      objects : choices
+    })
 
-  function toggleActive(index)
-  {
-    console.log('toggleActive', index);
-    changeState({...appState, activeObject: appState.objects[index]})
-  }
+    function toggleActive(index, section)
+    {
+      console.log('index', index)
+      console.log('section ', section)
+      changeState({...appState, activeObject: appState.objects[index]})
 
-  function toggleActiveStyles(index){
-      if(appState.objects[index] === appState.activeObject){
-        return "active-smiley-state"
-        // console.log("active")
-      }
-      else{
-        return ""
-        // console.log("inactive")
-      }
-        
-  }
-  return (
-    <Container border='' borderradius='10px' background='white' padding='2% 3%' margin='1% 0.5%'>
-        <Text style={{'font-family':'roboto'}} size='1.7rem' margin='4px 0 0' weight='800' mcolor='#0072BC'>{title}</Text>
-        <Container align="space-between" direction="row" alignself="center">
-          {choices.map(({ id }) => 
-          (
-              <>
-                  <img
-                      key={id}
-                      style={{width:'16%',margin:'2% 2.5%','cursor':'pointer'}}
-                      className={toggleActiveStyles(id)}
-                      id={`icon-${section}${id}`} 
-                      src={`config/feedback/images/icon-${id}.png`} 
-                      onClick={() => {
-                        toggleActive(id)
-                      }}
-                  />
-                  {/* 
-                      <Icons templateID={template} 
-                        sectionID={section} 
-                        imageID={id} 
-                        iconNumber={id} 
-                        openIcon={onIconClicked}
-                        
+      console.log('index',index)
+      console.log('section',section)
+      
+      dispatch(selectDepartment(section))  
+      dispatch(selectRating(index))
+      
+      navigate.push(`/${id}/qd`)
+    }
+
+    function toggleActiveStyles(index){
+        if(appState.objects[index] === appState.activeObject){
+          return "active-smiley-state"
+          // console.log("active")
+        }
+        else{
+          return ""
+          // console.log("inactive")
+        }
+          
+    }
+    return (
+      <Container border='' borderradius='10px' background='white' padding='2% 3%' margin='1% 0.5%'>
+          <Text style={{'font-family':'roboto'}} size='1.7rem' margin='4px 0 0' weight='800' mcolor='#0072BC'>{title}</Text>
+          <Container align="space-between" direction="row" alignself="center">
+            {choices.map(({ id }) => 
+            (
+                <>
+                    <img
+                        key={id}
+                        style={{width:'16%',margin:'2% 2.5%','cursor':'pointer'}}
+                        className={toggleActiveStyles(id)}
+                        id={`icon-${section}${id}`} 
+                        src={`config/feedback/images/icon-${id}.png`} 
                         onClick={() => {
-                          toggleActive(id)
-                        }} 
-                        /> 
-                  */}
-              </>
-          ))}
-        </Container>
-    </Container>
-  );
+                          toggleActive(id,section)
+                        }}
+                    />
+                </>
+            ))}
+          </Container>
+      </Container>
+    );
 };
 export default Section;

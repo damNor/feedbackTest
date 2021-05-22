@@ -6,6 +6,7 @@ import Container from './../../components/container'
 import Welcome      from './welcome'
 import Forms        from './forms'
 import Questionaire from './Questionaire'
+import QuestionaireDetail from './QuestionaireDetail'
 
 //////////////////////////////////////////////////////////////////////////////// Constant
 export const VERSION     = "v1.0"
@@ -28,6 +29,7 @@ const Animated  = () => {
                     <Route path='/:id'          exact component={Welcome} />
                     <Route path='/:id/f'        exact component={Forms} />
                     <Route path='/:id/q'        exact component={Questionaire} />
+                    <Route path='/:id/qd'       exact component={QuestionaireDetail} />
                     <Route path='/:id/:unknown' exact component={RouteBack} />
                     <Redirect to='/' />
                 </Switch>
