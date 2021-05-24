@@ -84,28 +84,26 @@ const Component = () =>
 
     const handleChange = (index) => 
     {
-        // console.log('event.target.name',event.target.name)
-        // console.log('event.target.value',event.target.value)
 
         setCheckboxState({
             checkBoxObj : {
                  ...checkBoxObj, ...{[index] : !checkBoxObj[index]} 
             }
         })
-        console.log('checkBoxObj', checkBoxObj);
+        // console.log('checkBoxObj', checkBoxObj[index]); 
+        // console.log('checkBoxObj index', index); 
+        
+        if(index === 3 && (checkBoxObj[index] === false  || checkBoxObj[index] === undefined)){
+            setShowInputField(true)  
+            console.log('handleClick checkBoxObj');
+        }
+        else
+            setShowInputField(false)
     };
 
     const handleClick = (event) => {
         console.log('name',event.target.name)
         console.log('value',event.target.value)
-        
-        if(event.target.name === 'questions[4]' && event.target.value === 'true'){
-            setShowInputField(true)
-            console.log('handleClick checkBoxObj');
-        }
-        else
-            showInputField(false)
-            
     }
   
     // sample End
