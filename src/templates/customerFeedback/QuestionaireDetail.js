@@ -42,7 +42,7 @@ const Component = () =>
     const srating               = useSelector(state=>state.select.rating)
     const sfilleddepartment     = useSelector(state=>state.select.filledDepartment)
     const [detail,setDetail]    = useState({})
-
+    const [showInputField, setShowInputField] = useState(false)
     // sample 
     
     const useStyles = makeStyles((theme) => ({
@@ -66,18 +66,47 @@ const Component = () =>
     const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);  
     
     const classes = useStyles();
-    const [state, setState] = React.useState({
-       checkBoxObj: {}
+    const [checkboxState, setCheckboxState] = useState({
+       checkBoxObj: {} 
     });
   
-    const handleChange = (event) => 
-    {
-        console.log('event.target.name',event.target.name)
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };
-  
-    const { checkBoxObj } = state;
+    const { checkBoxObj } = checkboxState;
 
+    const onClick = async () =>
+    {
+        toggle(true)
+        let formData = {}
+        forms.map(item=>formData[item.keyword] = item.value)
+        console.log('formData ',formData);
+        toggle(false)
+        navigate.push(`/${id}/q`)
+    }
+
+    const handleChange = (index) => 
+    {
+        // console.log('event.target.name',event.target.name)
+        // console.log('event.target.value',event.target.value)
+
+        setCheckboxState({
+            checkBoxObj : {
+                 ...checkBoxObj, ...{[index] : !checkBoxObj[index]} 
+            }
+        })
+        console.log('checkBoxObj', checkBoxObj);
+    };
+
+    const handleClick = (event) => {
+        console.log('name',event.target.name)
+        console.log('value',event.target.value)
+        
+        if(event.target.name === 'questions[4]' && event.target.value === 'true'){
+            setShowInputField(true)
+            console.log('handleClick checkBoxObj');
+        }
+        else
+            showInputField(false)
+            
+    }
   
     // sample End
     useEffect(()=>
@@ -98,16 +127,7 @@ const Component = () =>
         fetchData()
     },[])
 
-    const onClick = async () =>
-    {
-        toggle(true)
-        let formData = {}
-        forms.map(item=>formData[item.keyword] = item.value)
-        console.log('formData ',formData);
-        toggle(false)
-        navigate.push(`/${id}/q`)
-    }
-
+    const inputField = showInputField ? <input type='text' name='other_reason' /> : null
     return <>
         <Loader>
         <Content style={{backgroundColor:'#FFFFFF'}}>
@@ -141,13 +161,18 @@ const Component = () =>
                                 {detail.questions && detail.questions.map( (item,i ) => 
                                 (
                                     <> 
-                                        {console.log(`question_${i}`)}
                                         <FormControlLabel
-                                            control={<CustomCheckbox checked={checkBoxObj[i] || false} onChange={handleChange} name={`questions[${i+1}]`} />}
+                                            control={<CustomCheckbox checked={checkBoxObj[i] || false} onChange={() => handleChange(i)}  onClick={handleClick} value='true' name={`questions[${i+1}]`} />}
                                             label={item} 
                                         />
+                                        {/* {Object.keys(detail.questions).length -1} */}
+                                        
+                                        {/* {(Object.keys(detail.questions).length -1) === i ?  
+                                          <input type='text'  />  : ''
+                                        }  */}
                                     </>
                                 ))}
+                                {inputField}
                                 </FormGroup>
                         </FormControl>
                     
