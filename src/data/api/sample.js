@@ -322,157 +322,157 @@ export const sDepartments = [
 
 ////////////////////////////////////////////////////////////////////////////////
 export const sQuestions =  [
-    {
-      "id": "1",
-      "title": "Reception / Concierge / Information Counter",
-      "choices": [
-        {
-          "id": "1",
-          "questions": [
-            "Long waiting time",
-            "Staff not helpful / not friendly",
-            "No clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "2",
-          "questions": [
-            "Long waiting time",
-            "Staff not helpful / not friendly",
-            "No clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "3",
-          "questions": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "4",
-          "questions": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "5",
-          "questions": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "title": "Accident & Emergency",
-      "choices": [
-        {
-          "id": "1",
-          "questions": [
-            "Long waiting time",
-            "Staff not helpful / not friendly",
-            "No clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "2",
-          "questions": [
-            "Long waiting time",
-            "Staff not helpful / not friendly",
-            "No clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "3",
-          "questions": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "4",
-          "questions": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "5",
-          "questions": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "3",
-      "title": "Admission / Registration",
-      "choices": [
-        {
-          "id": "1",
-          "choices": [
-            "Long waiting time",
-            "Staff not helpful / not friendly",
-            "No clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "2",
-          "choices": [
-            "Long waiting time",
-            "Staff not helpful / not friendly",
-            "No clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "3",
-          "choices": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "4",
-          "choices": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        },
-        {
-          "id": "5",
-          "choices": [
-            "Attended Promptly",
-            "Staff helpful / friendly",
-            "Clear instruction given",
-            "Other"
-          ]
-        }
-      ]
-    }
-  ]
+  {
+    "id": "1",
+    "text": "Reception / Concierge / Information Counter",
+    "choices": [
+      {
+        "id": "1",
+        "questions": [
+          "Long waiting time",
+          "Staff not helpful / not friendly",
+          "No clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "2",
+        "questions": [
+          "Long waiting time",
+          "Staff not helpful / not friendly",
+          "No clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "3",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "4",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "5",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "text": "Accident & Emergency",
+    "choices": [
+      {
+        "id": "1",
+        "questions": [
+          "Long waiting time",
+          "Staff not helpful / not friendly",
+          "No clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "2",
+        "questions": [
+          "Long waiting time",
+          "Staff not helpful / not friendly",
+          "No clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "3",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "4",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "5",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "text": "Admission / Registration",
+    "choices": [
+      {
+        "id": "1",
+        "questions": [
+          "Long waiting time",
+          "Staff not helpful / not friendly",
+          "No clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "2",
+        "questions": [
+          "Long waiting time",
+          "Staff not helpful / not friendly",
+          "No clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "3",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "4",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      },
+      {
+        "id": "5",
+        "questions": [
+          "Attended Promptly",
+          "Staff helpful / friendly",
+          "Clear instruction given",
+          "Other"
+        ]
+      }
+    ]
+  }
+]

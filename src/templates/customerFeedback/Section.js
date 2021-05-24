@@ -25,7 +25,7 @@ const choices = [
   { id: "5", score: "5", text: "Very Poor"},
 ];
 
-const Section = ({ section, title, template }) => 
+const Section = ({ section, title, template, selectedRating }) => 
 {
     const {id}      = useParams()
     const navigate  = useHistory()
@@ -51,14 +51,14 @@ const Section = ({ section, title, template }) =>
       navigate.push(`/${id}/qd`)
     }
 
-    function toggleActiveStyles(index){
+    function toggleActiveStyles(index)
+    {
+        if(index === selectedRating ){
+          return "active-smiley-state"
+        } 
+
         if(appState.objects[index] === appState.activeObject){
           return "active-smiley-state"
-          // console.log("active")
-        }
-        else{
-          return ""
-          // console.log("inactive")
         }
           
     }

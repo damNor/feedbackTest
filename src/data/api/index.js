@@ -38,7 +38,8 @@ export const fetchQuestions = async(server,language, departmentID, ratingID) => 
     {
         delay(delayValue); 
 
-        console.log('sQuestions',sQuestions)
+        
+        
         const filterDepartment =  Object.values(sQuestions).filter( (department => department.id === departmentID)) 
         
         /*  
@@ -65,11 +66,22 @@ export const fetchQuestions = async(server,language, departmentID, ratingID) => 
                             .filter({id: ratingID})         // exatract elements with a prop of 'foo'
                             .value();  
         
-        console.log('filter Department', filterDepartment);
-        console.log('filter choices',filterQuestions)                
+        const department = filterDepartment.map(data => ({id : data.id, title : data.text}))
+        // const questions = filterQuestions.map(data => ({questions : data.questions}))
+        const questions = filterQuestions[0].questions
+        
+        let combine = Object.assign({department,questions})
 
-        const data = {filterDepartment, filterQuestions}
-        return Object.values(data);
+        /* 
+        console.log('sQuestions',sQuestions)
+        console.log('department',department);
+        console.log('questions',questions);
+        console.log('filter Department', filterDepartment[0]);
+        console.log('filter choices',filterQuestions[0])
+        console.log('combine',combine) 
+        */
+
+        return combine;
     }
     
     /* return await mfetch(server.host+'/api_qapp/listbranch',{

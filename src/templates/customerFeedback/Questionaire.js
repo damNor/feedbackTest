@@ -32,12 +32,12 @@ const Component = () =>
 
     useEffect(() => 
     {
-        if(config==undefined ||  (Object.keys(config).length == 0) )
-        {
-            console.log('config undefined',config.server)
-            navigate.push(`/${id}/`); 
-            return;
-        } 
+        // if(config==undefined ||  (Object.keys(config).length == 0) )
+        // {
+        //     console.log('config undefined',config.server)
+        //     navigate.push(`/${id}/`); 
+        //     return;
+        // }  
 
         const fetchData = async () =>  
         {

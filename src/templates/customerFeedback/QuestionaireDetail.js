@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie'
 import Section from "./Section";
 
 // Mateial UI
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -53,20 +53,31 @@ const Component = () =>
           margin: theme.spacing(3),
         },
       }));
+
+    const checkBoxStyles = theme => ({
+        root: {
+          '&$checked': {
+            color: '#0072BC',
+          },
+        },
+        checked: {},
+       })
+    
+    const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);  
     
     const classes = useStyles();
     const [state, setState] = React.useState({
-      gilad: true,
-      jason: false,
-      antoine: false,
+       checkBoxObj: {}
     });
   
-    const handleChange = (event) => {
-      setState({ ...state, [event.target.name]: event.target.checked });
+    const handleChange = (event) => 
+    {
+        console.log('event.target.name',event.target.name)
+        setState({ ...state, [event.target.name]: event.target.checked });
     };
   
-    const { gilad, jason, antoine } = state;
-    const errorForm = [gilad, jason, antoine].filter((v) => v).length !== 2;
+    const { checkBoxObj } = state;
+
   
     // sample End
     useEffect(()=>
@@ -80,7 +91,7 @@ const Component = () =>
             // toggle(true)
             const detail = await fetchQuestions(config.server,lang,sdept,srating)
             setDetail(detail);
-            console.log('detail',detail.filterQuestions);
+            // console.log('detail ',detail);
             // toggle(false)
         };
 
@@ -101,16 +112,18 @@ const Component = () =>
         <Loader>
         <Content style={{backgroundColor:'#FFFFFF'}}>
             <Container background='#FFFFFF' width='100%' height='13%' align='center' margin='5% 0 0 0'  >
-                {console.log('detail',detail)}
-                {detail.filterDepartment && detail.filterDepartment.map(  (data) => 
+                
+                {/* {console.log('detail',detail.title)} */}
+                
+                {detail.department && detail.department.map(  (data) => 
                 (
                     <>
                         <Section 
-                        title={data.title}
-                        section={data.id} 
-                        template='feedback'
-                        >
-                        <div className="content"></div>
+                            title={data.title}
+                            section={data.id} 
+                            selectedRating={srating}
+                            template='feedback'>
+                            <div className="content"></div>
                         </Section>
                     </>
                 ))}
@@ -121,19 +134,18 @@ const Component = () =>
                     </Text>
                 </div>
                         <FormControl component="fieldset" className={classes.formControl}>
-                            <FormLabel component="legend">Which aspect(s) do you rate as average / poor / very poor? 
-                        You may select 1 or more and then click submit.</FormLabel>
                                 <FormGroup> 
-                                {console.log(detail[0].filterQuestions)}
+
+                                {/* {console.log(detail.questions)} */}
                                 
-                                {detail.filterQuestions && Object.keys(detail.filterQuestions).map( (item,i ) => 
+                                {detail.questions && detail.questions.map( (item,i ) => 
                                 (
-                                    
-                                    <>
-                                    <FormControlLabel
-                                        control={<Checkbox checked={gilad } onChange={handleChange} name="gilad" />}
-                                        label={detail.filterQuestions[item]}
-                                    />
+                                    <> 
+                                        {console.log(`question_${i}`)}
+                                        <FormControlLabel
+                                            control={<CustomCheckbox checked={checkBoxObj[i] || false} onChange={handleChange} name={`questions[${i+1}]`} />}
+                                            label={item} 
+                                        />
                                     </>
                                 ))}
                                 </FormGroup>
