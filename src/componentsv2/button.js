@@ -68,7 +68,7 @@ const Component = (props) => {
 }
 
 export const BackButton = () =>{
-    return <IoArrowBackOutline style={{width:18,height:18,position:'absolute',top:16,left:16}} onClick={()=>window.history.back()} />
+    return <IoArrowBackOutline style={{width:18,height:18,position:'absolute',top:16,left:16,cursor:'pointer'}} onClick={()=>window.history.back()} />
 }
 
 export default Component;

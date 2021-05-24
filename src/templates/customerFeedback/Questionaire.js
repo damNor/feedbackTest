@@ -3,16 +3,19 @@ import {useDispatch,useSelector} from 'react-redux'
 import {useHistory,useParams} from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import Section from "./Section";
+import {fetchHospitalDepartments} from './../../data/api'
+import { setDepartments } from '../../data/actions';
+
 
 import Container,{Content} from './../../componentsv2/container'
-import {BackButton} from './../../componentsv2/button'
 import Loader from './../../componentsv2/loader'
 import Error from './../../componentsv2/error'
 import Logo from './../../componentsv2/logo'
-import Language from './../../components/language'
 import Text from './../../componentsv2/text'
 
-const Component = () => {
+
+const Component = () => 
+{
     const {id}      = useParams()
     const navigate  = useHistory()
     const dispatch  = useDispatch()
@@ -25,47 +28,44 @@ const Component = () => {
     const [error,setError]  = useState()
     const [forms,setForms]  = useState([])
 
-    const departments = [
-        { id: "1", title: "Reception / Concierge / Information Counter"},
-        { id: "2", title: "Accident & Emergency"},
-        { id: "3", title: "Admission / Registration"},
-        { id: "4", title: "Wards"},
-        { id: "5", title: "Outpatient Clinics"},
-        { id: "6", title: "Health Screening Centre"},
-        { id: "7", title: "Lab"},
-        { id: "8", title: "Imaging"},
-        { id: "9", title: "Rehab"},
-        { id: "10", title: "Billing / Cashier / Accounts"},
-        { id: "11", title: "Pharmacy"},
-        { id: "12", title: "Security Services"},
-    ];
-    
-    useEffect(()=>
+    const departments  = useSelector(state => state.data.departments)
+
+    useEffect(() => 
     {
         if(config==undefined ||  (Object.keys(config).length == 0) )
         {
-            // navigate.push(`/${id}/`); 
+            console.log('config undefined',config.server)
+            navigate.push(`/${id}/`); 
             return;
-        }
-         
-    },[])
+        } 
+
+        const fetchData = async () =>  
+        {
+            const departments = await fetchHospitalDepartments(config.server,lang)
+            dispatch(setDepartments(departments))
+            console.log('departments',departments)
+        };
+
+        fetchData()
+    },[]);
+
+     
 
     return <>
         <Loader>
         <Content style={{backgroundColor:'#DDEEFE'}}>
-            <Language alignself='flex-end'/>
             <Container background='#FFF' position='absolute' top='0' width='100%'>
                 <Logo alignself='center' margin='5% 0 2% 0'/>
             </Container>
-            <Container background='#0072BC' width='100%' height='13%' align='center' margin='11% 0 0 0'  >
+            <Container background='#0072BC' width='100%' height='13%' align='center' margin='17% 0 0 0'  >
                 <Text size='1.2rem' mcolor='white' margin='4% 0 0'>
                     Good day, please select the serviceyou would like to rate.
                 </Text>
             </Container>
-            <BackButton />
+            {/* <BackButton /> */}
             <Container flex={2} />
             <Container className="container" margin="5% 0 0 0">
-                {departments.map(  (data) => 
+                {departments && departments.map(  (data) => 
                 (
                     <>
                         <Section 

@@ -1,6 +1,6 @@
 import {mfetch,jsonfetch,rawfetch,toFormData,delay} from './common'
-import {sBranches,sTimeslots,sAppointment} from './sample'
-
+import {sBranches,sTimeslots,sAppointment,sQuestions,sDepartments} from './sample'
+import _ from "lodash"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -32,9 +32,78 @@ export const fetchBranches = async(server,language) =>{
     })
 }
 
+//////////////////////////////////////////////////////////////////////////////// questions
+export const fetchQuestions = async(server,language, departmentID, ratingID) => {
+    if(useTestData) 
+    {
+        delay(delayValue); 
+
+        console.log('sQuestions',sQuestions)
+        const filterDepartment =  Object.values(sQuestions).filter( (department => department.id === departmentID)) 
+        
+        /*  
+            const filterQuestions = _.filter(filterDepartment.Departments, 'choices.id',2);
+
+            const let filterQuestions = filterDepartment
+                .filter( (element) => 
+                        element.choices.some((choice) => choice.id === '2')
+                )
+                .map(element => 
+                    {
+                    let newElt = Object.assign({},element);
+                    return newElt.choices.filter(choice => choice.id === '4');
+                }); 
+            
+                const filterQuestions = _.filter(filterDepartment.departments, function (choices) {
+            return _.some(choices.id, { 'id': '2' });
+          }); 
+        */
+
+        const filterQuestions =  _.chain(filterDepartment)
+                            .map('choices')               // pluck all elements from data
+                            .flatten()                     // flatten the elements into a single array
+                            .filter({id: ratingID})         // exatract elements with a prop of 'foo'
+                            .value();  
+        
+        console.log('filter Department', filterDepartment);
+        console.log('filter choices',filterQuestions)                
+
+        const data = {filterDepartment, filterQuestions}
+        return Object.values(data);
+    }
+    
+    /* return await mfetch(server.host+'/api_qapp/listbranch',{
+        'client_id'     : server.client,
+        'country_code'  : server.country,
+        'language_id'   : language,
+        'department'    : department,
+        'rating'        : rating
+    }) */
+}
+
+//////////////////////////////////////////////////////////////////////////////// Hospital Departments
+export const fetchHospitalDepartments = async(server,language) => 
+{
+    if(useTestData) 
+    {
+        delay(delayValue); 
+        console.log('sDepartments ',sDepartments);
+        return sDepartments; 
+        
+    }
+   /*  return await mfetch(server.host+'/api_qapp/listdepartment',{
+        'client_id'     : server.client,
+        'country_code'  : server.country,
+        'language_id'   : language,
+        'branch_id'     : branchid
+    }) */
+}
+
 
 //////////////////////////////////////////////////////////////////////////////// departments
-export const fetchDepartments = async(server,language,branchid) => {
+export const fetchDepartments = async(server,language,branchid) => 
+{
+    /* if(useTestData) {delay(delayValue); return sDepartments; } */
     return await mfetch(server.host+'/api_qapp/listdepartment',{
         'client_id'     : server.client,
         'country_code'  : server.country,

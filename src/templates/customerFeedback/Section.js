@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useDispatch,useSelector} from 'react-redux'
 import {useHistory,useParams} from 'react-router-dom'
-import {selectDepartment,selectRating} from './../../data/actions'
+import {selectDepartment,selectRating,selectFilledDepartment} from './../../data/actions'
 
 import Container,{Content} from '../../componentsv2/container'
 import Text from '../../componentsv2/text'
@@ -46,7 +46,8 @@ const Section = ({ section, title, template }) =>
       
       dispatch(selectDepartment(section))  
       dispatch(selectRating(index))
-      
+      dispatch(selectFilledDepartment(section))
+
       navigate.push(`/${id}/qd`)
     }
 
@@ -63,7 +64,7 @@ const Section = ({ section, title, template }) =>
     }
     return (
       <Container border='' borderradius='10px' background='white' padding='2% 3%' margin='1% 0.5%'>
-          <Text style={{'font-family':'roboto'}} size='1.7rem' margin='4px 0 0' weight='800' mcolor='#0072BC'>{title}</Text>
+          <Text style={{fontFamily:'roboto'}} size='1.7rem' margin='4px 0 0' weight='800' mcolor='#0072BC'>{title}</Text>
           <Container align="space-between" direction="row" alignself="center">
             {choices.map(({ id }) => 
             (

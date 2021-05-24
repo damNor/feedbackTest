@@ -18,6 +18,7 @@ const Loader = ({children}) =>{
 
         if(Object.keys(config).length !== 0) return;
 
+        console.log('config is loaded');
         console.log('id', id );
 
         setState('loading')

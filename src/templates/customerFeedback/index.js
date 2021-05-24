@@ -26,10 +26,10 @@ const Animated  = () => {
             <Container key={key} style={props} position='fixed' width='100%' height='100%' align='stretch'>
                 <Switch location={location}>
                     <Route path='/'             exact component={InvalidID} />
-                    <Route path='/:id'          exact component={Welcome} />
-                    <Route path='/:id/f'        exact component={Forms} />
-                    <Route path='/:id/q'        exact component={Questionaire} />
+                    {/* <Route path='/:id'          exact component={Welcome} /> */}
+                    <Route path='/:id'        exact component={Questionaire} />
                     <Route path='/:id/qd'       exact component={QuestionaireDetail} />
+                    <Route path='/:id/f'        exact component={Forms} />
                     <Route path='/:id/:unknown' exact component={RouteBack} />
                     <Redirect to='/' />
                 </Switch>

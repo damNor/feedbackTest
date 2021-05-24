@@ -27,10 +27,12 @@ const Component = () => {
 
     const onStart = async () => 
     {
+        /* 
         toggle(true)
         const branches = await fetchBranches(config.server,lang)
         console.log('branches',branches);
-        toggle(false)
+        toggle(false) 
+        */
 
         navigate.push(`/${id}/f`)
         /* 

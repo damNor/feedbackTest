@@ -1,30 +1,44 @@
 Questions
+1,2
 
-"Poor Room / Toilet Condition"
-"Food - Poor variety / Flavour / Quality"
-"Long waiting time / Long discharge time"
-"No clear instruction given"
-"Poor Nursing Service"
-"Poor Doctor Service"
-"Other"
+1a) Long waiting time
+1b) Staff not helpful / not friendly
+1c) No clear instruction given
+1d) Other 
 
-"Attended Promptly",
-"Staff helpful / friendly",
-"Clear instruction given",
-"Commendable Staff",
-"Other"
 
-"Good Room / Toilet Condition",
-"Food - Good variety / Flavour / Quality",
-"Attended promptly / Short discharge time",
-"Clear instruction given",
-"Good Nursing Service",
-"Good Doctor Service",
-"Commendable Staff / Doctor",
-"Other",
+2a) Long waiting time
+2b) Staff not helpful / not friendly
+2c) No clear instruction given
+2d) Poor Room and Equipment Condition
+2e) Poor Nursing Service
+2f) Poor Doctor Service
+2g) Other 
 
-"Long waiting time",
-"Staff not helpful / not friendly",
-"No clear instruction given",
-"Commendable Staff",
-"Other"
+3a) Long waiting time
+3b) Staff not helpful / not friendly
+3c) No clear instruction given
+3d) Other 
+
+3,4,5
+
+
+1a) Attended Promptly
+1b) Staff helpful / friendly
+1c) Clear instruction given
+1d) Other 
+
+
+2a) Attended Promptly
+2b) Staff helpful / friendly
+2c) Clear instruction given
+2d) Good Room and Equipment Condition
+2e) Good Nursing Service
+2f) Good Doctor Service
+2g) Other 
+
+
+3a) Attended Promptly
+3b) Staff helpful / friendly
+3c) Clear instruction given
+3d) Other 
