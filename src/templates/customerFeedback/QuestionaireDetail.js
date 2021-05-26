@@ -4,6 +4,7 @@ import {useHistory,useParams} from 'react-router-dom'
 import {fetchQuestions} from './../../data/api'
 import Cookies from 'universal-cookie'
 import Section from "./Section";
+import { setFilledDepartment } from './../../data/actions'
 
 // Mateial UI
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -41,12 +42,15 @@ const Component = () =>
     const sdept                 = useSelector(state=>state.select.department)
     const srating               = useSelector(state=>state.select.rating)
     const sfilleddepartment     = useSelector(state=>state.select.filledDepartment)
+    
     const [detail,setDetail]    = useState({})
     const [showInputField, setShowInputField] = useState(false)
 
     const [checkboxState, setCheckboxState] = useState({
        checkBoxObj: {} 
     });
+
+    // const filledState = initialState;
     const { checkBoxObj } = checkboxState;
 
     const useStyles = makeStyles((theme) => ({
@@ -78,6 +82,14 @@ const Component = () =>
     const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);  
     const handleSubmit = async () =>
     {
+        console.log('sdept ',sdept)
+        const data = {
+            type:"SET_FILLED_DEPARTMENT",
+            payload:{
+                departments:sdept
+            }
+        }; 
+        dispatch(setFilledDepartment( data ))
         /* 
         toggle(true)
         let formData = {}
@@ -107,13 +119,15 @@ const Component = () =>
     };
 
     const handleClick = (event) => {
-        // console.log('name',event.target.name)
-        console.log('value',event.target.value)
+        
+        /* 
+        console.log('name',event.target.name)
+        console.log('value',event.target.value) 
+        console.log('checkedOne',checkedOne)
+        */
 
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         const checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
-
-        console.log('checkedOne',checkedOne)
 
         if(checkedOne)
             setValid(true)
@@ -130,11 +144,9 @@ const Component = () =>
 
         const fetchData = async () =>  
         {
-            // toggle(true)
             const detail = await fetchQuestions(config.server,lang,sdept,srating)
             setDetail(detail);
             // console.log('detail ',detail);
-            // toggle(false)
         };
 
         fetchData()

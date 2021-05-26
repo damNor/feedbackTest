@@ -29,11 +29,8 @@ const selectReducer = (state= { language:{id:0} }, action) =>
                 break;
             case actions.SELECTED_RATING: //for rating
                 draft.rating = action.payload;
-            case actions.SELECTED_FILLED_DEPARTMENT: // for rating
-                draft.filledDepartment = action.payload;
-                // draft.push({id : action.payload});
-                // return {...draft.filledDepartment,...action.payload}
-                
+            // case actions.SELECTED_FILLED_DEPARTMENT: // for rating
+            //     draft.filledDepartment = action.payload;
             default:
                 return draft;
         }

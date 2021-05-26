@@ -26,8 +26,8 @@ const dataReducer = ( state={} , action ) =>
                 break;
             case actions.SET_RATING: //for rating
                 draft.rating = action.payload; 
-            case action.SET_FILLED_DEPARTMENT:
-                draft.filledDepartment = action.payload;
+            // case action.SET_FILLED_DEPARTMENT:
+            //     draft.filledDepartment = action.payload;
             default:
                 return draft;
         }

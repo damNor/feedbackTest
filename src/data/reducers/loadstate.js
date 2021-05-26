@@ -1,6 +1,7 @@
 import * as actions from "./../actions/actiontype";
 
-const loadStateReducer = (state="loading", action) => 
+
+const loadStateReducer = (state="loading state reducer", action) => 
 {
     switch (action.type) 
     {
