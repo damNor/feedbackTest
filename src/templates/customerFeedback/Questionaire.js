@@ -53,18 +53,18 @@ const Component = () =>
 
     return <>
         <Loader>
-        <Content style={{backgroundColor:'#DDEEFE'}}>
-            <Container background='#FFF' position='absolute' top='0' width='100%'>
-                <Logo alignself='center' margin='5% 0 2% 0'/>
+        <Content style={{backgroundColor:'#DDEEFE'}} position='absolute'>
+            <Container background='#FFF'  align='center' top='0' width='100%' wrap='wrap'>
+                <Logo alignself='center' margin='5% 0 5% 0'/>
             </Container>
-            <Container background='#0072BC' width='100%' height='13%' align='center' margin='17% 0 0 0'  >
-                <Text size='1.2rem' mcolor='white' margin='4% 0 0'>
-                    Good day, please select the serviceyou would like to rate.
+            <Container background='#0072BC' width='100%' height='13%' align='center' margin='0 0 0 0'  >
+                <Text size='3vw' mcolor='white' margin='4% 22%' lineHeight='14px' textalign='center'>
+                    Good day, please select the service you would like to rate.
                 </Text>
             </Container>
             {/* <BackButton /> */}
             <Container flex={2} />
-            <Container className="container" margin="5% 0 0 0">
+            <Container className="container"  margin="5% 0 0 0">
                 {departments && departments.map(  (data) => 
                 (
                     <>

@@ -21,7 +21,7 @@ const Text = styled.div`
     z-index         : ${p=>p.zIndex};
     width           : ${p=>p.width};
     font-size       : ${p=>p.size};
-    line-height     : ${p=>p.size};
+    line-height     : ${p=>p.lineHeight};
     flex            : 1;
 `;
 const Spacer = styled.div` width : 6px; `

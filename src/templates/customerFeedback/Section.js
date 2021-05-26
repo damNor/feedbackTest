@@ -64,14 +64,14 @@ const Section = ({ section, title, template, selectedRating }) =>
     }
     return (
       <Container border='' borderradius='10px' background='white' padding='2% 3%' margin='1% 0.5%'>
-          <Text style={{fontFamily:'roboto'}} size='1.7rem' margin='4px 0 0' weight='800' mcolor='#0072BC'>{title}</Text>
+          <Text style={{fontFamily:'roboto'}} size='3.2vw' margin='2% 0 4% 0' weight='800' mcolor='#0072BC'>{title}</Text>
           <Container align="space-between" direction="row" alignself="center">
             {choices.map(({ id }) => 
             (
                 <>
                     <img
                         key={id}
-                        style={{width:'16%',margin:'2% 2.5%','cursor':'pointer'}}
+                        style={{width:'10%',margin:'2% 5%','cursor':'pointer'}}
                         className={toggleActiveStyles(id)}
                         id={`icon-${section}${id}`} 
                         src={`config/feedback/images/icon-${id}.png`} 

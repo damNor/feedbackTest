@@ -7,6 +7,7 @@ import Section from "./Section";
 
 // Mateial UI
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -36,16 +37,30 @@ const Component = () =>
     const [forms,setForms]  = useState([])
 
     const [loading,toggle]  = useState(false)
-    const [valid,setValid]  = useState(false)
+    const [valid,setValid]  = useState(true)
     
     const sdept                 = useSelector(state=>state.select.department)
     const srating               = useSelector(state=>state.select.rating)
     const sfilleddepartment     = useSelector(state=>state.select.filledDepartment)
     const [detail,setDetail]    = useState({})
     const [showInputField, setShowInputField] = useState(false)
-    // sample 
+
+    const [checkboxState, setCheckboxState] = useState({
+       checkBoxObj: {} 
+    });
+    const { checkBoxObj } = checkboxState;
+
+    const myTheme = createMuiTheme({
+        overrides: {
+            MuiFormControlLabel:{
+                label:{
+                    fontSize:'0.875rem',
+                }
+            }
+        }
+    })
     
-    const useStyles = makeStyles((theme) => ({
+    const useStyles = makeStyles((myTheme) => ({
         root: {
           display: 'flex',
         },
@@ -54,6 +69,8 @@ const Component = () =>
         },
       }));
 
+    const classes = useStyles();  
+
     const checkBoxStyles = theme => ({
         root: {
           '&$checked': {
@@ -61,25 +78,24 @@ const Component = () =>
           },
         },
         checked: {},
-       })
+       });
+     
+       
     
     const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);  
-    
-    const classes = useStyles();
-    const [checkboxState, setCheckboxState] = useState({
-       checkBoxObj: {} 
-    });
-  
-    const { checkBoxObj } = checkboxState;
-
-    const onClick = async () =>
+    const handleSubmit = async () =>
     {
+        const object = checkboxState
+        const isChecked = object.some(c => c.checkBoxObj === true)
+
+        console.log('isChecked',isChecked)
+
         toggle(true)
         let formData = {}
         forms.map(item=>formData[item.keyword] = item.value)
         console.log('formData ',formData);
         toggle(false)
-        navigate.push(`/${id}/q`)
+        // navigate.push(`/${id}/f`)
     }
 
     const handleChange = (index) => 
@@ -102,16 +118,16 @@ const Component = () =>
     };
 
     const handleClick = (event) => {
-        console.log('name',event.target.name)
-        console.log('value',event.target.value)
+        // console.log('name',event.target.name)
+        // console.log('value',event.target.value)
     }
   
     // sample End
     useEffect(()=>
     {
-        console.log('sdept',sdept)
-        console.log('srating',srating)
-        console.log('sfilleddepartment',sfilleddepartment)
+        // console.log('sdept',sdept)
+        // console.log('srating',srating)
+        // console.log('sfilleddepartment',sfilleddepartment)
 
         const fetchData = async () =>  
         {
@@ -129,38 +145,39 @@ const Component = () =>
     return <>
         <Loader>
         <Content style={{backgroundColor:'#FFFFFF'}}>
-            <Container background='#FFFFFF' width='100%' height='13%' align='center' margin='5% 0 0 0'  >
+            <Container background='#FFFFFF' width='100%' height='13%' align='center' margin='15% 0 0 0'  >
                 
                 {/* {console.log('detail',detail.title)} */}
-                
-                {detail.department && detail.department.map(  (data) => 
-                (
-                    <>
-                        <Section 
-                            title={data.title}
-                            section={data.id} 
-                            selectedRating={srating}
-                            template='feedback'>
-                            <div className="content"></div>
-                        </Section>
-                    </>
-                ))}
-                <div style={{width:'40%',textAlign:'center',display:'block',margin:'0 auto',fontFamily:'roboto'}}>
-                    <Text size='1rem' mcolor='#0072BC' weight='400'>
-                        Which aspect(s) do you rate as average / poor / very poor? 
-                        You may select 1 or more and then click submit.
-                    </Text>
-                </div>
+                <Container margin='0 5%'>
+                    {detail.department && detail.department.map(  (data) => 
+                    (
+                        <>
+                            <Section 
+                                title={data.title}
+                                section={data.id} 
+                                selectedRating={srating}
+                                template='feedback'>
+                                <div className="content"></div>
+                            </Section>
+                        </>
+                    ))}
+                    <Container margin='2% 5% 0 5%'>
+                        <Text size='2.5vw' mcolor='#0072BC' weight='400'>
+                            Which aspect(s) do you rate as average / poor / very poor? 
+                            You may select 1 or more and then click submit.
+                        </Text>
                         <FormControl component="fieldset" className={classes.formControl}>
-                                <FormGroup> 
-
+                            <FormGroup> 
                                 {/* {console.log(detail.questions)} */}
-                                
                                 {detail.questions && detail.questions.map( (item,i ) => 
                                 (
                                     <> 
                                         <FormControlLabel
-                                            control={<CustomCheckbox checked={checkBoxObj[i] || false} onChange={() => handleChange(i)}  onClick={handleClick} value='true' name={`questions[${i+1}]`} />}
+                                            control={<CustomCheckbox checked={checkBoxObj[i] || false} 
+                                            onChange={() => handleChange(i)}  
+                                            onClick={handleClick} 
+                                            value='true' 
+                                            name={`questions[${i+1}]`} />}
                                             label={item} 
                                         />
                                         {/* {Object.keys(detail.questions).length -1} */}
@@ -171,14 +188,22 @@ const Component = () =>
                                     </>
                                 ))}
                                 {inputField}
-                                </FormGroup>
+                            </FormGroup>
                         </FormControl>
+                    </Container>
+                    {/* 
+                    <div style={{textAlign:'center',display:'block',margin:'0 auto',fontFamily:'roboto'}}>
+                    </div> 
+                    */}
+                </Container>
+                
+                        
                     
                 <Button 
                     width='320px' 
                     mColor='#3E474F' 
                     label='Ok' 
-                    onClick={onClick} 
+                    onClick={handleSubmit} 
                     mloading={loading} 
                     enable={valid} 
                     isPrimary
