@@ -7,7 +7,6 @@ import Section from "./Section";
 
 // Mateial UI
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -37,7 +36,7 @@ const Component = () =>
     const [forms,setForms]  = useState([])
 
     const [loading,toggle]  = useState(false)
-    const [valid,setValid]  = useState(true)
+    const [valid,setValid]  = useState(false)
     
     const sdept                 = useSelector(state=>state.select.department)
     const srating               = useSelector(state=>state.select.rating)
@@ -50,23 +49,18 @@ const Component = () =>
     });
     const { checkBoxObj } = checkboxState;
 
-    const myTheme = createMuiTheme({
-        overrides: {
-            MuiFormControlLabel:{
-                label:{
-                    fontSize:'0.875rem',
-                }
-            }
-        }
-    })
-    
-    const useStyles = makeStyles((myTheme) => ({
+    const useStyles = makeStyles((theme) => ({
         root: {
           display: 'flex',
+        
         },
         formControl: {
-          margin: theme.spacing(3),
+            margin:'10px 12px'
         },
+        label: {
+            fontSize: '3vw',
+            margin: '3px',
+          }
       }));
 
     const classes = useStyles();  
@@ -76,31 +70,26 @@ const Component = () =>
           '&$checked': {
             color: '#0072BC',
           },
+          padding:1,
         },
         checked: {},
-       });
-     
-       
+       })
     
     const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);  
     const handleSubmit = async () =>
     {
-        const object = checkboxState
-        const isChecked = object.some(c => c.checkBoxObj === true)
-
-        console.log('isChecked',isChecked)
-
+        /* 
         toggle(true)
         let formData = {}
         forms.map(item=>formData[item.keyword] = item.value)
         console.log('formData ',formData);
         toggle(false)
-        // navigate.push(`/${id}/f`)
+        navigate.push(`/${id}/f`) 
+        */
     }
 
     const handleChange = (index) => 
     {
-
         setCheckboxState({
             checkBoxObj : {
                  ...checkBoxObj, ...{[index] : !checkBoxObj[index]} 
@@ -119,7 +108,17 @@ const Component = () =>
 
     const handleClick = (event) => {
         // console.log('name',event.target.name)
-        // console.log('value',event.target.value)
+        console.log('value',event.target.value)
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+
+        console.log('checkedOne',checkedOne)
+
+        if(checkedOne)
+            setValid(true)
+        else
+            setValid(false)            
     }
   
     // sample End
@@ -173,7 +172,9 @@ const Component = () =>
                                 (
                                     <> 
                                         <FormControlLabel
-                                            control={<CustomCheckbox checked={checkBoxObj[i] || false} 
+                                            classes={{label : classes.label}}
+                                            control={<CustomCheckbox 
+                                            checked={checkBoxObj[i] || false} 
                                             onChange={() => handleChange(i)}  
                                             onClick={handleClick} 
                                             value='true' 
@@ -196,21 +197,20 @@ const Component = () =>
                     </div> 
                     */}
                 </Container>
-                
-                        
-                    
-                <Button 
-                    width='320px' 
-                    mColor='#3E474F' 
-                    label='Ok' 
-                    onClick={handleSubmit} 
-                    mloading={loading} 
-                    enable={valid} 
-                    isPrimary
-                    alignself="center" />
             </Container>
             <BackButton />
-            <Container flex={2} />
+
+            <Container position='absolute' bottom='10px'>
+                <Button 
+                        width='320px' 
+                        mColor='#3E474F' 
+                        label='Ok' 
+                        onClick={handleSubmit} 
+                        mloading={loading} 
+                        enable={valid} 
+                        isPrimary
+                        alignself="center" />
+            </Container>
             <Container className="container" margin="5% 0 0 0" >
                 
             </Container>
