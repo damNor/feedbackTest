@@ -58,7 +58,7 @@ const Component = () =>
                 <Logo alignself='center' margin='5% 0 5% 0'/>
             </Container>
             <Container background='#0072BC' width='100%' display='box' align='center' wrap='wrap' margin='0 0 0 0'  >
-                <Text size='2vw' mcolor='white' margin='2vw 2vw' lineHeight='' textalign='center'>
+                <Text size='3vw' mcolor='white' margin='2vw 2vw' lineHeight='' textalign='center'>
                     Good day, please select the service you would like to rate.
                 </Text>
             </Container>

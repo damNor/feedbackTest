@@ -64,7 +64,7 @@ const Section = ({ section, title, template, selectedRating }) =>
     }
     return (
       <Container border='' borderradius='10px' background='white' padding='2% 3%' margin='1.5% 0.5%'>
-          <Text style={{fontFamily:'roboto'}} size='3.2vw' margin='2% 0 4% 0' weight='800' mcolor='#0072BC'>{title}</Text>
+          <Text style={{fontFamily:'roboto'}} size='3.4vw' margin='2% 0 4% 0' weight='800' mcolor='#0072BC'>{title}</Text>
           
           <Container align="space-between" justify='center' direction="row" alignself="center">
             {choices.map(({ id }) => 
