@@ -64,9 +64,9 @@ const Component = () =>
             margin:'10px 12px'
         },
         label: {
-            fontSize: '3vw',
+            fontSize: '3.2vw',
             margin: '3px',
-          }
+          },
       }));
 
     const classes = useStyles();  
@@ -179,7 +179,7 @@ const Component = () =>
                         </>
                     ))}
                     <Container margin='2% 5% 0 5%'>
-                        <Text size='2.5vw' mcolor='#0072BC' weight='400'>
+                        <Text size='3vw' mcolor='#0072BC' weight='400'>
                             Which aspect(s) do you rate as average / poor / very poor? 
                             You may select 1 or more and then click submit.
                         </Text>
@@ -191,12 +191,16 @@ const Component = () =>
                                     <> 
                                         <FormControlLabel
                                             classes={{label : classes.label}}
-                                            control={<CustomCheckbox 
-                                            checked={checkBoxObj[i] || false} 
-                                            onChange={() => handleChange(i)}  
-                                            onClick={handleClick} 
-                                            value='true' 
-                                            name={`questions[${i+1}]`} />}
+                                            control={
+                                                <CustomCheckbox 
+                                                checked={checkBoxObj[i] || false} 
+                                                onChange={() => handleChange(i)}  
+                                                onClick={handleClick} 
+                                                value='true' 
+                                                name={`questions[${i+1}]`} 
+                                                style={{transform:"scale(1.1)"}} 
+                                                />
+                                            }
                                             label={item} 
                                         />
                                         {/* {Object.keys(detail.questions).length -1} */}
