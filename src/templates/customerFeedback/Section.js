@@ -72,7 +72,7 @@ const Section = ({ section, title, template, selectedRating }) =>
                 <>
                     <img
                         key={id}
-                        style={{width:'10vw',margin:'2% 5%','cursor':'pointer'}}
+                        style={{width:'12vw',margin:'2% 5%','cursor':'pointer'}}
                         className={toggleActiveStyles(id)}
                         id={`icon-${section}${id}`} 
                         src={`config/feedback/images/icon-${id}.png`} 
