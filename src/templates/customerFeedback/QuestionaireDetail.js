@@ -7,13 +7,15 @@ import Section from "./Section";
 import { setFilledDepartment } from './../../data/actions'
 
 // Mateial UI
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Checkbox from '@material-ui/core/Checkbox';
+// import { makeStyles, withStyles } from '@material-ui/core/styles';
+// import FormLabel from '@material-ui/core/FormLabel';
+// import FormControl from '@material-ui/core/FormControl';
+// import FormGroup from '@material-ui/core/FormGroup';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+// import Checkbox from '@material-ui/core/Checkbox';
+// import Select from '@material-ui/core/Select';
+// import NativeSelect from '@material-ui/core/NativeSelect';
 
 import './../../block.css';
 import Container,{Content} from './../../componentsv2/container'
@@ -38,21 +40,26 @@ const Component = () =>
 
     const [loading,toggle]  = useState(false)
     const [valid,setValid]  = useState(false)
-    
+
+    const[location, setLocation]        = useState({
+        location : ''
+    });
     const[departments, setDepartments] = useState({}) // for selected object
 
     const sdept                 = useSelector(state=>state.select.department)
     const srating               = useSelector(state=>state.select.rating)
     const sfilleddepartment     = useSelector(state=>state.select.filledDepartment)
 
-    const [detail,setDetail]    = useState({})
-    const [showInputField, setShowInputField] = useState(false)
+    const [detail,setDetail]                    = useState({})
+    const [showInputField, setShowInputField]   = useState(false)
 
-    const [checkboxState, setCheckboxState] = useState({
-       checkBoxObj: {} 
+    const [checkboxState, setCheckboxState]     = useState({
+        checkBoxObj: {} 
     });
 
     // const filledState = initialState;
+
+    /* 
     const { checkBoxObj } = checkboxState;
 
     const useStyles = makeStyles((theme) => ({
@@ -81,7 +88,9 @@ const Component = () =>
         checked: {},
        })
     
-    const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);  
+    const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);   
+    */
+
     const handleSubmit = async () =>
     {
         console.log('sdept ',sdept)
@@ -94,32 +103,26 @@ const Component = () =>
         }; 
         dispatch(setFilledDepartment( data ))
         setDepartments(data)
-        /* 
-        toggle(true)
-        let formData = {}
-        forms.map(item=>formData[item.keyword] = item.value)
-        console.log('formData ',formData);
-        toggle(false)
-        navigate.push(`/${id}/f`) 
-        */
     }
 
     const handleChange = (index) => 
     {
-        setCheckboxState({
+        /* setCheckboxState({
             checkBoxObj : {
                  ...checkBoxObj, ...{[index] : !checkBoxObj[index]} 
             }
-        })
-        // console.log('checkBoxObj', checkBoxObj[index]); 
-        // console.log('checkBoxObj index', index); 
-        
+        }) 
+        console.log('checkBoxObj', checkBoxObj[index]); 
+        console.log('checkBoxObj index', index); 
+
         if(index === 3 && (checkBoxObj[index] === false  || checkBoxObj[index] === undefined)){
             setShowInputField(true)  
             console.log('handleClick checkBoxObj');
         }
         else
             setShowInputField(false)
+        */
+        setCheckboxState({isChecked: !this.state.isChecked});
     };
 
     const handleClick = (event) => {
@@ -129,7 +132,6 @@ const Component = () =>
         console.log('value',event.target.value) 
         console.log('checkedOne',checkedOne)
         */
-
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         const checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
 
@@ -139,7 +141,9 @@ const Component = () =>
             setValid(false)            
     }
   
-    // sample End
+    const handleChangeSelect = name => event => {
+        setLocation({ name: event.target.value });
+      };
     useEffect(()=>
     {
         // console.log('sdept',sdept)
@@ -150,7 +154,7 @@ const Component = () =>
         {
             const detail = await fetchQuestions(config.server,lang,sdept,srating)
             setDetail(detail);
-            // console.log('detail ',detail);
+            console.log('detail ',detail);
         };
 
         fetchData()
@@ -179,40 +183,66 @@ const Component = () =>
                         </>
                     ))}
                     <Container margin='2% 5% 0 5%'>
+                        {/* choose location  */}
+                        <select
+                            value={location.location}
+                            onChange={handleChangeSelect('location')}
+                            name="location" 
+                            style={{margin:'2vw 0 4vw 0'}}
+                            >
+                            <option value="">Location</option>
+                            <option value={1}>Ward 1</option>
+                            <option value={2}>Ward 2</option>
+                            <option value={3}>Ward 3</option>
+                        </select>
+
                         <Text size='3vw' mcolor='#0072BC' weight='400'>
                             Which aspect(s) do you rate as average / poor / very poor? 
                             You may select 1 or more and then click submit.
                         </Text>
-                        <FormControl component="fieldset" className={classes.formControl}>
-                            <FormGroup> 
-                                {/* {console.log(detail.questions)} */}
-                                {detail.questions && detail.questions.map( (item,i ) => 
-                                (
-                                    <> 
-                                        <FormControlLabel
-                                            classes={{label : classes.label}}
-                                            control={
-                                                <CustomCheckbox 
-                                                checked={checkBoxObj[i] || false} 
-                                                onChange={() => handleChange(i)}  
-                                                onClick={handleClick} 
-                                                value='true' 
-                                                name={`questions[${i+1}]`} 
-                                                style={{transform:"scale(1.1)"}} 
-                                                />
-                                            }
-                                            label={item} 
-                                        />
-                                        {/* {Object.keys(detail.questions).length -1} */}
-                                        
-                                        {/* {(Object.keys(detail.questions).length -1) === i ?  
-                                          <input type='text'  />  : ''
-                                        }  */}
-                                    </>
-                                ))}
-                                {inputField}
-                            </FormGroup>
-                        </FormControl>
+
+                        {/* {console.log(detail.questions)} */}
+                        <Container style={{justifyContent:'center',margin:'3vw 0'}}>
+                            {detail.questions && detail.questions.map( (item,i ) => 
+                            (
+                                <> 
+                                    <div style={{textAlign:'left'}}>
+                                        <input 
+                                            onChange={() => handleChange(i)}
+                                            id={i} 
+                                            checked=""
+                                            type="checkbox" 
+                                            name={`questions[${i+1}]`} 
+                                            value='true' 
+                                            style={{margin:'1vw'}}
+                                            />
+                                        <label htmlFor={i}>{item}</label>
+                                    </div>
+                                    {/* 
+                                    <FormControlLabel
+                                        classes={{label : classes.label}}
+                                        control={
+                                            <CustomCheckbox 
+                                            checked={checkBoxObj[i] || false} 
+                                            onChange={() => handleChange(i)}  
+                                            onClick={handleClick} 
+                                            value='true' 
+                                            name={`questions[${i+1}]`} 
+                                            style={{transform:"scale(1.1)"}} 
+                                            />
+                                        }
+                                        label={item} 
+                                    /> 
+                                    */}
+                                    {/* {Object.keys(detail.questions).length -1} */}
+                                    
+                                    {/* {(Object.keys(detail.questions).length -1) === i ?  
+                                        <input type='text'  />  : ''
+                                    }  */}
+                                </>
+                            ))}
+                            {inputField}
+                        </Container>
                     </Container>
                     {/* 
                     <div style={{textAlign:'center',display:'block',margin:'0 auto',fontFamily:'roboto'}}>
