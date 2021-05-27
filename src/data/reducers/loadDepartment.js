@@ -1,13 +1,16 @@
 import * as actions from "./../actions/actiontype";
 
 const initialState = {
-    departments :[{
-        id:'0'
-    }]
+    departments :[
+        // {
+    //     id:null,
+    //     rating:null
+    // }
+]
 };
 
 const loadDepartment = (state = initialState, action) => {
-    switch(action.typ){
+    switch(action.type){
         case actions.SET_FILLED_DEPARTMENT:
             return  Object.assign({}, state, {
                 departments: [

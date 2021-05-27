@@ -57,8 +57,8 @@ const Component = () =>
             <Container background='#FFF'  align='center' top='0' width='100%' wrap='wrap'>
                 <Logo alignself='center' margin='5% 0 5% 0'/>
             </Container>
-            <Container background='#0072BC' width='100%' height='13%' align='center' margin='0 0 0 0'  >
-                <Text size='3vw' mcolor='white' margin='4% 22%' lineHeight='14px' textalign='center'>
+            <Container background='#0072BC' width='100%' display='box' align='center' wrap='wrap' margin='0 0 0 0'  >
+                <Text size='2vw' mcolor='white' margin='3vw 22%' lineHeight='' textalign='center'>
                     Good day, please select the service you would like to rate.
                 </Text>
             </Container>
@@ -69,11 +69,11 @@ const Component = () =>
                 (
                     <>
                         <Section 
-                        title={data.title}
-                        section={data.id} 
-                        template='feedback'
-                        >
-                        <div className="content"></div>
+                            title={data.title}
+                            section={data.id} 
+                            template='feedback'
+                            >
+                            <div className="content"></div>
                         </Section>
                     </>
                 ))}

@@ -39,10 +39,12 @@ const Component = () =>
     const [loading,toggle]  = useState(false)
     const [valid,setValid]  = useState(false)
     
+    const[departments, setDepartments] = useState({}) // for selected object
+
     const sdept                 = useSelector(state=>state.select.department)
     const srating               = useSelector(state=>state.select.rating)
     const sfilleddepartment     = useSelector(state=>state.select.filledDepartment)
-    
+
     const [detail,setDetail]    = useState({})
     const [showInputField, setShowInputField] = useState(false)
 
@@ -86,10 +88,12 @@ const Component = () =>
         const data = {
             type:"SET_FILLED_DEPARTMENT",
             payload:{
-                departments:sdept
+                departments:sdept,
+                rating:srating
             }
         }; 
         dispatch(setFilledDepartment( data ))
+        setDepartments(data)
         /* 
         toggle(true)
         let formData = {}
@@ -153,7 +157,9 @@ const Component = () =>
     },[])
 
     const inputField = showInputField ? <input type='text' name='other_reason' /> : null
+
     return <>
+        <pre>{JSON.stringify(departments, 2)}</pre>
         <Loader>
         <Content style={{backgroundColor:'#FFFFFF'}}>
             <Container background='#FFFFFF' width='100%' height='13%' align='center' margin='15% 0 0 0'  >
