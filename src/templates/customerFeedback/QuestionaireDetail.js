@@ -235,7 +235,7 @@ const Component = () =>
             </Container>
             <BackButton />
 
-            <Container position='absolute' bottom='0vh'>
+            <Container position='absolute' bottom='5vh'>
                 <Button 
                         width='320px' 
                         mColor='#3E474F' 

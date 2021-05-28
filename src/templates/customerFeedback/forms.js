@@ -118,7 +118,7 @@ const Component = () => {
             {/* </Card> */}
             </Container>
     
-            <Container position='relative' bottom='0vh' width='100%'>
+            <Container position='absolute' bottom='5vh' width='100%'>
                 <Button 
                         width='80%' 
                         mColor='#06B017' 
