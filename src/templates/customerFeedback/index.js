@@ -31,7 +31,7 @@ const Animated  = () => {
                     <Route path='/:id'        exact component={Questionaire} />
                     <Route path='/:id/qd'       exact component={QuestionaireDetail} />
                     <Route path='/:id/f'        exact component={Forms} />
-                    {/* <Route path='/:id/end'        exact component={ThankYou} /> */}
+                    <Route path='/:id/end'        exact component={ThankYou} />
                     <Route path='/:id/:unknown' exact component={RouteBack} />
                     <Redirect to='/' />
                 </Switch>
