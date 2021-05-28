@@ -138,7 +138,7 @@ const Component = () => {
                 /> */}
             <Container position='relative' bottom='1vh' width='100%'>
                 <Button 
-                        width='320px' 
+                        width='80%' 
                         mColor='#06B017' 
                         label='Submit' 
                         onClick={handleSubmit} 
