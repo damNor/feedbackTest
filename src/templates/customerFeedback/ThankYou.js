@@ -52,7 +52,7 @@ const Component = () => {
         <Container margin='5% 0 0 0' width='100%'>
             <Container alignself='center' width='50%'>
                 <img src={`config/feedback/images/thank-you-icon.png`} width='100vw' style={{margin:'10vw auto 5vw auto'}}  />
-                <Text size='3vw' mcolor='#0072BC' margin='5vw 2vw' lineHeight='' textalign='center'>
+                <Text size='3vw' mcolor='#0072BC' margin='10vh 2vh' lineHeight='' textalign='center'>
                     Thank you for your feedback and we look forward to seeing you again.
                 </Text> 
             </Container>

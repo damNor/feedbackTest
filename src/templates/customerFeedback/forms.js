@@ -79,12 +79,12 @@ const Component = () => {
 
     return <Loader>
      
-    {
+    {/* {
         recaptchaVer === 'v3' &&
         <GoogleReCaptchaProvider reCaptchaKey="6LenHygaAAAAALCX2Uwh6iLTOg9zIMiFY1o7Qg1h">
             <GoogleReCaptcha onVerify={onVerify}/>
         </GoogleReCaptchaProvider>
-    }
+    } */}
     <Content style={{backgroundColor:'#DDEEFE'}}  position='absolute'>
         <Container background='#FFF'  align='center' top='0' width='100%' wrap='wrap'>
             <Logo alignself='center' margin='5% 0 5% 0'/>
