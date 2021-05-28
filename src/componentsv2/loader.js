@@ -43,7 +43,7 @@ const Loader = ({children}) =>{
         .catch(e=>setState('invalid'))
     },[id])
 
-    console.log('loader state :', state);
+    // console.log('loader state :', state);
     switch (state) 
     {
         case 'loading'  : return <>Loading...</>

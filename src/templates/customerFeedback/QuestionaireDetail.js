@@ -53,14 +53,13 @@ const Component = () =>
     const [detail,setDetail]                    = useState({})
     const [showInputField, setShowInputField]   = useState(false)
 
-    const [checkboxState, setCheckboxState]     = useState({
-        checkBoxObj: {} 
-    });
+    const [checkboxState, setCheckboxState]     = useState({});
 
     // const filledState = initialState;
 
-    /* 
     const { checkBoxObj } = checkboxState;
+    /* 
+    
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -103,26 +102,33 @@ const Component = () =>
         }; 
         dispatch(setFilledDepartment( data ))
         setDepartments(data)
+        navigate.push(`/${id}/info`); 
     }
 
-    const handleChange = (index) => 
+    const [isChecked, setIsChecked] = useState(false);
+    
+    const handleChange = (event) => 
     {
-        /* setCheckboxState({
-            checkBoxObj : {
-                 ...checkBoxObj, ...{[index] : !checkBoxObj[index]} 
-            }
+        setCheckboxState({
+             ...checkboxState, [event.target.id] : event.target.checked
         }) 
-        console.log('checkBoxObj', checkBoxObj[index]); 
-        console.log('checkBoxObj index', index); 
+        console.log('checkboxState', checkboxState[3]); 
+        console.log('id', event.target.id); 
 
-        if(index === 3 && (checkBoxObj[index] === false  || checkBoxObj[index] === undefined)){
+        if(event.target.id === '3' && checkboxState[3] === false  )
+        {
             setShowInputField(true)  
-            console.log('handleClick checkBoxObj');
+            console.log('setShowInputField');
         }
-        else
+        
+        if(event.target.id === '3' && checkboxState[3] ===  true)
+        {
             setShowInputField(false)
-        */
-        setCheckboxState({isChecked: !this.state.isChecked});
+            console.log('setShowInputField No');
+        }
+            
+       
+        // setCheckboxState({isChecked: !isChecked});
     };
 
     const handleClick = (event) => {
@@ -141,7 +147,8 @@ const Component = () =>
             setValid(false)            
     }
   
-    const handleChangeSelect = name => event => {
+    const handleChangeSelect = name => event => 
+    {
         setLocation({ name: event.target.value });
       };
     useEffect(()=>
@@ -158,12 +165,12 @@ const Component = () =>
         };
 
         fetchData()
-    },[])
+    },[checkboxState])
 
     const inputField = showInputField ? <input type='text' name='other_reason' /> : null
 
     return <>
-        <pre>{JSON.stringify(departments, 2)}</pre>
+        {/* <pre>{JSON.stringify(departments, 2)}</pre> */}
         <Loader>
         <Content style={{backgroundColor:'#FFFFFF'}}>
             <Container background='#FFFFFF' width='100%' height='13%' align='center' margin='15% 0 0 0'  >
@@ -208,9 +215,10 @@ const Component = () =>
                                 <> 
                                     <div style={{textAlign:'left'}}>
                                         <input 
-                                            onChange={() => handleChange(i)}
+                                            onChange={handleChange}
+                                            onClick={handleClick}
                                             id={i} 
-                                            checked=""
+                                            checked={checkboxState[i]}
                                             type="checkbox" 
                                             name={`questions[${i+1}]`} 
                                             value='true' 
@@ -218,41 +226,16 @@ const Component = () =>
                                             />
                                         <label htmlFor={i}>{item}</label>
                                     </div>
-                                    {/* 
-                                    <FormControlLabel
-                                        classes={{label : classes.label}}
-                                        control={
-                                            <CustomCheckbox 
-                                            checked={checkBoxObj[i] || false} 
-                                            onChange={() => handleChange(i)}  
-                                            onClick={handleClick} 
-                                            value='true' 
-                                            name={`questions[${i+1}]`} 
-                                            style={{transform:"scale(1.1)"}} 
-                                            />
-                                        }
-                                        label={item} 
-                                    /> 
-                                    */}
-                                    {/* {Object.keys(detail.questions).length -1} */}
-                                    
-                                    {/* {(Object.keys(detail.questions).length -1) === i ?  
-                                        <input type='text'  />  : ''
-                                    }  */}
                                 </>
                             ))}
                             {inputField}
                         </Container>
                     </Container>
-                    {/* 
-                    <div style={{textAlign:'center',display:'block',margin:'0 auto',fontFamily:'roboto'}}>
-                    </div> 
-                    */}
                 </Container>
             </Container>
             <BackButton />
 
-            <Container position='absolute' bottom='10px'>
+            <Container position='absolute' bottom='0vh'>
                 <Button 
                         width='320px' 
                         mColor='#3E474F' 

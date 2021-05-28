@@ -63,18 +63,8 @@ const Component = () => {
         setForms(formsetups)
     },[])
 
-    const onClick = async () =>
-    {
-        toggle(true)
-        let formData = {}
-        forms.map(item=>formData[item.keyword] = item.value)
-        console.log('formData ',formData);
-        toggle(false)
-        navigate.push(`/${id}/q`)
-    }
-
     const handleSubmit = () => {
-        
+        navigate.push(`/${id}/finish`); 
     }
 
     const onVerify = async (token) =>{
@@ -127,23 +117,15 @@ const Component = () => {
                 }
             {/* </Card> */}
             </Container>
-            {/* <Button width='320px' 
-                mColor='#3E474F' 
-                label={stype==='queue'?'Start Rating':'Start Rating'} 
-                onClick={onClick} 
-                mloading={loading} 
-                // enable={valid} 
-                isPrimary
-                alignself="center"
-                /> */}
-            <Container position='relative' bottom='1vh' width='100%'>
+    
+            <Container position='relative' bottom='0vh' width='100%'>
                 <Button 
                         width='80%' 
                         mColor='#06B017' 
                         label='Submit' 
                         onClick={handleSubmit} 
                         mloading={loading} 
-                        enable={valid} 
+                        // enable={valid} 
                         isPrimary
                         alignself="center" />
             </Container>    

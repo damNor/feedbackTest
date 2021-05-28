@@ -29,9 +29,9 @@ const Animated  = () => {
                     <Route path='/'             exact component={InvalidID} />
                     {/* <Route path='/:id'          exact component={Welcome} /> */}
                     <Route path='/:id'        exact component={Questionaire} />
-                    <Route path='/:id/qd'       exact component={QuestionaireDetail} />
-                    <Route path='/:id/f'        exact component={Forms} />
-                    <Route path='/:id/end'        exact component={ThankYou} />
+                    <Route path='/:id/detail'       exact component={QuestionaireDetail} />
+                    <Route path='/:id/info'        exact component={Forms} />
+                    <Route path='/:id/finish'        exact component={ThankYou} />
                     <Route path='/:id/:unknown' exact component={RouteBack} />
                     <Redirect to='/' />
                 </Switch>

@@ -37,18 +37,18 @@ const Section = ({ section, title, template, selectedRating }) =>
 
     function toggleActive(index, section)
     {
-      console.log('index', index)
-      console.log('section ', section)
+      // console.log('index', index)
+      // console.log('section ', section)
       changeState({...appState, activeObject: appState.objects[index]})
 
-      console.log('index',index)
-      console.log('section',section)
+      // console.log('index',index)
+      // console.log('section',section)
       
       dispatch(selectDepartment(section))  
       dispatch(selectRating(index))
       dispatch(selectFilledDepartment(section))
 
-      navigate.push(`/${id}/qd`)
+      navigate.push(`/${id}/detail`)
     }
 
     function toggleActiveStyles(index)
