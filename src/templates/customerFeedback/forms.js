@@ -95,7 +95,7 @@ const Component = () => {
             </Text>
         </Container>
         <BackButton />
-        <Container margin='10% 0 0 0' width='100%'>
+        <Container margin='10% 0 0 0' width='100%' height='150vh'>
             {/* <Card width='320px' padding='2px' margin='0 auto' direction='column'> */}
             <Container width='80%' alignself='center '>
                 <Form>
@@ -118,7 +118,7 @@ const Component = () => {
             {/* </Card> */}
             </Container>
     
-            <Container position='absolute' bottom='5vh' width='100%'>
+            <Container position='relative' bottom='5vh' width='100%'>
                 <Button 
                         width='80%' 
                         mColor='#06B017' 
