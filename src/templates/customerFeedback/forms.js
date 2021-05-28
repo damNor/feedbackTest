@@ -73,6 +73,10 @@ const Component = () => {
         navigate.push(`/${id}/q`)
     }
 
+    const handleSubmit = () => {
+        
+    }
+
     const onVerify = async (token) =>{
         // console.log('token',token);
 
@@ -91,17 +95,19 @@ const Component = () => {
             <GoogleReCaptcha onVerify={onVerify}/>
         </GoogleReCaptchaProvider>
     }
-    <Content style={{backgroundColor:'#DDEEFE'}}>
-        <Language alignself='flex-end'/>
-        <Container style={{backgroundColor:'#FFF',position:'absolute',top:0}} width='100%'>
-            <Logo alignself='center' margin='5% 0 2% 0'/>
+    <Content style={{backgroundColor:'#DDEEFE'}}  position='absolute'>
+        <Container background='#FFF'  align='center' top='0' width='100%' wrap='wrap'>
+            <Logo alignself='center' margin='5% 0 5% 0'/>
+        </Container>
+        <Container background='' width='100%' display='box' align='center' wrap='wrap' margin='0 0 0 0'  >
+            <Text size='3vw' mcolor='#0072BC' margin='5vw 2vw' lineHeight='' textalign='center'>
+            Your Information
+            </Text>
         </Container>
         <BackButton />
-        <Container margin='15% 0 0 0' width='100%'>
-            
-            <Text size='16px' textalign='center' margin='5% 10%' weight='bold'  isPrimary>{getL('wlc_sec')}</Text>
+        <Container margin='10% 0 0 0' width='100%'>
             {/* <Card width='320px' padding='2px' margin='0 auto' direction='column'> */}
-            <Container width='50%' alignself='center '>
+            <Container width='80%' alignself='center '>
                 <Form>
                 {
                     forms.map((item,i) => item.show && 
@@ -121,7 +127,7 @@ const Component = () => {
                 }
             {/* </Card> */}
             </Container>
-            <Button width='320px' 
+            {/* <Button width='320px' 
                 mColor='#3E474F' 
                 label={stype==='queue'?'Start Rating':'Start Rating'} 
                 onClick={onClick} 
@@ -129,7 +135,18 @@ const Component = () => {
                 // enable={valid} 
                 isPrimary
                 alignself="center"
-                />
+                /> */}
+            <Container position='relative' bottom='1vh' width='100%'>
+                <Button 
+                        width='320px' 
+                        mColor='#06B017' 
+                        label='Submit' 
+                        onClick={handleSubmit} 
+                        mloading={loading} 
+                        enable={valid} 
+                        isPrimary
+                        alignself="center" />
+            </Container>    
         </Container>
     </Content>
     <Background/>

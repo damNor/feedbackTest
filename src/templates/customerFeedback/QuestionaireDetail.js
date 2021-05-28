@@ -263,10 +263,6 @@ const Component = () =>
                         isPrimary
                         alignself="center" />
             </Container>
-            <Container className="container" margin="5% 0 0 0" >
-                
-            </Container>
-
             <Container flex={3}/>
         </Content>
         <Error message={error} show={error!=undefined} onClose={()=>setError()} />
