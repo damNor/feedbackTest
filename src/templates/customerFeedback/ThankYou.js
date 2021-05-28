@@ -46,7 +46,7 @@ const Component = () => {
     return <Loader>
     <Content style={{backgroundColor:'#DDEEFE'}}  position='absolute'>
         <Container background='#FFF'  align='center' top='0' width='100%' wrap='wrap'>
-            <Logo alignself='center' margin='5% 0 5% 0'/>
+            <Logo alignself='center' margin='5vh 0 5vh 0' width='40vw'/>
         </Container>
          
         <Container margin='5% 0 0 0' width='100%'>

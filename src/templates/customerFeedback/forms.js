@@ -87,7 +87,7 @@ const Component = () => {
     } */}
     <Content style={{backgroundColor:'#DDEEFE'}}  position='absolute'>
         <Container background='#FFF'  align='center' top='0' width='100%' wrap='wrap'>
-            <Logo alignself='center' margin='5% 0 5% 0'/>
+            <Logo alignself='center' margin='5vh 0 5vh 0' width='40vw'/>
         </Container>
         <Container background='' width='100%' display='box' align='center' wrap='wrap' margin='0 0 0 0'  >
             <Text size='3vw' mcolor='#0072BC' margin='5vw 2vw' lineHeight='' textalign='center'>
