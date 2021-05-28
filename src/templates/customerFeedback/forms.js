@@ -95,7 +95,7 @@ const Component = () => {
             </Text>
         </Container>
         <BackButton />
-        <Container margin='10% 0 0 0' width='100%'>
+        <Container margin='5vw 0 0 0' width='100%' wrap='wrap' >
             {/* <Card width='320px' padding='2px' margin='0 auto' direction='column'> */}
             <Container width='80%' alignself='center '>
                 <Form>
@@ -117,19 +117,18 @@ const Component = () => {
                 }
             {/* </Card> */}
             </Container>
-    
-            <Container position='relative' bottom='5vh' width='100%'>
-                <Button 
-                        width='80%' 
-                        mColor='#06B017' 
-                        label='Submit' 
-                        onClick={handleSubmit} 
-                        mloading={loading} 
-                        // enable={valid} 
-                        isPrimary
-                        alignself="center" />
-            </Container>    
         </Container>
+        <Container position='relative' bottom='5vh' margin='10vw 0 0 0' width='100%' wrap='wrap'>
+            <Button 
+                    width='80%' 
+                    mColor='#06B017' 
+                    label='Submit' 
+                    onClick={handleSubmit} 
+                    mloading={loading} 
+                    // enable={valid} 
+                    isPrimary
+                    alignself="center" />
+        </Container> 
     </Content>
     <Background/>
     <Error message={error} show={error!=undefined} onClose={()=>setError()} />
