@@ -6,6 +6,7 @@ import Container from './../../components/container'
 import Welcome      from './welcome'
 import Forms        from './forms'
 import Questionaire from './Questionaire'
+import Confirm      from './Confirm'
 import QuestionaireDetail from './QuestionaireDetail'
 import ThankYou from './ThankYou'
 
@@ -30,6 +31,7 @@ const Animated  = () => {
                     {/* <Route path='/:id'          exact component={Welcome} /> */}
                     <Route path='/:id'        exact component={Questionaire} />
                     <Route path='/:id/detail'       exact component={QuestionaireDetail} />
+                    <Route path='/:id/confirm'      exact component={Confirm} />
                     <Route path='/:id/info'        exact component={Forms} />
                     <Route path='/:id/finish'        exact component={ThankYou} />
                     <Route path='/:id/:unknown' exact component={RouteBack} />

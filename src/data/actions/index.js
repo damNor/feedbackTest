@@ -11,6 +11,7 @@ export const setAppointment         = i => ({ type: actions.SET_APPOINTMENT, pay
 export const setQueue               = i => ({ type: actions.SET_QUEUE, payload: i })
 export const setRating              = i => ({ type: actions.SET_RATING, payload: i }) // for rating
 export const setFilledDepartment    = i => ({ type: actions.SET_FILLED_DEPARTMENT, payload: i})
+export const setUpdateDepartment    = i => ({ type: actions.SET_UPDATE_DEPARTMENT, payload: i}) // not yet used
 
 export const selectLanguage         = i => ({ type: actions.SELECTED_LANGUAGE, payload: i})
 export const selectCustomerType     = i => ({ type: actions.SELECTED_CUSTOMER, payload: i})

@@ -99,7 +99,7 @@ export const fetchHospitalDepartments = async(server,language) =>
     if(useTestData) 
     {
         delay(delayValue); 
-        console.log('sDepartments ',sDepartments);
+        // console.log('sDepartments ',sDepartments);
         return sDepartments; 
         
     }

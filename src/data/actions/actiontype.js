@@ -10,6 +10,7 @@ export const SET_APPOINTMENT            = "setappointment";
 export const SET_QUEUE                  = "setqueue";
 export const SET_RATING                 = "setRating"; //for rating
 export const SET_FILLED_DEPARTMENT      = "setFilledDepartment";
+export const SET_UPDATE_DEPARTMENT      = "setUpdateDepartment";// not yet used
 
 export const SELECTED_LANGUAGE          = "language";
 export const SELECTED_CUSTOMER          = "customer";

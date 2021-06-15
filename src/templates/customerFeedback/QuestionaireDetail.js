@@ -4,7 +4,7 @@ import {useHistory,useParams} from 'react-router-dom'
 import {fetchQuestions} from './../../data/api'
 import Cookies from 'universal-cookie'
 import Section from "./Section";
-import { setFilledDepartment } from './../../data/actions'
+import { setFilledDepartment, setUpdateDepartment } from './../../data/actions'
 
 // Mateial UI
 // import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -26,95 +26,75 @@ import Text from './../../componentsv2/text'
 
 const Component = () => 
 {
-    const {id}      = useParams()
-    const navigate  = useHistory()
-    const dispatch  = useDispatch()
-    const cookies   = new Cookies()
-    const config    = useSelector(state=>state.config)
-    const theme     = useSelector(state=>state.config.theme)
-    const languages = useSelector(state=>state.config.languages)
-    const lang      = useSelector(state=>state.select.language.id)
-    const getL      = lbl => languages&&languages[lbl]?languages[lbl][lang]:""
-    const [error,setError]  = useState()
-    const [forms,setForms]  = useState([])
+    const {id}                  = useParams()
+    const navigate              = useHistory()
+    const dispatch              = useDispatch()
+    const cookies               = new Cookies()
+    const config                = useSelector(state=>state.config)
+    const theme                 = useSelector(state=>state.config.theme)
+    const languages             = useSelector(state=>state.config.languages)
+    const lang                  = useSelector(state=>state.select.language.id)
+    const getL                  = lbl => languages&&languages[lbl]?languages[lbl][lang]:""
+    const [error,setError]                      = useState()
+    const [forms,setForms]                      = useState([])
 
-    const [loading,toggle]  = useState(false)
-    const [valid,setValid]  = useState(false)
+    const [loading,toggle]                      = useState(false)
+    const [valid,setValid]                      = useState(false)
 
-    const[location, setLocation]        = useState({
-        location : ''
-    });
-    const[departments, setDepartments] = useState({}) // for selected object
+    const[location, setLocation]                = useState({ location : ''});
+    const[departments, setDepartments]          = useState({}) // for selected object
 
-    const sdept                 = useSelector(state=>state.select.department)
-    const srating               = useSelector(state=>state.select.rating)
-    const sfilleddepartment     = useSelector(state=>state.select.filledDepartment)
+    const sdept                                 = useSelector(state=>state.select.department)
+    const srating                               = useSelector(state=>state.select.rating)
+    const sfilleddepartment                     = useSelector(state=>state.select.filledDepartment)
+    const slocation                             = useSelector(state=>state.select.location)
 
     const [detail,setDetail]                    = useState({})
     const [showInputField, setShowInputField]   = useState(false)
 
-    const [checkboxState, setCheckboxState]     = useState({});
+    const [checkboxState, setCheckboxState]     = useState(new Map());
 
-    // const filledState = initialState;
-
-    const { checkBoxObj } = checkboxState;
-    /* 
-    
-
-    const useStyles = makeStyles((theme) => ({
-        root: {
-          display: 'flex',
-        
-        },
-        formControl: {
-            margin:'10px 12px'
-        },
-        label: {
-            fontSize: '3.2vw',
-            margin: '3px',
-          },
-      }));
-
-    const classes = useStyles();  
-
-    const checkBoxStyles = theme => ({
-        root: {
-          '&$checked': {
-            color: '#0072BC',
-          },
-          padding:1,
-        },
-        checked: {},
-       })
-    
-    const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);   
-    */
-
+    // const [checkedItems,setCheckedItems]     = useState(new Map());
+    // const filledState                        = initialState;
+    // const { checkBoxObj }                    = checkboxState;
+   
     const handleSubmit = async () =>
     {
-        console.log('sdept ',sdept)
+        console.log('checkbox values', checkboxState);
+        let checkboxValues = Array.from(checkboxState.keys());
+        console.log('checkboxValues',checkboxValues);
+        
         const data = {
-            type:"SET_FILLED_DEPARTMENT",
-            payload:{
-                departments:sdept,
-                rating:srating
-            }
+            // type:"SET_FILLED_DEPARTMENT",
+            // payload:{
+                departmentID:sdept,
+                rating:srating,
+                location : slocation, 
+                checkbox:checkboxValues,
+                
+            // }
         }; 
         dispatch(setFilledDepartment( data ))
         setDepartments(data)
-        navigate.push(`/${id}/info`); 
+        navigate.push(`/${id}/confirm`); 
     }
 
     const [isChecked, setIsChecked] = useState(false);
     
     const handleChange = (event) => 
     {
+        /* 
         setCheckboxState({
              ...checkboxState, [event.target.id] : event.target.checked
-        }) 
-        console.log('checkboxState', checkboxState[3]); 
-        console.log('id', event.target.id); 
+        })  
+        */
 
+        setCheckboxState(prevState => prevState.set(event.target.id,event.target.checked))
+
+        // console.log('event.target.id', event.target.id); 
+        // console.log('event.target.checked', event.target.checked); 
+        // console.log('checkbox values', checkboxState);
+        
         if(event.target.id === '3' && checkboxState[3] === false  )
         {
             setShowInputField(true)  
@@ -126,9 +106,6 @@ const Component = () =>
             setShowInputField(false)
             console.log('setShowInputField No');
         }
-            
-       
-        // setCheckboxState({isChecked: !isChecked});
     };
 
     const handleClick = (event) => {
@@ -150,21 +127,32 @@ const Component = () =>
     const handleChangeSelect = name => event => 
     {
         setLocation({ name: event.target.value });
-      };
+    };
     useEffect(()=>
     {
-        // console.log('sdept',sdept)
-        // console.log('srating',srating)
-        // console.log('sfilleddepartment',sfilleddepartment)
+        /* 
+        console.log('sdept',sdept)
+        console.log('srating',srating)
+        console.log('sfilleddepartment',sfilleddepartment) 
+        */
 
-        const fetchData = async () =>  
+        if((sdept === undefined) || (srating === undefined) )
         {
-            const detail = await fetchQuestions(config.server,lang,sdept,srating)
-            setDetail(detail);
-            console.log('detail ',detail);
-        };
+            // setError('selected department and rating is not defined '); // for showing error message
+            navigate.push(`/${id}/`);   
+        }
+        else
+        {
+            const fetchData = async () =>  
+            {
+                const detail = await fetchQuestions(config.server,lang,sdept,srating)
+                setDetail(detail);
+                // console.log('detail ',detail);
+            };
 
-        fetchData()
+            fetchData()
+        }
+        
     },[checkboxState])
 
     const inputField = showInputField ? <input type='text' name='other_reason' /> : null
@@ -217,14 +205,14 @@ const Component = () =>
                                         <input 
                                             onChange={handleChange}
                                             onClick={handleClick}
-                                            id={i} 
-                                            checked={checkboxState[i]}
+                                            id={i+1} 
+                                            defaultChecked={checkboxState[i]}
                                             type="checkbox" 
                                             name={`questions[${i+1}]`} 
                                             value='true' 
                                             style={{margin:'1vw'}}
                                             />
-                                        <label htmlFor={i}>{item}</label>
+                                        <label htmlFor={i+1}>{item}</label>
                                     </div>
                                 </>
                             ))}
@@ -237,13 +225,14 @@ const Component = () =>
 
             <Container position='absolute' bottom='5vh'>
                 <Button 
+                        style={{background:'#3E474F',color:'#FFF'}}
                         width='320px' 
                         mColor='#3E474F' 
                         label='Ok' 
                         onClick={handleSubmit} 
                         mloading={loading} 
                         enable={valid} 
-                        isPrimary
+                        // isPrimary
                         alignself="center" />
             </Container>
             <Container flex={3}/>

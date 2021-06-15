@@ -51,6 +51,7 @@ const Section = ({ section, title, template, selectedRating }) =>
       navigate.push(`/${id}/detail`)
     }
 
+    console.log('selectedRating', selectedRating);
     function toggleActiveStyles(index)
     {
         if(index === selectedRating ){

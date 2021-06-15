@@ -428,51 +428,153 @@ export const sQuestions =  [
     "id": "3",
     "text": "Admission / Registration",
     "choices": [
-      {
-        "id": "1",
-        "questions": [
-          "Long waiting time",
-          "Staff not helpful / not friendly",
-          "No clear instruction given",
-          "Other"
-        ]
-      },
-      {
-        "id": "2",
-        "questions": [
-          "Long waiting time",
-          "Staff not helpful / not friendly",
-          "No clear instruction given",
-          "Other"
-        ]
-      },
-      {
-        "id": "3",
-        "questions": [
-          "Attended Promptly",
-          "Staff helpful / friendly",
-          "Clear instruction given",
-          "Other"
-        ]
-      },
-      {
-        "id": "4",
-        "questions": [
-          "Attended Promptly",
-          "Staff helpful / friendly",
-          "Clear instruction given",
-          "Other"
-        ]
-      },
-      {
-        "id": "5",
-        "questions": [
-          "Attended Promptly",
-          "Staff helpful / friendly",
-          "Clear instruction given",
-          "Other"
-        ]
-      }
+        {
+          "id": "1",
+          "questions": [
+            "Long waiting time",
+            "Staff not helpful / not friendly",
+            "No clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "2",
+          "questions": [
+            "Long waiting time",
+            "Staff not helpful / not friendly",
+            "No clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "3",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "4",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "5",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        }
+    ]
+  },
+  {
+    "id": "4",
+    "text": "Wards",
+    "choices": [
+        {
+          "id": "1",
+          "questions": [
+            "Long waiting time",
+            "Staff not helpful / not friendly",
+            "No clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "2",
+          "questions": [
+            "Long waiting time",
+            "Staff not helpful / not friendly",
+            "No clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "3",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "4",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "5",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        }
+    ]
+  },
+  {
+    "id": "5",
+    "text": "Outpatient Clinics",
+    "choices": [
+        {
+          "id": "1",
+          "questions": [
+            "Long waiting time",
+            "Staff not helpful / not friendly",
+            "No clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "2",
+          "questions": [
+            "Long waiting time",
+            "Staff not helpful / not friendly",
+            "No clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "3",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "4",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        },
+        {
+          "id": "5",
+          "questions": [
+            "Attended Promptly",
+            "Staff helpful / friendly",
+            "Clear instruction given",
+            "Other"
+          ]
+        }
     ]
   }
 ]
