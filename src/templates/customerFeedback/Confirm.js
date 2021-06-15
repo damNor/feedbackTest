@@ -1,11 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import {useHistory,useParams} from 'react-router-dom'
+import {useHistory,useParams,Link} from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import Section from "./Section";
 import {fetchHospitalDepartments} from './../../data/api'
 import { setDepartments } from '../../data/actions';
-import { Link } from 'react-router-dom';
 
 import Container,{Content} from './../../componentsv2/container'
 import Button from './../../componentsv2/button'
@@ -56,9 +55,9 @@ const Component = () =>
     console.log('found',found)
 
     const handleSubmit = async () => {
-
+        navigate.push(`/${id}/info`);
     }
-    
+
     useEffect(() => 
     {
         // console.log("selected ratings",sratings);

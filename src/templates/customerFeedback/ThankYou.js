@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import {useHistory,useParams} from 'react-router-dom'
+import {useHistory,useParams,Link} from 'react-router-dom'
 import Loader from './loader'
 
 import Cookies from 'universal-cookie'
@@ -46,7 +46,9 @@ const Component = () => {
     return <Loader>
     <Content style={{backgroundColor:'#DDEEFE'}}  position='absolute'>
         <Container background='#FFF'  align='center' top='0' width='100%' wrap='wrap'>
-            <Logo alignself='center' margin='5vh 0 5vh 0' width='40vw'/>
+            <Link to='/feedback'>
+                <Logo alignself='center' margin='5vh 0 5vh 0' width='40vw'/>
+            </Link>
         </Container>
          
         <Container margin='5% 0 0 0' width='100%'>

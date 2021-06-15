@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import {useHistory,useParams} from 'react-router-dom'
+import {useHistory,useParams,Link} from 'react-router-dom'
 import {validateV3} from './../../data/api'
 import Loader from './loader'
 import { Form } from 'react-bootstrap'
@@ -87,7 +87,9 @@ const Component = () => {
     } */}
     <Content style={{backgroundColor:'#DDEEFE'}}  position='absolute'>
         <Container background='#FFF'  align='center' top='0' width='100%' wrap='wrap'>
-            <Logo alignself='center' margin='5vh 0 5vh 0' width='40vw'/>
+            <Link to='/feedback'>
+                <Logo alignself='center' margin='5vh 0 5vh 0' width='40vw'/>
+            </Link>
         </Container>
         <Container background='' width='100%' display='box' align='center' wrap='wrap' margin='0 0 0 0'  >
             <Text size='3vw' mcolor='#0072BC' margin='5vw 2vw' lineHeight='' textalign='center'>
@@ -102,7 +104,7 @@ const Component = () => {
                 {
                     forms.map((item,i) => item.show && 
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Label style={{fontWeight:'bolder'}}>{item.label}</Form.Label>
+                            <Form.Label style={{fontWeight:'bolder'}}>{item.label} {item.required ? <span style={{'color':'red'}}>*</span> : ''}  </Form.Label>
                             <Form.Control type="text"/>
                         </Form.Group>
                     )

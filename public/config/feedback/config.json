@@ -45,7 +45,8 @@
              "value":"",
              "label":"Name",
              "keyword":"name",
-             "show":true
+             "show":true,
+             "required":true
           },
           {
              "id":2,
@@ -53,7 +54,8 @@
              "value":"",
              "label":"Mobile Phone",
              "keyword":"mobile_phone",
-             "show":true
+             "show":true,
+             "required":true
           },
           {
             "id":3,
@@ -61,7 +63,8 @@
             "value":"",
             "label":"MRN",
             "keyword":"mrn",
-            "show":true
+            "show":true,
+            "required":false
          },
           {
              "id":4,
@@ -69,7 +72,8 @@
              "value":"",
              "label":"Email",
              "keyword":"email",
-             "show":true
+             "show":true,
+             "required":false
           }
         
        ],
