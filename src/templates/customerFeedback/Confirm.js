@@ -48,8 +48,8 @@ const Component = () =>
         navigate.push(`/${id}/`); 
     
     // setFilterState(state_of_departments);
-    const highlight = Object.fromEntries(state_of_departments.map(item => [item.departmentID, item.rating]))
-    console.log('highlight', highlight);
+    const highlightRating = Object.fromEntries(state_of_departments.map(item => [item.departmentID, item.rating]))
+    console.log('highlightRating', highlightRating);
 
     const found = state_of_departments.some( elem => elem.departmentID === '2');
     console.log('found',found)
@@ -65,7 +65,7 @@ const Component = () =>
         {
             const departments = await fetchHospitalDepartments(config.server,lang)
             dispatch(setDepartments(departments))
-            // console.log('departments',departments)
+            console.log('departments',departments)
         };
 
         
@@ -91,12 +91,14 @@ const Component = () =>
                 {console.log('filterState',state_of_departments)}
                 {departments && departments.map(  (data) => 
                 (
+                    
                     <>
                         <Section 
                             title={data.title}
                             section={data.id} 
                             template='feedback'
-                            selectedRating={highlight[data.id]} >
+                            selectedDepartment={(highlightRating.hasOwnProperty(data.id)) ? true : false }
+                            selectedRating={highlightRating[data.id]} >
                             <div className="content"></div>
                         </Section>
                     </>

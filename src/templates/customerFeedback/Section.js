@@ -25,7 +25,7 @@ const choices = [
   { id: "5", score: "5", text: "Very Poor"},
 ];
 
-const Section = ({ section, title, template, selectedRating }) => 
+const Section = ({ section, title, template, selectedRating, selectedDepartment }) => 
 {
     const {id}      = useParams()
     const navigate  = useHistory()
@@ -52,6 +52,8 @@ const Section = ({ section, title, template, selectedRating }) =>
     }
 
     console.log('selectedRating', selectedRating);
+    console.log('selectedDepartment', selectedDepartment);
+
     function toggleActiveStyles(index)
     {
         if(index === selectedRating ){
@@ -64,7 +66,7 @@ const Section = ({ section, title, template, selectedRating }) =>
           
     }
     return (
-      <Container border='' borderradius='10px' background='white' padding='2% 3%' margin='1.5% 0.5%'>
+      <Container border='' borderradius='10px' background={(selectedDepartment) ? '#DFFFC6' : 'white'} padding='2% 3%' margin='1.5% 0.5%'>
           <Text style={{fontFamily:'roboto'}} size='3.4vw' margin='2% 0 4% 0' weight='800' mcolor='#0072BC'>{title}</Text>
           
           <Container align="space-between" justify='center' direction="row" alignself="center">
